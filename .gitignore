@@ -1,0 +1,10 @@
+__pycache__
+CardDefs.xml
+fireplace.egg-info
+
+*.pyc
+.tox
+.vscode
+.env
+.coverage
+.idea
