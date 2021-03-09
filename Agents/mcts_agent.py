@@ -1,6 +1,11 @@
 from Agents.agent import Agent
 from aiThesis.game_state_node import GameStateNode
 #from aiThesis.game_session import GameSession
+from .mcts_scripts.back_propergate import BackPropergate
+from .mcts_scripts.construct_tree import ConstructTree
+from .mcts_scripts.expand import Expand
+from .mcts_scripts.select_node import SelectNode
+from .mcts_scripts.simulate import Simulate
 import random
 from fireplace import utils
 class MCTSAgent(Agent):
@@ -26,7 +31,6 @@ class MCTSAgent(Agent):
 		for entety in self.player.actionable_entities:
 			print(entety)
 
-
 	def construct_tree(self, game):
 		pass
 
@@ -39,5 +43,5 @@ class MCTSAgent(Agent):
 	def simulate(self):
 		pass
 
-	def backpropergate(self):
+	def back_propergate(self):
 		pass
