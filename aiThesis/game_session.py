@@ -89,15 +89,8 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		s = Simulate()
-		print("***************BLAH************************")
-		print(s.simulate_game(self.game, depth=1))
-
-		self.play_turn(self.game)
-
-
-		##while True:
-			#self.play_turn(self.game)
+		while True:
+			self.play_turn(self.game)
 
 		return self.game
 
