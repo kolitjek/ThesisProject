@@ -1,7 +1,7 @@
 import sys
 import argparse
 
-
+import subprocess
 from fireplace import cards
 from aiThesis.printController import *
 from fireplace.game import Game
@@ -22,10 +22,11 @@ from hearthstone.enums import CardClass, CardType
 
 from aiThesis.utils import CMDInterface
 from aiThesis.scenario import Scenario
+
 from aiThesis.game_session import GameSession
 #best decks from witchwood which is the latest expansion we have got
 #https://www.metabomb.net/hearthstone/gameplay-guides/hearthstone-the-best-witchwood-decks-6
-
+os.system("cd .. && pip install .")
 sys.path.append("")
 
 def main():

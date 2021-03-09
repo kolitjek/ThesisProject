@@ -3,7 +3,7 @@ from aiThesis.game_state_node import GameStateNode
 #from aiThesis.game_session import GameSession
 from .mcts_scripts.back_propergate import BackPropergate
 from .mcts_scripts.construct_tree import ConstructTree
-from .mcts_scripts.expand import Expand
+from .mcts_scripts.expand import expand_game_node
 from .mcts_scripts.select_node import SelectNode
 from .mcts_scripts.simulate import Simulate
 import random
@@ -20,6 +20,7 @@ class MCTSAgent(Agent):
 	def play_turn(self):
 		rootNode = GameStateNode(MCTSAgent.nodeCount)
 		rootNode.print_local_relations()
+		expand_game_node(self.player)
 
 		print("___________________________________")
 
