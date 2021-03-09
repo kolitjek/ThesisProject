@@ -33,7 +33,7 @@ def main():
 	cmdU = CMDInterface()
 	args = cmdU.parse_date()
 	cards.db.initialize()
-	gameSession = GameSession(args.s, args.n, args.name1, args.name2, args.p1Class, args.p2Class, args.p1Deck, args.p2Deck,
+	gameSession = GameSession(args.s, args.n, args.name1, args.name2, args.p1Class, args.p2Class, args.p1Deck, args.p2Deck, args.p1DeckType, args.p2DeckType,
 							  args.p1Agent, args.p2Agent)
 
 	gameSession.start_session()

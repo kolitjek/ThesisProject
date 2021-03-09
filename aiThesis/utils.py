@@ -12,6 +12,8 @@ class CMDInterface:
 		self.parser.add_argument("-p2Class", metavar='p2Class', type=str, default="PRIEST")
 		self.parser.add_argument("-p1Deck", nargs='*', default=[])
 		self.parser.add_argument("-p2Deck", nargs='*', default=[])
+		self.parser.add_argument("-p1DeckType", metavar='p1DeckType', type=str, default="RANDOM")
+		self.parser.add_argument("-p2DeckType", metavar='p2DeckType', type=str, default="RANDOM")
 		self.parser.add_argument("-p1Agent", metavar='p1Agent', type=str, default="RANDOMAGENT")
 		self.parser.add_argument("-p2Agent", metavar='p2Agent', type=str, default="RANDOMAGENT")
 
