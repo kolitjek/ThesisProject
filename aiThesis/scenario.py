@@ -11,8 +11,8 @@ from .setup_players import create_players
 
 class Scenario:
 	def __init__(self, scenario_name):
-		#parthstring = "C:\\Users\\Anton\\Desktop\\ThesisProject-master\\aiThesis\\scenarios\\" + scenario_name + ".json"
-		parthstring = "C:\\Users\\45606\Documents\\ITU - Games\\ThesisProject\\aiThesis\\scenarios\\" + scenario_name + ".json"
+		parthstring = "C:\\Users\\Anton\\Desktop\\ThesisProject-master\\aiThesis\\scenarios\\" + scenario_name + ".json"
+		#parthstring = "C:\\Users\\45606\Documents\\ITU - Games\\ThesisProject\\aiThesis\\scenarios\\" + scenario_name + ".json"
 
 		with open(parthstring) as f:
 			data = json.load(f)
@@ -91,6 +91,8 @@ class Scenario:
 		player.field = CardList()
 		for card in cards_on_board:
 			self.add_card_to_field(card, player)
+		for played_card in player.field:
+			played_card.turns_in_play = 1 #fixing minion not being able to attack on the turn of scenario
 
 	def add_card_to_hand(self, card_id, player):
 		player.give(card_id)

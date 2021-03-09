@@ -6,6 +6,8 @@ from fireplace.utils import random_draft
 from .setup_players import create_players
 from fireplace.exceptions import GameOver
 from .scenario import Scenario
+from .printController import PrintControllerPrintActions, PrintControllerPrintCard, PrintControllerPrintEntity
+
 from Agents.mcts_scripts.simulate import Simulate
 import random
 from .game_data import GameData
@@ -88,6 +90,10 @@ class GameSession:
 			scenario.skip_to_next_turn(self.game)
 
 		scenario.setup_scenario(self.game)
+
+		PrintControllerPrintCard = True
+		PrintControllerPrintActions = True
+		PrintControllerPrintCard = True
 
 		while True:
 			self.play_turn(self.game)

@@ -26,7 +26,7 @@ from aiThesis.scenario import Scenario
 from aiThesis.game_session import GameSession
 #best decks from witchwood which is the latest expansion we have got
 #https://www.metabomb.net/hearthstone/gameplay-guides/hearthstone-the-best-witchwood-decks-6
-os.system("cd .. && pip install .")
+#os.system("cd .. && pip install .")
 sys.path.append("")
 
 def main():

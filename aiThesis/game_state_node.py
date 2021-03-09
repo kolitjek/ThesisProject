@@ -26,3 +26,8 @@ class GameStateNode:
 				str(len(self.actionSpace)) + ", explored nodes: " + str(len(self.exploredNodes)))
 
 		print("-------------------------------")
+
+	def update_node(self, did_win):
+		self.numberOfVisits += 1
+		if did_win:
+			self.numberOfWins += 1

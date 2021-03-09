@@ -6,7 +6,7 @@
 				"player1Hero": "WARRIOR",
 				"player1Health": 29,
 				"player1Deck": ["LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539"],
-				"player1Hand": ["LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093"],
+				"player1Hand": ["ICC_093", "ICC_093", "ICC_093"],
 				"player1Field": [ "ICC_093", "ICC_093", "ICC_093"],
 				"player1Agent": "RANDOMAGENT",
 
