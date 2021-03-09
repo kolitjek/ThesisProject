@@ -6,6 +6,7 @@ from fireplace.utils import random_draft
 from .setup_players import create_players
 from fireplace.exceptions import GameOver
 from .scenario import Scenario
+from Agents.mcts_scripts.simulate import Simulate
 import random
 from .game_data import GameData
 
@@ -88,8 +89,15 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		while True:
-			self.play_turn(self.game)
+		s = Simulate()
+		print("***************BLAH************************")
+		print(s.simulate_game(self.game, depth=1))
+
+		self.play_turn(self.game)
+
+
+		##while True:
+			#self.play_turn(self.game)
 
 		return self.game
 
