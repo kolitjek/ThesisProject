@@ -1,5 +1,6 @@
 import random
 from Agents.agent import Agent
+import copy
 
 
 class RandomAgent(Agent):
@@ -18,16 +19,12 @@ class RandomAgent(Agent):
 				continue
 
 			# iterate over our hand and play whatever is playable
-			print(self.player.hand)
-			print("mana: " + str(self.player._max_mana))
-			print("used_mana: " + str(self.player.used_mana))
-			for card in self.player.hand:
-				print("John_cena")
-				print(self.player.hand)
-				print("mana: " + str(self.player._max_mana))
-				print("used_mana: " + str(self.player.used_mana))
-				if card.is_playable(): # and random.random() < 0.5:
+			played_cards = 0
+			for card_index in range(0, len(self.player.hand)):
+				card = self.player.hand[card_index - played_cards]
+				if card.is_playable() and random.random() < 0.5:
 					target = None
+					played_cards += 1
 					if card.must_choose_one:
 						card = random.choice(card.choose_cards)
 					if card.requires_target():
@@ -37,13 +34,8 @@ class RandomAgent(Agent):
 
 					if self.player.choice:
 						choice = random.choice(self.player.choice.cards)
-						print("Choosing card %r" % (choice))
 						self.player.choice.choose(choice)
-					print(self.player.hand)
-					print("mana: " + str(self.player._max_mana))
-					print("used_mana: " + str(self.player.used_mana))
 					#continue
-
 			# Randomly attack with whatever can attack
 			for character in self.player.characters:
 				if character.can_attack():

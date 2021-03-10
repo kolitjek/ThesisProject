@@ -6,7 +6,7 @@ from fireplace.utils import random_draft
 from .setup_players import create_players
 from fireplace.exceptions import GameOver
 from .scenario import Scenario
-from .printController import PrintControllerPrintActions, PrintControllerPrintCard, PrintControllerPrintEntity
+from .printController import *
 
 from Agents.mcts_scripts.simulate import Simulate
 import random
