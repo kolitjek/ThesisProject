@@ -52,8 +52,8 @@ class Scenario:
 		self.set_player_health(self.player2_health, self.player2, game)
 
 		#player deck
-		self.set_player_deck(self.player1_deck, self.player1)
-		self.set_player_deck(self.player2_deck, self.player2)
+		self.set_player_deck(self.player1)
+		self.set_player_deck(self.player2)
 
 
 		self.print_player_stats(game)
@@ -103,7 +103,7 @@ class Scenario:
 		for card in cards_in_hand:
 			self.add_card_to_hand(card, player)
 
-	def set_player_deck(self, cards_in_deck, player):
+	def set_player_deck(self, player):
 		player.deck = Deck()
 		for id in player.starting_deck:
 			player.card(id, zone=Zone.DECK)
