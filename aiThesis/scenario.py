@@ -1,12 +1,13 @@
 import json
 import pathlib
-from fireplace import game
-from fireplace.card import Card
 from fireplace.utils import *
 from fireplace.actions import Hit
 from fireplace.actions import Shuffle
-from fireplace.dsl.selector import *
 from fireplace.deck import Deck
+
+
+from hearthstone.enums import Zone
+
 from .setup_players import create_players
 
 class Scenario:
@@ -103,12 +104,9 @@ class Scenario:
 			self.add_card_to_hand(card, player)
 
 	def set_player_deck(self, cards_in_deck, player):
-		cards = []
-		for card in cards_in_deck:
-			c = Card(card)
-			c.controller = player
-			cards.append(c)
-		player.deck = Deck(cards)
+		player.deck = Deck()
+		for id in player.starting_deck:
+			player.card(id, zone=Zone.DECK)
 
 	def set_player_health(self, hero_health, player, game):
 		game.queue_actions(game, [Hit(player.hero, 30-hero_health)])
@@ -117,8 +115,3 @@ class Scenario:
 		game.queue_actions(game.current_player, [Shuffle(game.current_player, "BT_019")]) #hack to prevent deck to run out of cards before getting to the right turn
 		game.end_turn()
 		return game
-
-
-
-
-
