@@ -8,6 +8,7 @@ from fireplace.exceptions import GameOver
 from .scenario import Scenario
 from .printController import *
 
+
 from Agents.mcts_scripts.simulate import Simulate
 import random
 from .game_data import GameData
@@ -30,6 +31,7 @@ class GameSession:
 		self.player2_agent = p2Agent
 		self.session_data = []
 		self. iteration_number = -1
+
 
 	def start_session(self):
 		for i in range(self.iterations):
@@ -91,13 +93,16 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		PrintControllerPrintCard = True
-		PrintControllerPrintActions = True
-		PrintControllerPrintCard = True
-
+		enable_print()
 		while True:
 
 			self.play_turn(self.game)
+			print("******SIZE OF DECK ********")
+			print(len(self.game.players[0].deck))
+			print(len(self.game.players[0].hand))
+			print(len(self.game.players[0].field))
+
+
 
 		return self.game
 

@@ -12,6 +12,7 @@ from aiThesis.printController import *
 from .managers import CardManager
 from .targeting import TARGETING_PREREQUISITES, is_valid_target
 from .utils import CardList
+from aiThesis.printController import *
 
 
 THE_COIN = "GAME_005"
@@ -91,12 +92,12 @@ class BaseCard(BaseEntity):
 		old = self.zone
 
 		if old == value:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.logger.warning("%r attempted a same-zone move in %r", self, old)
 			return
 
 		if old:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.logger.debug("%r moves from %r to %r", self, old, value)
 
 		caches = {
@@ -241,18 +242,18 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		return self.game.cheat_action(self, [actions.Destroy(self), actions.Deaths()])
 
 	def discard(self):
-		if PrintControllerPrintCard:
+		if print_card():
 			self.log("Discarding %r" % self)
 		self.tags[enums.DISCARDED] = True
 		self.zone = Zone.GRAVEYARD
 
 	def draw(self):
 		if len(self.controller.hand) >= self.controller.max_hand_size:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%s overdraws and loses %r!", self.controller, self)
 			self.discard()
 		else:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%s draws %r", self.controller, self)
 			self.zone = Zone.HAND
 			self.controller.cards_drawn_this_turn += 1
@@ -316,7 +317,7 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 		if choose:
 			if self.must_choose_one:
 				choose = card = self.choose_cards.filter(id=choose)[0]
-				if PrintControllerPrintCard:
+				if print_card():
 					self.log("%r: choosing %r", self, choose)
 			else:
 				raise InvalidAction("%r cannot be played with choice %r" % (self, choose))
@@ -333,11 +334,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 				raise InvalidAction("%r is not a valid target for %r." % (target, self))
 			if self.controller.all_targets_random:
 				new_target = random.choice(self.play_targets)
-				if PrintControllerPrintCard:
+				if print_card():
 					self.logger.info("Retargeting %r from %r to %r", self, target, new_target)
 				target = new_target
 		elif target:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.logger.warning("%r does not require a target, ignoring target %r", self, target)
 			target = None
 		self.game.play_card(self, target, index, choose)
@@ -653,7 +654,7 @@ class Hero(Character):
 		amount = super()._hit(amount)
 		if self.armor:
 			reduced_damage = min(amount, self.armor)
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%r loses %r armor instead of damage", self, reduced_damage)
 			self.damage -= reduced_damage
 			self.armor -= reduced_damage
@@ -744,7 +745,7 @@ class Minion(Character):
 			self.controller.minions_killed_this_turn += 1
 
 		if self.zone == Zone.PLAY:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%r is removed from the field", self)
 			self.controller.field.remove(self)
 			if self.damage:
@@ -755,14 +756,14 @@ class Minion(Character):
 	def _hit(self, amount):
 		if self.divine_shield:
 			self.divine_shield = False
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%r's divine shield prevents %i damage.", self, amount)
 			return 0
 
 		amount = super()._hit(amount)
 
 		if self.health < self.min_health:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%r has HEALTH_MINIMUM of %i", self, self.min_health)
 			self.damage = self.max_health - self.min_health
 
@@ -883,7 +884,7 @@ class Enchantment(BaseCard):
 		elif zone == Zone.REMOVEDFROMGAME:
 			if self.zone == zone:
 				# Can happen if a Destroy is queued after a bounce, for example
-				if PrintControllerPrintCard:
+				if print_card():
 					self.logger.warning("Trying to remove %r which is already gone", self)
 				return
 			self.owner.buffs.remove(self)
@@ -892,13 +893,13 @@ class Enchantment(BaseCard):
 		super()._set_zone(zone)
 
 	def apply(self, target):
-		if PrintControllerPrintCard:
+		if print_card():
 			self.log("Applying %r to %r", self, target)
 		self.owner = target
 		if hasattr(self.data.scripts, "apply"):
 			self.data.scripts.apply(self, target)
 		if hasattr(self.data.scripts, "max_health"):
-			if PrintControllerPrintCard:
+			if print_card():
 				self.log("%r removes all damage from %r", self, target)
 			target.damage = 0
 		self.zone = Zone.PLAY
@@ -935,7 +936,7 @@ class Weapon(rules.WeaponRules, LiveEntity):
 	def _set_zone(self, zone):
 		if zone == Zone.PLAY:
 			if self.controller.weapon:
-				if PrintControllerPrintCard:
+				if print_card():
 					self.log("Destroying old weapon %r", self.controller.weapon)
 				self.game.trigger(self, [actions.Destroy(self.controller.weapon)], event_args=None)
 			self.controller.weapon = self
@@ -978,7 +979,7 @@ class HeroPower(PlayableCard):
 	def use(self, target=None):
 		if not self.is_usable():
 			raise InvalidAction("%r can't be used." % (self))
-		if PrintControllerPrintCard:
+		if print_card():
 			self.log("%s uses hero power %r on %r", self.controller, self, target)
 
 		if self.requires_target():
@@ -986,12 +987,12 @@ class HeroPower(PlayableCard):
 				raise InvalidAction("%r requires a target." % (self))
 			if self.controller.all_targets_random:
 				new_target = random.choice(self.play_targets)
-				if PrintControllerPrintCard:
+				if print_card():
 					self.logger.info("Retargeting %r from %r to %r", self, target, new_target)
 				target = new_target
 			self.target = target
 		elif target:
-			if PrintControllerPrintCard:
+			if print_card():
 				self.logger.warning("%r does not require a target, ignoring target %r", self, target)
 
 		ret = self.activate()

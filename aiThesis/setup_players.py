@@ -5,7 +5,7 @@ from Agents.mcts_agent import MCTSAgent
 from fireplace.utils import random_draft
 
 
-def setup_player( name, deck, hero, agent):
+def setup_player(name, deck, hero, agent):
 	player = Player(name, deck, hero)
 	player.agent = get_agent_from_string(agent, player)
 	return player

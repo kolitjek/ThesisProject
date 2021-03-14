@@ -5,7 +5,6 @@ from hearthstone.enums import CardType
 from . import logging
 from aiThesis.printController import *
 
-
 class BaseEntity(object):
 	base_events = []
 	logger = logging.log
@@ -43,7 +42,7 @@ class BaseEntity(object):
 			yield from self.data.scripts.update
 
 	def log(self, message, *args):
-		if PrintControllerPrintEntity:
+		if print_entity():
 			self.logger.info(message, *args)
 
 	def get_actions(self, name):
@@ -83,7 +82,7 @@ class BaseEntity(object):
 		Override to modify the damage dealt to a target from the given amount.
 		"""
 		if target.immune:
-			if PrintControllerPrintEntity:
+			if print_entity():
 				self.log("%r is immune to %s for %i damage", target, self, amount)
 			return 0
 		return amount
@@ -107,7 +106,7 @@ class BuffableEntity(BaseEntity):
 
 	def clear_buffs(self):
 		if self.buffs:
-			if PrintControllerPrintEntity:
+			if print_entity():
 				self.log("Clearing buffs from %r", self)
 			for buff in self.buffs[:]:
 				buff.remove()

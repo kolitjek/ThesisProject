@@ -2,7 +2,7 @@ from .utils import CardList
 
 
 class Deck(CardList):
-	MAX_CARDS = 30
+	MAX_CARDS = 100
 	MAX_UNIQUE_CARDS = 2
 	MAX_UNIQUE_LEGENDARIES = 1
 
