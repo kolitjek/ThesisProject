@@ -72,7 +72,7 @@ class GameSession:
 	def play_turn(self, game):
 		currPlayer = game.current_player
 		currPlayer.agent.play_turn()
-
+		print("Player hand size" + str(len(currPlayer.hand)))
 		if self.record_session:
 			self.session_data[-1].append_turn_data(game.turn, currPlayer.name, game.players[0].hero.health, game.players[1].hero.health, len(game.players[0].field), len(game.players[1].field), len(game.players[0].hand), len(game.players[1].hand), len(game.players[0].deck), len(game.players[1].deck))
 		game.end_turn()
@@ -96,6 +96,7 @@ class GameSession:
 		PrintControllerPrintCard = True
 
 		while True:
+
 			self.play_turn(self.game)
 
 		return self.game

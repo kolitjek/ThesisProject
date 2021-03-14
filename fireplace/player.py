@@ -138,7 +138,7 @@ class Player(Entity, TargetableByAuras):
 			yield self.weapon
 
 	@property
-	def actionable_entities(self):
+	def actionable_entities(self):  # Provides the action space at S_t
 		yield from self.characters
 		yield from self.hand
 		if self.hero.power:

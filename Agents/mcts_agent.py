@@ -23,14 +23,16 @@ class MCTSAgent(Agent):
 		expand_game_node(self.player)
 
 		print("___________________________________")
-
+		print(self.player.hero.health)
 		print("Playing with MCTS agent")
 		if MCTSAgent.currentGameState is not None:
 			print("Game turn: " + str(MCTSAgent.currentGameState.turn))
 		print("___________________________________")
 		print("Actionable entities: ")
-		for entety in self.player.actionable_entities:
-			print(entety)
+		print(self.player.actionable_entities)
+		print("live entities: ")
+
+		print(self.player.field)
 
 	def construct_tree(self, game):
 		pass
