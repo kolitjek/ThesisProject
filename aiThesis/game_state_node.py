@@ -1,18 +1,18 @@
 class GameStateNode:
-	def __init__(self, _id, _parent=None):
+	def __init__(self, _id, _game_state, _parent=None):
 		self.id = _id
-		self.depthLevel = _id
-		self.game = None
+		self.depth_level = _id
+		self.game_state = _game_state
 		self.parent = _parent
-		self.actionSpace = []
-		self.exploredNodes = []
+		self.action_space = []
+		self.explored_nodes = []
 		self.leaf = False
-		self.numberOfVisits = 0
-		self.numberOfWins = 0
+		self.number_of_visits = 0
+		self.number_of_wins = 0
 
 	def print_local_relations(self):
 		print("------- Node relations -------")
-		print("Node id: " + str(self.id) + ", depth level: " + str(self.depthLevel) + ", action space:" + str(len(self.actionSpace)) + ", explored nodes: " + str(len(self.exploredNodes)))
+		print("Node id: " + str(self.id) + ", depth level: " + str(self.depth_level) + ", action space:" + str(len(self.action_space)) + ", explored nodes: " + str(len(self.explored_nodes)))
 
 		if self.parent is not None:
 			print("Parent id: " + str(self.parent.id) + ", parent depth level: " + str(self.parent.depthLevel))
@@ -21,13 +21,13 @@ class GameStateNode:
 
 		print("** Explored children Nodes **")
 
-		for node in self.exploredNodes:
+		for node in self.explored_nodes:
 			print("child id: " + str(node.id) + ", depth level: " + str(node.depthLevel) + ", action space:" +
-				str(len(self.actionSpace)) + ", explored nodes: " + str(len(self.exploredNodes)))
+				str(len(self.action_space)) + ", explored nodes: " + str(len(self.explored_nodes)))
 
 		print("-------------------------------")
 
 	def update_node(self, did_win):
-		self.numberOfVisits += 1
+		self.number_of_visits += 1
 		if did_win:
-			self.numberOfWins += 1
+			self.number_of_wins += 1

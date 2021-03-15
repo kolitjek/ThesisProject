@@ -1,6 +1,6 @@
 			{
 				"startingPlayer": "player1",
-				"beginScenarioAtTurn": 2,
+				"beginScenarioAtTurn": 8,
 
 				"player1Name": "Player1",
 				"player1Hero": "WARRIOR",

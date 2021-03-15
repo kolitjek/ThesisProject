@@ -8,6 +8,8 @@ from .mcts_scripts.select_node import SelectNode
 from .mcts_scripts.simulate import Simulate
 import random
 from fireplace import utils
+import copy
+
 class MCTSAgent(Agent):
 	currentGameState = None  # only for quick test
 	nodeCount = 0
@@ -18,10 +20,10 @@ class MCTSAgent(Agent):
 		self.rootNode = None
 
 	def play_turn(self):
-		rootNode = GameStateNode(MCTSAgent.nodeCount)
+		rootNode = GameStateNode(MCTSAgent.nodeCount, copy.deepcopy(self.player.game))
 		rootNode.print_local_relations()
-		expand_game_node(self.player)
-
+		expand_game_node(rootNode)
+	'''
 		print("___________________________________")
 		print(self.player.hero.health)
 		print("Playing with MCTS agent")
@@ -33,6 +35,7 @@ class MCTSAgent(Agent):
 		print("live entities: ")
 
 		print(self.player.field)
+	'''
 
 	def construct_tree(self, game):
 		pass
