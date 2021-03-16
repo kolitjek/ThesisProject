@@ -4,7 +4,7 @@
 
 				"player1Name": "Player1",
 				"player1Hero": "WARRIOR",
-				"player1Health": 29,
+				"player1Health": 30,
 				"player1Deck": ["LOOT_539","ICC_093", "EX1_556", "LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556"],
 				"player1Hand": ["ICC_093", "ICC_093", "ICC_093"],
 				"player1Field": [ "ICC_093", "ICC_093", "ICC_093"],
@@ -12,7 +12,7 @@
 
 				"player2Name": "Player2",
 				"player2Hero": "PRIEST",
-				"player2Health": 12,
+				"player2Health": 30,
 				"player2Deck": ["LOOT_539","ICC_093", "EX1_556", "LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556"],
 				"player2Hand": ["ICC_093" ,"ICC_093"],
 				"player2Field":["ICC_093", "ICC_093"],

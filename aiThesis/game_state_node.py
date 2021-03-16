@@ -6,7 +6,7 @@ class GameStateNode:
 		self.parent = _parent
 		self.action_space = []
 		self.explored_nodes = []
-		self.leaf = False
+		self.isLeaf = False
 		self.number_of_visits = 0
 		self.number_of_wins = 0
 
