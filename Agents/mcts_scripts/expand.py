@@ -24,7 +24,11 @@ def expand_game_node (_node):
 			_node.action_space = permute_action_space(_node)
 
 		for action_sequence in _node.action_space:
+			_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
 			pass
+		_node.print_local_relations()
+		return _node
+
 	else:
 		_node.leaf = True  # Maybe this is not necessary...
 		print("The node selected for expansion is terminal...")
@@ -79,3 +83,43 @@ def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This onl
 	partial_actions_hand = list({x for x in playable_action_sequences if playable_action_sequences.count(x) > 1})  # Remove repeating actions sequences
 	return partial_actions_hand
 
+def transfer_action_sequence (_action_sequence, _game_state):  # This insures that the actions are not applied on the base node
+	adapted_action_sequence = []
+	for action in _action_sequence:
+		adapted_action_sequence.append(next(x for x in _game_state.current_player.actionable_entities if x.id == action.id))
+
+	return adapted_action_sequence
+
+
+def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this is based on randm targets
+	new_game_state = copy.deepcopy(_base_game_state)
+	player = new_game_state.current_player
+	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
+
+	for action in _action_sequence:
+		target = None
+		if type(action) is card.HeroPower:
+			if action.is_usable():
+				if action.requires_target():
+					action.use(target=random.choice(action.targets))
+				else:
+					action.use()
+				continue  # need this because hero is a special card type
+
+		elif type(action) is card.Spell:  # does this covers enough...?
+			if action.is_playable():
+				if action.must_choose_one:
+					action = random.choice(action.choose_cards)
+				if action.requires_target():
+					target = random.choice(action.targets)
+				print("Playing %r on %r" % (action, target))
+				action.play(target=target)
+
+				if player.choice:
+					choice = random.choice(player.choice.cards)
+					player.choice.choose(choice)
+		else:
+			if action.can_attack():
+				action.attack(random.choice(action.targets))
+
+	return new_game_state

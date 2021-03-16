@@ -22,7 +22,8 @@ class MCTSAgent(Agent):
 	def play_turn(self):
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
 		rootNode.print_local_relations()
-		expand_game_node(rootNode)
+		rootNode = expand_game_node(rootNode)
+		print("s")
 	'''
 		print("___________________________________")
 		print(self.player.hero.health)

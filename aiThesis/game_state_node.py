@@ -7,7 +7,11 @@ class GameStateNode:
 		self.id = GameStateNode.nodeCount
 		GameStateNode.nodeCount += 1
 
-		self.depth_level = GameStateNode.depth  # still not working
+		if _parent is not None:
+			self.depth_level = _parent.depth_level + 1
+		else:
+			self.depth_level = 0
+
 		self.game_state = _game_state
 		self.parent = _parent
 		self.action_space = []
@@ -28,8 +32,8 @@ class GameStateNode:
 		print("** Explored children Nodes **")
 
 		for node in self.explored_nodes:
-			print("child id: " + str(node.id) + ", depth level: " + str(node.depthLevel) + ", action space:" +
-				str(len(self.action_space)) + ", explored nodes: " + str(len(self.explored_nodes)))
+			print("child id: " + str(node.id) + ", depth level: " + str(node.depth_level) + ", action space:" +
+				str(len(node.action_space)) + ", explored nodes: " + str(len(node.explored_nodes)))
 
 		print("-------------------------------")
 
