@@ -1,13 +1,16 @@
 from aiThesis import game_state_node
 from hearthstone.enums import CardType
+import random
 from fireplace import card
 import itertools
+from aiThesis import printController
 from Agents import mcts_agent
 from .partial_action import Partial_action
 from hearthstone import enums
 import random
 from collections import Counter
 import copy
+from .simulate import Simulate
 
 def expand_game_node (_node):
 
@@ -20,12 +23,19 @@ def expand_game_node (_node):
 		print("**** Starting expansion phase ****")
 		print("Expanding turn: " + str(_node.game_state.turn) + ", acting player: " + _node.game_state.current_player.hero.data.name)
 
-		if len(_node.action_space) is 0:  # Maybe this has to change?
+		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
 
-		for action_sequence in _node.action_space:
-			_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
-			pass
+		action_space_index = random.randint(0, len(_node.action_space))
+		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state,_node.action_space[action_space_index]))
+		_node.explored_nodes.append(node_to_simulate)
+		_node.action_space.pop(action_space_index)
+		Simulate.simulate_game(node_to_simulate, 0)
+
+		#for action_sequence in _node.action_space:
+		#	_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
+		pass
+
 		_node.print_local_relations()
 		return _node
 
@@ -38,7 +48,6 @@ def permute_action_space(_node):
 	partial_actions_hand = []  # The total possible actions from the given space in perspective from the hand
 	partial_actions_board = []  # The total possible actions from the given space in perspective from the board
 	player = _node.game_state.current_player
-	print(player.hero.power)
 	for _card in _node.game_state.current_player.actionable_entities:
 		if type(_card) is not card.Hero:  # A hero (on its own) can not act
 			if _card.zone is enums.Zone.HAND or _card is player.hero.power and player.can_pay_cost(_card):  # Actions taken from the hand (IMPORTANT!: this only consider cards it can play in its given state)
@@ -64,7 +73,7 @@ def permute_action_space(_node):
 			if action_sequences[i][0] is not None and action_sequences[i][1] is not None:
 				action_sequences[i] = action_sequences[i][0] + action_sequences[i][1]
 
-	copy_game_state = copy.deepcopy(_node.game_state)
+	#copy_game_state = copy.deepcopy(_node.game_state)
 	return action_sequences
 
 def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This only takes into account what the can play right now
@@ -95,6 +104,7 @@ def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this
 	new_game_state = copy.deepcopy(_base_game_state)
 	player = new_game_state.current_player
 	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
+	printController.disable_print()
 
 	for action in _action_sequence:
 		target = None
@@ -112,7 +122,7 @@ def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
 					target = random.choice(action.targets)
-				print("Playing %r on %r" % (action, target))
+				#print("Playing %r on %r" % (action, targ	et))
 				action.play(target=target)
 
 				if player.choice:
@@ -121,5 +131,5 @@ def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this
 		else:
 			if action.can_attack():
 				action.attack(random.choice(action.targets))
-
+	printController.enable_print()
 	return new_game_state
