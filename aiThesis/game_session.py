@@ -7,9 +7,6 @@ from .setup_players import create_players
 from fireplace.exceptions import GameOver
 from .scenario import Scenario
 from .printController import *
-
-
-from Agents.mcts_scripts.simulate import Simulate
 import random
 from .game_data import GameData
 

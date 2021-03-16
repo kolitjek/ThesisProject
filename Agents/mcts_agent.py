@@ -1,11 +1,7 @@
 from Agents.agent import Agent
 from aiThesis.game_state_node import GameStateNode
 #from aiThesis.game_session import GameSession
-from .mcts_scripts.back_propagate import BackPropergate
-from .mcts_scripts.construct_tree import ConstructTree
-from .mcts_scripts.expand import expand_game_node
-from .mcts_scripts.select_node import SelectNode
-from .mcts_scripts.simulate import Simulate
+from .mcts_scripts.select_node import select_node
 import random
 from fireplace import utils
 import copy
@@ -22,7 +18,13 @@ class MCTSAgent(Agent):
 	def play_turn(self):
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
 		rootNode.print_local_relations()
-		rootNode = expand_game_node(rootNode)
+		#rootNode = expand_game_node(rootNode)
+
+		for i in range(0, 3):
+			select_node(rootNode)
+
+		rootNode.explored_nodes[0].print_local_relations()
+
 		print("s")
 	'''
 		print("___________________________________")

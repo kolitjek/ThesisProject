@@ -10,7 +10,7 @@ from hearthstone import enums
 import random
 from collections import Counter
 import copy
-from .simulate import Simulate
+from .simulate import simulate_game
 
 def expand_game_node (_node):
 
@@ -30,7 +30,7 @@ def expand_game_node (_node):
 		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state,_node.action_space[action_space_index]))
 		_node.explored_nodes.append(node_to_simulate)
 		_node.action_space.pop(action_space_index)
-		Simulate.simulate_game(node_to_simulate, 0)
+		simulate_game(node_to_simulate, 0)
 
 		#for action_sequence in _node.action_space:
 		#	_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
