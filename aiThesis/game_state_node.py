@@ -1,7 +1,13 @@
+
 class GameStateNode:
-	def __init__(self, _id, _game_state, _parent=None):
-		self.id = _id
-		self.depth_level = _id
+	nodeCount = 0
+	depth = 0
+
+	def __init__(self, _game_state, _parent=None):
+		self.id = GameStateNode.nodeCount
+		GameStateNode.nodeCount += 1
+
+		self.depth_level = GameStateNode.depth  # still not working
 		self.game_state = _game_state
 		self.parent = _parent
 		self.action_space = []

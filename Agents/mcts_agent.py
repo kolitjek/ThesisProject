@@ -12,7 +12,7 @@ import copy
 
 class MCTSAgent(Agent):
 	currentGameState = None  # only for quick test
-	nodeCount = 0
+
 
 	def __init__(self, _player):
 		self.player = _player
@@ -20,7 +20,7 @@ class MCTSAgent(Agent):
 		self.rootNode = None
 
 	def play_turn(self):
-		rootNode = GameStateNode(MCTSAgent.nodeCount, copy.deepcopy(self.player.game))
+		rootNode = GameStateNode(copy.deepcopy(self.player.game))
 		rootNode.print_local_relations()
 		expand_game_node(rootNode)
 	'''
