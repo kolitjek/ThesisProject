@@ -21,12 +21,12 @@ class MCTSAgent(Agent):
 		GameStateNode.nodeCount = 0
 
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
-		rootNode.print_local_relations()
+		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
-		print("blaaaah")
 
 		for i in range(0, 3):
 			select_node(rootNode)
+
 		best_node_visits = -1
 		best_node = None
 		for n in rootNode.explored_nodes:

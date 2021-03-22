@@ -13,6 +13,7 @@ def simulate_game(node, depth=-1):
 	simulated_game.is_simulation = True
 	simulated_game.current_player.agent = simulate_random_actions(simulated_game)
 	#simulated_turns = 0
+
 	printController.disable_print()
 	while not simulated_game.simulation_finished:
 		simulate_turn(simulated_game)
