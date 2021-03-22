@@ -1,4 +1,3 @@
-
 def back_propagate(node, is_win):
 	curr_node = node
 	while curr_node is not None:

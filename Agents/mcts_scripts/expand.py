@@ -25,11 +25,16 @@ def expand_game_node (_node):
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
+		print("gets stuched below here")
 
-		action_space_index = random.randint(0, len(_node.action_space))
+		action_space_index = random.randint(0, len(_node.action_space)-1)
+		print("action space: ")
+		print(len(_node.action_space))
 		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state, _node.action_space[action_space_index]),_node)
+
 		_node.explored_nodes.append(node_to_simulate)
 		_node.action_space.pop(action_space_index)
+		print("it is in the simulated game...")
 		simulate_game(node_to_simulate, 0)
 
 		#for action_sequence in _node.action_space:

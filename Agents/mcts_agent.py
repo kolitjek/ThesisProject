@@ -5,6 +5,8 @@ from .mcts_scripts.select_node import select_node
 import random
 from fireplace import utils
 import copy
+from aiThesis.game_state_node import GameStateNode
+
 
 class MCTSAgent(Agent):
 	currentGameState = None  # only for quick test
@@ -16,6 +18,8 @@ class MCTSAgent(Agent):
 		self.rootNode = None
 
 	def play_turn(self):
+		GameStateNode.nodeCount = 0
+
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
 		rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
