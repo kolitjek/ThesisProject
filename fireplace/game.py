@@ -98,10 +98,6 @@ class BaseGame(Entity):
 		if self.ended:
 			if self.is_simulation:
 				self.simulation_finished = True
-				print("player healths")  # gets in here x times before ending simulation
-				print(self.players[0].hero.health)
-				print(self.players[1].hero.health)
-
 				return
 			raise GameOver("The game has ended.")
 
