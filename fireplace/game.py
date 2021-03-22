@@ -188,6 +188,7 @@ class BaseGame(Entity):
 		if gameover:
 			if self.is_simulation:
 				self.simulation_finished = True
+				print("Sim over...")
 			if self.players[0].playstate == self.players[1].playstate:
 				for player in self.players:
 					player.playstate = PlayState.TIED

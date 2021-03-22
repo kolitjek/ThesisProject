@@ -12,6 +12,7 @@ class GameStateNode:
 		else:
 			self.depth_level = 0
 
+
 		self.game_state = _game_state
 		self.parent = _parent
 		self.action_space = None

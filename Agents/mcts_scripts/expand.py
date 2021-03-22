@@ -40,6 +40,7 @@ def expand_game_node (_node):
 		_node.action_space.pop(action_space_index)
 		print("it is in the simulated game...")
 		simulate_game(node_to_simulate, 0)
+		print("Simulate over...")
 
 		#for action_sequence in _node.action_space:
 		#	_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))

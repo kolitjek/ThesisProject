@@ -11,7 +11,6 @@ from aiThesis.game_state_node import GameStateNode
 class MCTSAgent(Agent):
 	currentGameState = None  # only for quick test
 
-
 	def __init__(self, _player):
 		self.player = _player
 		self.gameTree = []

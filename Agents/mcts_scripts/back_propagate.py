@@ -1,5 +1,5 @@
 def back_propagate(node, is_win):
-	node.game_state.end_turn()
+	#node.game_state.end_turn()
 	curr_node = node
 	while curr_node is not None:
 		if is_win:
