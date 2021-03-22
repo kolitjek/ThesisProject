@@ -23,7 +23,7 @@ class MCTSAgent(Agent):
 		for i in range(0, 3):
 			select_node(rootNode)
 
-		rootNode.explored_nodes[0].print_local_relations()
+
 
 		print("s")
 	'''

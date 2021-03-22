@@ -26,7 +26,7 @@ def expand_game_node (_node):
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
 
-		action_space_index = random.randint(0, len(_node.action_space))
+		action_space_index = random.randint(0, len(_node.action_space)-1)
 		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state,_node.action_space[action_space_index]))
 		_node.explored_nodes.append(node_to_simulate)
 		_node.action_space.pop(action_space_index)
@@ -34,7 +34,7 @@ def expand_game_node (_node):
 
 		#for action_sequence in _node.action_space:
 		#	_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
-		pass
+
 
 		_node.print_local_relations()
 		return _node

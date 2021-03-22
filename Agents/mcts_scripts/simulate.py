@@ -6,7 +6,7 @@ from hearthstone import enums
 def simulate_game(node, depth=-1):
 	simulated_game = copy.deepcopy(node.game_state)
 	#simulated_turns = 0
-	while enums.State.RUNNIG:
+	while simulated_game.state is enums.State.RUNNING:
 		simulated_game = simulate_turn(simulated_game)
 		#simulated_turns += 1
 
