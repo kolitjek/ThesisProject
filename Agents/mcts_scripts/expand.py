@@ -48,9 +48,8 @@ def expand_game_node (_node):
 
 
 		_node.print_local_relations()
-		#node_to_simulate.game_state.end_turn()  # ends the turn of the current player
-		print(node_to_simulate.game_state.current_player)
-		return _node
+		node_to_simulate.game_state.end_turn()  # ends the turn of the current player
+		#return _node
 
 	else:
 		_node.leaf = True  # Maybe this is not necessary...
@@ -69,11 +68,11 @@ def permute_action_space(_node):
 				partial_actions_board.append(_card)
 
 	# Dividing action between hand and board, is based on the idea that player cards first is optima
-	partial_actions_hand = list(itertools.permutations(set(partial_actions_hand)))  # Permuting every action
+	partial_actions_hand = set(itertools.permutations(partial_actions_hand))  # Permuting every action
 	#partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
 	#partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
 
-	partial_actions_board = list(itertools.permutations(set(partial_actions_board))) # Permuting every action
+	partial_actions_board = set(itertools.permutations(partial_actions_board)) # Permuting every action
 	#partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
 
 	if len(partial_actions_hand) is 0:  # Failsafe for no cards in hand
@@ -82,7 +81,7 @@ def permute_action_space(_node):
 		action_sequences = partial_actions_hand
 	else:
 		action_sequences = list(itertools.product(partial_actions_hand, partial_actions_board))
-		for i in range(0, len(action_sequences)):  # Just to convert to a single tuple
+		for i in range(0, len(action_sequences)):  # Just to convert to a single tuple (not that good...)
 			if action_sequences[i][0] is not None and action_sequences[i][1] is not None:
 				action_sequences[i] = action_sequences[i][0] + action_sequences[i][1]
 

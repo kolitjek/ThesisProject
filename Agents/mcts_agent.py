@@ -35,8 +35,8 @@ class MCTSAgent(Agent):
 				best_node_visits = n.number_of_visits
 		#rootNode.explored_nodes[0].print_local_relations()
 		print("******************************")
-		print(rootNode.number_of_visits)
-		print(rootNode.number_of_wins)
+		#print(rootNode.number_of_visits)
+		#print(rootNode.number_of_wins)
 
 
 		print("s")
