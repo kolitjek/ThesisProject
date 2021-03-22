@@ -3,11 +3,6 @@ from .expand import expand_game_node
 
 
 def select_node(node):
-	if node.parent is None and node.action_space is not []: #root node
-		if node.explored_nodes is []:
-			node.print_local_relations()
-		expand_game_node(node) #expand node the first time before selection
-		return None
 	return uct(node)
 
 
@@ -16,6 +11,12 @@ def uct(node):
 							#Ved ikke lige med den C her
 	arg_max_n = -1.0
 	node_to_select = node
+	print("NEVER GETS GERE?")
+	if node.action_space is None or node.action_space:
+		print("GOT IN HER BITCH")
+		expand_game_node(node)
+		return
+
 	for n in node.explored_nodes:
 		print(n.number_of_visits)
 		print(n.parent.number_of_visits)
@@ -24,7 +25,7 @@ def uct(node):
 		if uct > arg_max_n and not node_to_select.isLeaf:
 			arg_max_n = uct
 			node_to_select = n
-	if node_to_select.action_space is None or node_to_select.action_space is not []:
+	if node_to_select.action_space is None or not node_to_select.action_space:
 		expand_game_node(node_to_select)
 	else:
 		select_node(node_to_select)
