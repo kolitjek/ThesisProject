@@ -3,8 +3,11 @@ from .expand import expand_game_node
 
 
 def select_node(node):
-	if node.parent is None: #root node
+	if node.parent is None and node.action_space is not []: #root node
+		if node.explored_nodes is []:
+			node.print_local_relations()
 		expand_game_node(node) #expand node the first time before selection
+		return None
 	return uct(node)
 
 
@@ -14,8 +17,10 @@ def uct(node):
 	arg_max_n = -1.0
 	node_to_select = node
 	for n in node.explored_nodes:
-		x = n.number_of_wins / n.number_of_visists
-		uct = x + c * math.sqrt((math.log2(n.parent.number_of_visits)/n.number_of_visists))
+		print(n.number_of_visits)
+		print(n.parent.number_of_visits)
+		x = n.number_of_wins / n.number_of_visits
+		uct = x + c * math.sqrt((math.log2(n.parent.number_of_visits)/n.number_of_visits))
 		if uct > arg_max_n and not node_to_select.isLeaf:
 			arg_max_n = uct
 			node_to_select = n
