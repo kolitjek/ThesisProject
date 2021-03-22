@@ -3,7 +3,7 @@
 				"beginScenarioAtTurn": 10,
 
 				"player1Name": "Player1",
-				"player1Hero": "WARRIOR",
+				"player1Hero": "PRIEST",
 				"player1Health": 30,
 				"player1Deck": ["LOOT_539","ICC_093","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539"],
 				"player1Hand": ["LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093"],

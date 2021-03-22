@@ -21,13 +21,19 @@ def expand_game_node (_node):
 
 	if _node.game_state.state is enums.State.RUNNING:  # Just a failsafe check
 		print("**** Starting expansion phase ****")
-		print("Expanding turn: " + str(_node.game_state.turn) + ", acting player: " + _node.game_state.current_player.hero.data.name)
+		print("Expanding turn: " + str(_node.game_state.turn) + " (Node:" + str(_node.id)+")" + ", acting player: " + _node.game_state.current_player.hero.data.name)
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
 
+		if len(_node.action_space) == 0:
+			print("Trying to expand a action space of length 0...")
+			return
 		action_space_index = random.randint(0, len(_node.action_space)-1)
-		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state,_node.action_space[action_space_index]))
+
+
+
+		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state,_node.action_space[action_space_index]), _node)
 
 		_node.explored_nodes.append(node_to_simulate)
 		_node.action_space.pop(action_space_index)
@@ -38,6 +44,8 @@ def expand_game_node (_node):
 
 
 		_node.print_local_relations()
+		node_to_simulate.game_state.end_turn()  # ends the turn of the current player
+		print(node_to_simulate.game_state.current_player)
 		return _node
 
 	else:
@@ -50,7 +58,7 @@ def permute_action_space(_node):
 	partial_actions_board = []  # The total possible actions from the given space in perspective from the board
 	player = _node.game_state.current_player
 	for _card in _node.game_state.current_player.actionable_entities:
-		if type(_card) is not card.Hero:  # A hero (on its own) can not act
+		if type(_card) is not card.Hero:  # A hero (on its own) cannot act
 			if _card.zone is enums.Zone.HAND or _card is player.hero.power and player.can_pay_cost(_card):  # Actions taken from the hand (IMPORTANT!: this only consider cards it can play in its given state)
 				partial_actions_hand.append(_card)
 			elif _card.zone is enums.Zone.PLAY:  # Actions from the board
