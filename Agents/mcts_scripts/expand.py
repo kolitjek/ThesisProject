@@ -26,8 +26,6 @@ def expand_game_node (_node):
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
-		print("gets stuched below here")
-
 
 		if len(_node.action_space) == 0:
 			print("Trying to expand an action space of length 0...")

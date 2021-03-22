@@ -25,6 +25,7 @@ class MCTSAgent(Agent):
 		#rootNode = expand_game_node(rootNode)
 
 		for i in range(0, 30):
+			print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 
 		best_node_visits = -1
