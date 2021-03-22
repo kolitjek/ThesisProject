@@ -11,6 +11,7 @@ import random
 from collections import Counter
 import copy
 from .simulate import simulate_game
+import numpy as np
 
 def expand_game_node (_node):
 
@@ -29,6 +30,7 @@ def expand_game_node (_node):
 		if len(_node.action_space) == 0:
 			print("Trying to expand a action space of length 0...")
 			return
+
 		action_space_index = random.randint(0, len(_node.action_space)-1)
 
 
@@ -64,13 +66,13 @@ def permute_action_space(_node):
 			elif _card.zone is enums.Zone.PLAY:  # Actions from the board
 				partial_actions_board.append(_card)
 
-	# Dividing action between hand and board, is based on the idea that player cards first is optimal
-	partial_actions_hand = list(itertools.permutations(partial_actions_hand))  # Permuting every action
-	partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
-	partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
+	# Dividing action between hand and board, is based on the idea that player cards first is optima
+	partial_actions_hand = list(itertools.permutations(set(partial_actions_hand)))  # Permuting every action
+	#partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
+	#partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
 
-	partial_actions_board = list(itertools.permutations(partial_actions_board))  # Permuting every action
-	partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
+	partial_actions_board = list(itertools.permutations(set(partial_actions_board))) # Permuting every action
+	#partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
 
 	if len(partial_actions_hand) is 0:  # Failsafe for no cards in hand
 		action_sequences = partial_actions_board
@@ -85,8 +87,9 @@ def permute_action_space(_node):
 	#copy_game_state = copy.deepcopy(_node.game_state)
 	return action_sequences
 
-def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This only takes into account what the can play right now
+def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This is the time consumer...
 	playable_action_sequences = []
+
 	for _actions in _action_sequence:
 		mana_used = 0
 		playable_actions = []
@@ -125,7 +128,7 @@ def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this
 					action.use()
 				continue  # need this because hero is a special card type
 
-		elif type(action) is card.Spell:  # does this covers enough...?
+		elif action.zone is enums.Zone.HAND:  # does this covers enough...?
 			if action.is_playable():
 				if action.must_choose_one:
 					action = random.choice(action.choose_cards)
@@ -133,7 +136,7 @@ def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this
 					target = random.choice(action.targets)
 				#print("Playing %r on %r" % (action, targ	et))
 				action.play(target=target)
-
+			else:
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)

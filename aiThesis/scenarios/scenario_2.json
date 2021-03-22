@@ -15,6 +15,6 @@
 				"player2Health": 30,
 				"player2Deck": ["LOOT_539","ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "CS2_122"],
 				"player2Hand": ["CS1_113" ,"CS1_112","ICC_093"],
-				"player2Field":["EX1_091","LOOT_539","LOOT_540"],
+				"player2Field":["ICC_093"],
 				"player2Agent": "BASEMCTS"
 			}
