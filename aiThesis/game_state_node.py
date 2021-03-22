@@ -27,7 +27,7 @@ class GameStateNode:
 		print("Node id: " + str(self.id) + ", depth level: " + str(self.depth_level) + ", action space: " + action_space_length + ", explored nodes: " + str(len(self.explored_nodes)))
 
 		if self.parent is not None:
-			print("Parent id: " + str(self.parent.id) + ", parent depth level: " + str(self.parent.depthLevel))
+			print("Parent id: " + str(self.parent.id) + ", parent depth level: " + str(self.parent.depth_level))
 		else:
 			print("Root Node")
 

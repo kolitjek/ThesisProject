@@ -54,7 +54,7 @@ class GameSession:
 		try:
 			self.play_scenario(scenario)
 		except GameOver:
-			print("Game completed normally.")
+			print("Game completed normally. _1")
 			self.append_last_turn_of_game()
 
 	def setup_game(self,player1=None, player2=None, scenario=None):

@@ -1,5 +1,6 @@
 from .logging import log
 from .managers import CardManager
+from aiThesis.printController import *
 
 
 class AuraBuff:
@@ -16,7 +17,8 @@ class AuraBuff:
 		self.tick = self.source.game.tick
 
 	def remove(self):
-		log.info("Destroying %r", self)
+		if print_aura():
+			log.info("Destroying %r", self)
 		self.entity.slots.remove(self)
 		self.source.game.active_aura_buffs.remove(self)
 
@@ -62,7 +64,8 @@ class TargetableByAuras:
 				buff.tick = source.game.tick
 				break
 		else:
-			log.info("Aura from %r buffs %r with %r", source, self, id)
+			if print_aura():
+				log.info("Aura from %r buffs %r with %r", source, self, id)
 			buff = source.buff(self, id)
 			buff.tick = source.game.tick
 			source.game.active_aura_buffs.append(buff)
@@ -74,7 +77,8 @@ class TargetableByAuras:
 				break
 		else:
 			buff = AuraBuff(source, self)
-			log.info("Creating %r", buff)
+			if print_aura():
+				log.info("Creating %r", buff)
 			buff.update_tags(tags)
 			self.slots.append(buff)
 			source.game.active_aura_buffs.append(buff)

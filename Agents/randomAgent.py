@@ -29,7 +29,7 @@ class RandomAgent(Agent):
 						card = random.choice(card.choose_cards)
 					if card.requires_target():
 						target = random.choice(card.targets)
-					print("Playing %r on %r" % (card, target))
+					#print("Playing %r on %r" % (card, target))
 					card.play(target=target)
 
 					if self.player.choice:

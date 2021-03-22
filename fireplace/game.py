@@ -26,6 +26,8 @@ class BaseGame(Entity):
 			player.game = self
 		self.state = State.INVALID
 		self.scenario = scenario
+		self.is_simulation = False
+		self.simulation_finished = False
 		self.step = Step.BEGIN_FIRST
 		self.next_step = Step.BEGIN_SHUFFLE
 		self.turn = 0
@@ -94,6 +96,13 @@ class BaseGame(Entity):
 		self.manager.action_end(type, source)
 
 		if self.ended:
+			if self.is_simulation:
+				self.simulation_finished = True
+				print("player healths")  # gets in here 3 times before ending simulation
+				print(self.players[0].hero.health)
+				print(self.players[1].hero.health)
+
+				return
 			raise GameOver("The game has ended.")
 
 		if type != BlockType.PLAY:
@@ -177,6 +186,8 @@ class BaseGame(Entity):
 				gameover = True
 
 		if gameover:
+			if self.is_simulation:
+				self.simulation_finished = True
 			if self.players[0].playstate == self.players[1].playstate:
 				for player in self.players:
 					player.playstate = PlayState.TIED
@@ -277,7 +288,6 @@ class BaseGame(Entity):
 		self.manager.start_game()
 
 	def start(self):
-		print("this is called_start")
 		self.setup()
 		self.begin_turn(self.player1)
 
@@ -375,7 +385,6 @@ class CoinRules:
 				return None
 
 	def begin_turn(self, player):
-		print("this is called_coinBegin")
 		if self.turn == 0:
 			self.log("%s gets The Coin (%s)", self.player2, THE_COIN)
 			self.player2.give(THE_COIN)
