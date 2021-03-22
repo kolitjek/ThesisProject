@@ -21,7 +21,7 @@ def simulate_game(node, depth=-1):
 	printController.disable_print()
 	print("Ran Simulation")
 	print(mcts_player.hero.health)
-	back_propagate(node, True if mcts_player.hero.health > 0 else False)
+	back_propagate(node, True if mcts_player.hero.health > 0 else False) #FIXME need to be the right player every step
 
 
 def simulate_turn(game):
@@ -31,10 +31,7 @@ def simulate_turn(game):
 
 def simulate_random_actions(game):
 	curr_player = game.current_player
-	if type(curr_player.agent) is not RandomAgent:
-		return RandomAgent(curr_player)
-	else:
-		return curr_player
+	return RandomAgent(curr_player)
 
 
 def evaluate_simulated_state(game, simulated_game, currplayer):
