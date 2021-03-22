@@ -24,7 +24,7 @@ class MCTSAgent(Agent):
 		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
 
-		for i in range(0, 3):
+		for i in range(0, 30):
 			select_node(rootNode)
 
 		best_node_visits = -1

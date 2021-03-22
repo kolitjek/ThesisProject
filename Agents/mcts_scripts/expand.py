@@ -46,7 +46,7 @@ def expand_game_node (_node):
 
 
 		_node.print_local_relations()
-		node_to_simulate.game_state.end_turn()  # ends the turn of the current player
+		#node_to_simulate.game_state.end_turn()  # ends the turn of the current player
 		print(node_to_simulate.game_state.current_player)
 		return _node
 
