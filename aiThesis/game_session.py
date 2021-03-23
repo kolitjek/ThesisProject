@@ -70,8 +70,18 @@ class GameSession:
 
 	def play_turn(self, game):
 		currPlayer = game.current_player
+
+		print("******PLAYER INFO********")
+		print(str(currPlayer.name))
+		print("Hero: " + str(currPlayer.hero))
+		print("Turn: " + str(game.turn))
+		print("Health: " + str(currPlayer.hero.health))
+		print("Deck size: " + str(len(currPlayer.deck)))
+		print("Hand size: " + str(len(currPlayer.hand)))
+		print("Field size :" + str(len(currPlayer.field)))
+
 		currPlayer.agent.play_turn()
-		print("Player hand size" + str(len(currPlayer.hand)))
+
 		if self.record_session:
 			self.session_data[-1].append_turn_data(game.turn, currPlayer.name, game.players[0].hero.health, game.players[1].hero.health, len(game.players[0].field), len(game.players[1].field), len(game.players[0].hand), len(game.players[1].hand), len(game.players[0].deck), len(game.players[1].deck))
 		game.end_turn()
@@ -92,14 +102,7 @@ class GameSession:
 
 		enable_print()
 		while True:
-
 			self.play_turn(self.game)
-			print("******SIZE OF DECK ********")
-			print(len(self.game.players[0].deck))
-			print(len(self.game.players[0].hand))
-			print(len(self.game.players[0].field))
-
-
 
 		return self.game
 
@@ -127,9 +130,19 @@ class GameSession:
 											   len(game.players[1].deck))
 
 		for turn in self.session_data[-1].game_data:
+			print("**********************************************")
 			print("Turn number: " + str(turn.turn_number))
 			print("player 1 health: " + str(turn.player1_health))
 			print("player 2 health: " + str(turn.player2_health))
+			print("player 1 hand: " + str(turn.player1_hand_size))
+			print("player 2 hand: " + str(turn.player2_hand_size))
+			print("player 1 field: " + str(turn.player1_field_size))
+			print("player 2 field: " + str(turn.player2_field_size))
+			print("player 1 deck: " + str(turn.player1_deck_size))
+			print("player 2 deck: " + str(turn.player2_deck_size))
+
+			print("**********************************************")
+
 
 
 

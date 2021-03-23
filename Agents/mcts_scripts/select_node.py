@@ -18,7 +18,10 @@ def uct(node):
 	for n in node.explored_nodes:
 		#print(n.number_of_visits)
 		#print(n.parent.number_of_visits)
-		x = n.number_of_wins / n.number_of_visits
+
+		min_max_wins = n.number_of_wins if node.depth % 2 is 0 else n.number_of_visits - n.number_of_wins #FIXME check if the switch is working
+
+		x = min_max_wins / n.number_of_visits
 		uct = x + c * math.sqrt((math.log2(n.parent.number_of_visits)/n.number_of_visits))
 		if uct > arg_max_n and not node_to_select.isLeaf:
 			arg_max_n = uct

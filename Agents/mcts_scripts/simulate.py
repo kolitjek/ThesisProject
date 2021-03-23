@@ -31,6 +31,7 @@ def simulate_game(node, depth=-1):
 
 	printController.disable_print()
 	print("Ran Simulation")
+	print(simulated_root_player.name)
 	back_propagate(node, True if simulated_root_player.hero.health > 0 else False) #FIXME need to be the right player every step
 
 

@@ -3,18 +3,18 @@
 				"beginScenarioAtTurn": 10,
 
 				"player1Name": "Player1",
-				"player1Hero": "PRIEST",
+				"player1Hero": "WARRIOR",
 				"player1Health": 30,
-				"player1Deck": ["LOOT_539","ICC_093","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539","ICC_093","ICC_093","LOOT_539","LOOT_539","LOOT_539","LOOT_539","LOOT_539"],
-				"player1Hand": ["LOOT_539"],
-				"player1Field":["ICC_093", "ICC_093"],
+				"player1Deck": ["LOOT_539","ICC_093","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120"],
+				"player1Hand": ["LOOT_539","LOOT_539","ICC_093"],
+				"player1Field":["ICC_093"],
 				"player1Agent": "RANDOMAGENT",
 
 				"player2Name": "Player2",
 				"player2Hero": "WARRIOR",
 				"player2Health": 30,
-				"player2Deck": ["LOOT_539","ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "ICC_093", "CS2_122"],
-				"player2Hand": ["CS1_113"],
-				"player2Field":["EX1_091","ICC_093", "ICC_093", "ICC_093"],
+				"player2Deck": ["LOOT_539","ICC_093","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120"],
+				"player2Hand": ["LOOT_539","LOOT_539"],
+				"player2Field":["ICC_093", "ICC_093","ICC_093", "ICC_093","ICC_093","ICC_093", "ICC_093","ICC_093"],
 				"player2Agent": "BASEMCTS"
 			}

@@ -6,6 +6,7 @@ import random
 from fireplace import utils
 import copy
 from aiThesis.game_state_node import GameStateNode
+from Agents.mcts_scripts.select_actions import select_and_perform_actions
 
 
 class MCTSAgent(Agent):
@@ -27,12 +28,8 @@ class MCTSAgent(Agent):
 			print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 
-		best_node_visits = -1
-		best_node = None
-		for n in rootNode.explored_nodes:
-			if n.number_of_visits > best_node_visits:
-				best_node = n
-				best_node_visits = n.number_of_visits
+		select_and_perform_actions(rootNode, self.player)
+
 		#rootNode.explored_nodes[0].print_local_relations()
 		print("******************************")
 		#print(rootNode.number_of_visits)

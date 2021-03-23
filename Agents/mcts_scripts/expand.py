@@ -13,6 +13,10 @@ import copy
 from .simulate import simulate_game
 import numpy as np
 
+
+
+
+
 def expand_game_node (_node):
 
 	# Steps:
@@ -32,16 +36,17 @@ def expand_game_node (_node):
 			return
 
 		action_space_index = random.randint(0, len(_node.action_space)-1)
+		choosen_action_space = _node.action_space[action_space_index]
+		print(choosen_action_space)
+		print("choosen space")
+		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state, choosen_action_space), _node)
+		node_to_simulate.performed_action_space = choosen_action_space
 
-		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state,_node.action_space[action_space_index]), _node)
 
 
 		_node.explored_nodes.append(node_to_simulate)
 		_node.action_space.pop(action_space_index)
-		print("it is in the simulated game...")
 		simulate_game(node_to_simulate, 0)
-		print("Simulate over...")
-
 		#for action_sequence in _node.action_space:
 		#	_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
 
@@ -117,7 +122,6 @@ def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this
 	player = new_game_state.current_player
 	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
 	printController.disable_print()
-
 	for action in _action_sequence:
 		target = None
 		if type(action) is card.HeroPower:

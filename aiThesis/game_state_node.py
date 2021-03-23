@@ -15,6 +15,7 @@ class GameStateNode:
 
 		self.game_state = _game_state
 		self.parent = _parent
+		self.performed_action_space = None
 		self.action_space = None
 		self.explored_nodes = []
 		self.isLeaf = False
@@ -33,13 +34,13 @@ class GameStateNode:
 		else:
 			print("Root Node")
 
-		print("** Explored children Nodes **")
+		'''print("** Explored children Nodes **")
 
 		for node in self.explored_nodes:
 			action_space_length = str(len(node.action_space)) if node.action_space is not None else "?"
 			print("child id: " + str(node.id) + ", depth level: " + str(node.depth_level) + ", action space: " +
 				action_space_length + ", explored nodes: " + str(len(node.explored_nodes)) + ", W/V: " + str(node.number_of_wins) + "/" + str(node.number_of_visits))
-
+		'''
 		print("-------------------------------")
 
 	def update_node(self, did_win):
