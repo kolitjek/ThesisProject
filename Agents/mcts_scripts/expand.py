@@ -25,8 +25,8 @@ def expand_game_node (_node):
 	# return a new game state
 
 	if _node.game_state.state is enums.State.RUNNING:  # Just a failsafe check
-		print("**** Starting expansion phase ****")
-		print("Expanding turn: " + str(_node.game_state.turn) + " (Node:" + str(_node.id)+")" + ", acting player: " + _node.game_state.current_player.hero.data.name)
+		#print("**** Starting expansion phase ****")
+		#print("Expanding turn: " + str(_node.game_state.turn) + " (Node:" + str(_node.id)+")" + ", acting player: " + _node.game_state.current_player.hero.data.name)
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
@@ -37,8 +37,6 @@ def expand_game_node (_node):
 
 		action_space_index = random.randint(0, len(_node.action_space)-1)
 		choosen_action_space = _node.action_space[action_space_index]
-		print(choosen_action_space)
-		print("choosen space")
 		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state, choosen_action_space), _node)
 		node_to_simulate.performed_action_space = choosen_action_space
 
@@ -51,7 +49,7 @@ def expand_game_node (_node):
 		#	_node.explored_nodes.append(game_state_node.GameStateNode(generate_new_state(_node.game_state,action_sequence), _node))
 
 
-		_node.print_local_relations()
+		#_node.print_local_relations()
 		node_to_simulate.game_state.end_turn()  # ends the turn of the current player
 		#return _node
 
@@ -112,12 +110,12 @@ def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This is 
 def transfer_action_sequence (_action_sequence, _game_state):  # This insures that the actions are not applied on the base node
 	adapted_action_sequence = []
 	for action in _action_sequence:
-		adapted_action_sequence.append(next(x for x in _game_state.current_player.actionable_entities if x.id == action.id))
+		adapted_action_sequence.append(next(x for x in _game_state.current_player.actionable_entities if x.id == action.id)) #FIXME maybe the same problem I had in select_actions with having two of same minions means that the id is shared...
 
 	return adapted_action_sequence
 
 
-def generate_new_state (_base_game_state, _action_sequence):  # IMPORTANT!: this is based on randm targets
+def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this is based on randm targets
 	new_game_state = copy.deepcopy(_base_game_state)
 	player = new_game_state.current_player
 	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)

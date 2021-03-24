@@ -27,13 +27,13 @@ def uct(node):
 			arg_max_n = uct
 			node_to_select = n
 	if node_to_select.action_space is None or not node_to_select.action_space:
-		print("Node ID if: " + str(node_to_select.id))
-		print(node_to_select.game_state.current_player.agent)
+		#print("Node ID if: " + str(node_to_select.id))
+		#print(node_to_select.game_state.current_player.agent)
 		expand_game_node(node_to_select)
 	else:
 		select_node(node_to_select)
-		print("Node ID else: " + str(node_to_select.id))
+		#print("Node ID else: " + str(node_to_select.id))
 
-	print("Node ID: " + str(node_to_select.id))
+	#print("Node ID: " + str(node_to_select.id))
 
 

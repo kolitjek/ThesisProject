@@ -25,7 +25,7 @@ class MCTSAgent(Agent):
 		#rootNode = expand_game_node(rootNode)
 
 		for i in range(0, 30):
-			print("ITERATIONS: " +str(i))
+			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 
 		select_and_perform_actions(rootNode, self.player)
@@ -35,7 +35,7 @@ class MCTSAgent(Agent):
 		#print(rootNode.number_of_visits)
 		#print(rootNode.number_of_wins)
 
-
+		print(self.player.hand)
 		print("s")
 	'''
 		print("___________________________________")

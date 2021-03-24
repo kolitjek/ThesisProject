@@ -18,8 +18,15 @@ def select_best_node(root_node):
 
 def transfer_action_sequence(_action_sequence, _player):  # This insures that the actions are not applied on the base node
 	adapted_action_sequence = []
+	player_actions = list(_player.actionable_entities)
+	print("ACTIONS")
+	print(player_actions)
 	for action in _action_sequence:
-		adapted_action_sequence.append(next(x for x in _player.actionable_entities if x.id == action.id))
+		for i in range(0, len(_player.hand)+1):
+			if action.id == player_actions[i]:
+				adapted_action_sequence.append(player_actions.pop(i))
+				break
+
 
 	return adapted_action_sequence
 
@@ -27,14 +34,10 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is based on randm targets
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	print("Action_sequence_start")
-	print(_action_sequence)
-	print("Action_sequence_end")
-
+	print(player)
 	printController.enable_print()
 	for action in _action_sequence:
-		print(action.zone)
-		print(action.is_playable())
+		print("Action: " + str(action) + ", Zone: " + str(action.zone) + ", Playable: " + str(action.is_playable()))
 		target = None
 		if type(action) is card.HeroPower:
 			if action.is_usable():
@@ -59,7 +62,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 		else:
 			if action.can_attack():
 				action.attack(random.choice(action.targets))
-	printController.disable_print()
+
 
 
 
