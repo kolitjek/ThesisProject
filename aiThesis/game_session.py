@@ -55,9 +55,11 @@ class GameSession:
 			self.play_scenario(scenario)
 		except GameOver:
 			print("Game completed normally. _1")
+			print(self.game.players[0].hero.health)
+			print(self.game.players[1].hero.health)
 			self.append_last_turn_of_game()
 
-	def setup_game(self,player1=None, player2=None, scenario=None):
+	def setup_game(self, player1=None, player2=None, scenario=None):
 		from fireplace.game import Game
 
 		if self.record_session:

@@ -109,6 +109,17 @@ def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This is 
 
 def transfer_action_sequence (_action_sequence, _game_state):  # This insures that the actions are not applied on the base node
 	adapted_action_sequence = []
+	player_actions = list(_game_state.current_player.actionable_entities)
+	for action in _action_sequence:
+		for i in range(0, len(player_actions)):
+			if action.id == player_actions[i]:
+				adapted_action_sequence.append(player_actions.pop(i))
+				break
+
+	return adapted_action_sequence
+
+
+	adapted_action_sequence = []
 	for action in _action_sequence:
 		adapted_action_sequence.append(next(x for x in _game_state.current_player.actionable_entities if x.id == action.id)) #FIXME maybe the same problem I had in select_actions with having two of same minions means that the id is shared...
 
@@ -117,9 +128,10 @@ def transfer_action_sequence (_action_sequence, _game_state):  # This insures th
 
 def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this is based on randm targets
 	new_game_state = copy.deepcopy(_base_game_state)
+	new_game_state.is_simulation = True
 	player = new_game_state.current_player
-	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
 	printController.disable_print()
+	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
 	for action in _action_sequence:
 		target = None
 		if type(action) is card.HeroPower:
@@ -145,5 +157,4 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 		else:
 			if action.can_attack():
 				action.attack(random.choice(action.targets))
-	printController.enable_print()
 	return new_game_state

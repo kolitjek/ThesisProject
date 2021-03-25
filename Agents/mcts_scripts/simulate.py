@@ -2,6 +2,7 @@ import copy
 from .back_propagate import back_propagate
 from Agents.randomAgent import RandomAgent
 from aiThesis import printController
+from fireplace.exceptions import GameOver
 from hearthstone import enums
 
 
@@ -27,7 +28,6 @@ def simulate_game(node, depth=-1):
 	while not simulated_game.simulation_finished:
 		simulate_turn(simulated_game)
 		#simulated_turns += 1
-
 	back_propagate(node, True if simulated_root_player.hero.health > 0 else False) #FIXME need to be the right player every step
 
 
