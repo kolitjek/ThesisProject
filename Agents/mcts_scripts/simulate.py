@@ -18,16 +18,20 @@ def simulate_game(node, depth=-1):
 
 	simulated_root_player = simulated_game.players[0] if root_node.game_state.current_player is root_node.game_state.players[0] else simulated_game.players[1]
 
-	simulated_game.players[0].agent = simulate_random_actions(simulated_game)
-	simulated_game.players[1].agent = simulate_random_actions(simulated_game)
+	simulated_game.players[0].agent = simulate_random_actions(simulated_game.players[0])
+	simulated_game.players[1].agent = simulate_random_actions(simulated_game.players[1])
 
 
 
 	#simulated_turns = 0
+	#print("Simulation begins")
 	printController.disable_print()
 	while not simulated_game.simulation_finished:
 		simulate_turn(simulated_game)
-		#simulated_turns += 1
+	#print("Player1 health: " + str(simulated_game.players[0].hero.health))
+	#print("Player2 health: " + str(simulated_game.players[1].hero.health))
+	#print("Currplayer health: " + str(simulated_root_player.hero.health))
+
 	back_propagate(node, True if simulated_root_player.hero.health > 0 else False) #FIXME need to be the right player every step
 
 
@@ -36,8 +40,8 @@ def simulate_turn(game):
 	game.end_turn()
 
 
-def simulate_random_actions(game):
-	return RandomAgent(game.current_player)
+def simulate_random_actions(player):
+	return RandomAgent(player)
 
 
 def evaluate_simulated_state(game, simulated_game, currplayer):

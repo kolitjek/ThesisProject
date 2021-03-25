@@ -81,7 +81,7 @@ class GameSession:
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(len(currPlayer.hand)))
 		print("Field size :" + str(len(currPlayer.field)))
-		enable_print()
+		disable_print()
 		currPlayer.agent.play_turn()
 
 		if self.record_session:

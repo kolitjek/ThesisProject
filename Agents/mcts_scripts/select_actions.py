@@ -14,7 +14,14 @@ def select_best_node(root_node):
 	for n in root_node.explored_nodes:
 		if best_node is None or n.number_of_visits > best_node.number_of_visits:
 			best_node = n
+	print_tree(root_node, best_node)
 	return best_node
+
+
+def print_tree(root_node, best_node):
+	root_node.print_local_relations()
+
+	print("Chosen node: " + str(best_node.id))
 
 
 def transfer_action_sequence(_action_sequence, _player):  # This insures that the actions are not applied on the base node
@@ -35,7 +42,7 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is based on randm targets
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	printController.enable_print()
+	printController.disable_print()
 	for action in _action_sequence:
 		target = None
 		if type(action) is card.HeroPower:
