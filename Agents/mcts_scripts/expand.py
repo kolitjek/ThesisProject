@@ -177,9 +177,14 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
-		else:
+		'''else:
 			if action.can_attack():
-				action.attack(random.choice(action.targets))
+				action.attack(random.choice(action.targets))'''
+
+	for character in player.characters:
+				if character.can_attack():
+					character.attack(random.choice(character.targets))
+
 	return new_game_state
 
 	'''
