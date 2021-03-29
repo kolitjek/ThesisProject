@@ -69,10 +69,13 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
-		else:
+		'''else:
 			if action.can_attack():
-				action.attack(random.choice(action.targets))
+				action.attack(random.choice(action.targets))'''
 
+	for character in player.characters:
+				if character.can_attack():
+					character.attack(random.choice(character.targets))
 
 
 
