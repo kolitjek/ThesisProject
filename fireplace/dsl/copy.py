@@ -1,5 +1,6 @@
 from ..logging import log
 from .lazynum import LazyValue
+from aiThesis.printController import *
 
 
 class Copy(LazyValue):
@@ -16,7 +17,8 @@ class Copy(LazyValue):
 		"""
 		Return a copy of \a entity
 		"""
-		log.info("Creating a copy of %r", entity)
+		if print_copy():
+			log.info("Creating a copy of %r", entity)
 		return source.controller.card(entity.id, source)
 
 	def evaluate(self, source) -> [str]:

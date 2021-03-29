@@ -2,17 +2,19 @@
 
 
 class PrintController:
-	PrintControllerPrintEntity = False
-	PrintControllerPrintActions = False
-	PrintControllerPrintCard = False
-	PrintControllerPrintAura = False
+	PrintControllerPrintEntity = True
+	PrintControllerPrintActions = True
+	PrintControllerPrintCard = True
+	PrintControllerPrintAura = True
+	PrintControllerPrintCopy = True
 
 
 def enable_print():
 	PrintController.PrintControllerPrintEntity = True
 	PrintController.PrintControllerPrintActions = True
 	PrintController.PrintControllerPrintCard = True
-	PrintController.PrintControllerPrintAura = False
+	PrintController.PrintControllerPrintAura = True
+	PrintController.PrintControllerPrintCopy = True
 
 
 
@@ -21,6 +23,7 @@ def disable_print():
 	PrintController.PrintControllerPrintActions = False
 	PrintController.PrintControllerPrintCard = False
 	PrintController.PrintControllerPrintAura = False
+	PrintController.PrintControllerPrintCopy = False
 
 
 
@@ -35,5 +38,10 @@ def print_entity():
 def print_card():
 	return PrintController.PrintControllerPrintCard
 
+
 def print_aura():
 	return PrintController.PrintControllerPrintCard
+
+
+def print_copy():
+	return PrintController.PrintControllerPrintCopy

@@ -14,7 +14,7 @@
 				"player2Hero": "WARRIOR",
 				"player2Health": 30,
 				"player2Deck": ["LOOT_539","ICC_093","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120","CS2_120"],
-				"player2Hand": ["LOOT_539","LOOT_539"],
-				"player2Field":["ICC_093", "ICC_093","ICC_093", "ICC_093","ICC_093","ICC_093", "ICC_093","ICC_093"],
+				"player2Hand": ["LOOT_539","LOOT_539","CS2_120"],
+				"player2Field":["ICC_093"],
 				"player2Agent": "BASEMCTS"
 			}

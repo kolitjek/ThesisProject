@@ -5,14 +5,13 @@ import random
 
 
 def select_and_perform_actions(root_node, player):
-	print("Making a move MCTS")
 	perform_action_sequence(select_best_node(root_node).performed_action_space, player)
 	pass
 
 def select_best_node(root_node):
 	best_node = None
 	for n in root_node.explored_nodes:
-		if best_node is None or n.number_of_visits > best_node.number_of_visits:
+		if best_node is None or (n.number_of_visits >= best_node.number_of_visits and best_node.number_of_wins < n.number_of_wins):
 			best_node = n
 	print_tree(root_node, best_node)
 	return best_node
@@ -26,7 +25,7 @@ def print_tree(root_node, best_node):
 
 def transfer_action_sequence(_action_sequence, _player):  # This insures that the actions are not applied on the base node
 	adapted_action_sequence = []
-	player_actions = list(_player.actionable_entities)
+	player_actions = _player.hand + [_player.hero.power] + _player.characters # list(_player.actionable_entities)
 	print("ACTIONS")
 	print(_action_sequence)
 	for action in _action_sequence:
@@ -43,9 +42,14 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
 	printController.enable_print()
+
+	print("Actions to perfrom")
+	print(_action_sequence)
 	for action in _action_sequence:
 		target = None
 		if type(action) is card.HeroPower:
+			print("ACtion useable")
+			print(action.is_usable())
 			if action.is_usable():
 				if action.requires_target():
 					action.use(target=random.choice(action.targets))
