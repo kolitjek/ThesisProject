@@ -1,5 +1,5 @@
 import argparse
-
+import matplotlib.pyplot as plt
 
 class CMDInterface:
 	def __init__(self):
@@ -20,6 +20,10 @@ class CMDInterface:
 
 	def parse_date(self):
 		return self.parser.parse_args()
+
+def player_stat_graph(_player, _turns):
+	plt.plot(_player, _turns, label=_player.hero)
+	pass
 
 
 

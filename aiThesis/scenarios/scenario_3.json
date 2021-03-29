@@ -3,10 +3,10 @@
 				"beginScenarioAtTurn": 1,
 
 				"player1Name": "Player1",
-				"player1Hero": "HUNTER",
+				"player1Hero": "MAGE",
 				"player1Health": 30,
-				"player1Deck": ["EX1_611", "FP1_002", "FP1_002","CS2_084", "NEW1_019", "NEW1_019", "FP1_004", "FP1_004", "NEW1_031", "NEW1_031", "EX1_536", "EX1_536", "CS2_203", "EX1_539", "EX1_539", "EX1_538", "EX1_538", "DS1_070", "GVG_096", "GVG_096", "FP1_030", "FP1_012", "FP1_012", "EX1_534", "EX1_534", "GVG_110"],
-				"player1Hand": ["CS2_188", "FP1_011", "FP1_011", "EX1_611", "GAME_005"],
+				"player1Deck": ["GVG_085", "CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "GVG_096", "GVG_096", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
+				"player1Hand": ["GVG_013","GVG_082", "GVG_082", "GVG_085"],
 				"player1Field":[],
 				"player1Agent": "RANDOMAGENT",
 

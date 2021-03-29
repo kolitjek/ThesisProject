@@ -21,7 +21,7 @@ class RandomAgent(Agent):
 			# iterate over our hand and play whatever is playable
 			played_cards = 0
 			for card_index in range(0, len(self.player.hand)):
-				card = self.player.hand[card_index - played_cards]
+				card = self.player.hand[card_index - played_cards]  #FIXME this seems to break (out of range)?
 				if card.is_playable() and random.random() < 0.5:
 					target = None
 					played_cards += 1

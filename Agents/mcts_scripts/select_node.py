@@ -11,7 +11,7 @@ def uct(node):
 							#Ved ikke lige med den C her
 	arg_max_n = -1.0
 	node_to_select = node
-	if node.action_space is None or node.action_space:
+	if node.action_space is None or len(node.action_space) is not 0:
 		expand_game_node(node)
 		return
 
@@ -26,7 +26,7 @@ def uct(node):
 		if uct > arg_max_n and not node_to_select.isLeaf:
 			arg_max_n = uct
 			node_to_select = n
-	if node_to_select.action_space is None or not node_to_select.action_space:
+	if node_to_select.action_space is None or len(node.action_space) is not 0:
 		#print("Node ID if: " + str(node_to_select.id))
 		#print(node_to_select.game_state.current_player.agent)
 		expand_game_node(node_to_select)

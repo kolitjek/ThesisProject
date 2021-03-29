@@ -7,7 +7,7 @@ import random
 def select_and_perform_actions(root_node, player):
 	print("Making a move MCTS")
 	perform_action_sequence(select_best_node(root_node).performed_action_space, player)
-
+	pass
 
 def select_best_node(root_node):
 	best_node = None
@@ -28,9 +28,9 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 	adapted_action_sequence = []
 	player_actions = list(_player.actionable_entities)
 	print("ACTIONS")
-	print(player_actions)
+	print(_action_sequence)
 	for action in _action_sequence:
-		for i in range(0, len(_player.hand)+1):
+		for i in range(0, len(player_actions)):
 			if action.id == player_actions[i]:
 				adapted_action_sequence.append(player_actions.pop(i))
 				break
@@ -42,7 +42,7 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is based on randm targets
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	printController.disable_print()
+	printController.enable_print()
 	for action in _action_sequence:
 		target = None
 		if type(action) is card.HeroPower:

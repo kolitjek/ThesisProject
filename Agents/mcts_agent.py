@@ -24,7 +24,7 @@ class MCTSAgent(Agent):
 		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
 
-		for i in range(0, 30):
+		for i in range(0, 500):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 
@@ -36,7 +36,8 @@ class MCTSAgent(Agent):
 		#print(rootNode.number_of_wins)
 
 		print(self.player.hand)
-		print("s")
+		print("Performed optimal action")
+		pass
 	'''
 		print("___________________________________")
 		print(self.player.hero.health)

@@ -78,6 +78,7 @@ class GameSession:
 		print("Hero: " + str(currPlayer.hero))
 		print("Turn: " + str(game.turn))
 		print("Health: " + str(currPlayer.hero.health))
+		print("Mana: " + str(currPlayer.mana))
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(len(currPlayer.hand)))
 		print("Field size :" + str(len(currPlayer.field)))
