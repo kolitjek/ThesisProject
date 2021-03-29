@@ -19,7 +19,7 @@ def uct(node):
 		#print(n.number_of_visits)
 		#print(n.parent.number_of_visits)
 
-		min_max_wins = n.number_of_wins if node.depth % 2 is 0 else n.number_of_visits - n.number_of_wins #FIXME check if the switch is working
+		min_max_wins = n.number_of_wins if node.depth_level % 2 is 0 else n.number_of_visits - n.number_of_wins #FIXME check if the switch is working
 
 		x = min_max_wins / n.number_of_visits
 		uct = x + c * math.sqrt((math.log2(n.parent.number_of_visits)/n.number_of_visits))
@@ -27,9 +27,13 @@ def uct(node):
 			arg_max_n = uct
 			node_to_select = n
 	if node_to_select.action_space is None or len(node.action_space) is not 0:
+		#print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+		#print("Player: " + str(node_to_select.game_state.current_player))
 		#print("Node ID if: " + str(node_to_select.id))
-		#print(node_to_select.game_state.current_player.agent)
+		#node_to_select.parent.print_local_relations()
+		#node_to_select.print_local_relations()
 		expand_game_node(node_to_select)
+		#print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 	else:
 		select_node(node_to_select)
 		#print("Node ID else: " + str(node_to_select.id))
