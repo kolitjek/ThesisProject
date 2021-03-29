@@ -115,6 +115,7 @@ class GameSession:
 		disable_print()
 		while True:
 			self.play_turn(self.game)
+			print("turn")
 
 		return self.game
 
@@ -129,6 +130,7 @@ class GameSession:
 
 		while True:
 			self.play_turn(self.game)
+			print("turn")
 
 		return game
 

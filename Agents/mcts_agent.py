@@ -24,7 +24,7 @@ class MCTSAgent(Agent):
 		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
 
-		for i in range(0, 2000):
+		for i in range(0, 10):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 
