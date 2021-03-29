@@ -26,14 +26,18 @@ class Scenario:
 		self.player1_hand = data['player1Hand']
 		self.player2_hand = data['player2Hand']
 
+		self.player1_hero = data['player1Hero']
+		self.player2_hero = data['player2Hero']
+
+
 		self.player1_field = data['player1Field']
 		self.player2_field = data['player2Field']
 
 		self.player1_health = data['player1Health']
 		self.player2_health = data['player2Health']
 
-		self.player1_deck = data['player1Deck']
-		self.player2_deck = data['player2Deck']
+		self.player1_deck = data['player1Deck'].reverse()
+		self.player2_deck = data['player2Deck'].reverse()
 
 		self.start_at_turn = data['beginScenarioAtTurn']
 		self.starting_player = data['startingPlayer']

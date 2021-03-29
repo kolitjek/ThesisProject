@@ -6,6 +6,7 @@ from fireplace.utils import random_draft
 from .setup_players import create_players
 from fireplace.exceptions import GameOver
 from .scenario import Scenario
+from .game_session_data_handler import *
 from .printController import *
 import random
 from .game_data import GameData
@@ -28,6 +29,7 @@ class GameSession:
 		self.player2_agent = p2Agent
 		self.session_data = []
 		self. iteration_number = -1
+		self.number_of_wins_pr_player = [0, 0] #first index = player1, second index = player 2
 
 
 	def start_session(self):
@@ -42,6 +44,10 @@ class GameSession:
 			else:
 				players = create_players(self.player1_name, self.player2_name, self.player1_class, self.player2_class, self.player1_deck, self.player2_deck, self.player1_agent, self.player2_agent)
 				self.test_full_game(players[0], players[1])
+
+		self.print_game_session_data()
+		health_distribution_graph(self.session_data)
+
 
 	def test_full_game(self, player1, player2):
 		try:
@@ -91,6 +97,9 @@ class GameSession:
 
 	def play_scenario(self, scenario=None):
 		self.game = self.setup_game(scenario.player1, scenario.player2, scenario)
+		self.player1_class = scenario.player1_hero #FIXME only hero is sat for gamesessions self variables the rest is sat to default
+		self.player2_class = scenario.player2_hero
+
 		for player in self.game.players:
 			mull_count = random.randint(0, len(player.choice.cards))
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
@@ -102,7 +111,7 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		enable_print()
+		disable_print()
 		while True:
 			self.play_turn(self.game)
 
@@ -130,6 +139,14 @@ class GameSession:
 											   len(game.players[1].field), len(game.players[0].hand),
 											   len(game.players[1].hand), len(game.players[0].deck),
 											   len(game.players[1].deck))
+		if game.players[0].hero.health > 0:
+			self.number_of_wins_pr_player[0] += 1
+			self.session_data[-1].winning_player = "player1"
+		elif game.players[1].hero.health > 0:
+			self.number_of_wins_pr_player[1]  += 1
+			self.session_data[-1].winning_player = "player2"
+		else:
+			print("GAME ENDED WITHOUT A PLAYER BEING AT 0 HEALTh, CANT DECLARE A WINNER FOR THIS GAME")
 
 		for turn in self.session_data[-1].game_data:
 			print("**********************************************")
@@ -145,6 +162,11 @@ class GameSession:
 
 			print("**********************************************")
 
+	def print_game_session_data(self):
+		print("\n\nGAME SESSION OVER\n\n")
+		print("Played " + str(self.iterations) + " number of games")
+		print("Player1 (" + self.player1_class + ") won " + str(self.number_of_wins_pr_player[0]) + "/" + str(self.iterations))
+		print("Player2 (" + self.player2_class + ") won " + str(self.number_of_wins_pr_player[1]) + "/" + str(self.iterations))
 
 
 
