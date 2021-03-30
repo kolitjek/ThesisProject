@@ -1,10 +1,8 @@
 from aiThesis import game_state_node
-from hearthstone.enums import CardType
 import random
 from fireplace import card
 import itertools
 from aiThesis import printController
-from Agents import mcts_agent
 from .partial_action import Partial_action
 from hearthstone import enums
 import random
@@ -164,7 +162,7 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 		if type(action) is card.HeroPower:
 			if action.is_usable():
 				if action.requires_target():
-					action.use(target=random.choice(action.targets))
+					action.use(target=random.choice(player.opponent.characters))#target = random.choice(action.targets)
 				else:
 					action.use()
 				continue  # need this because hero is a special card type
@@ -174,16 +172,17 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 				if action.must_choose_one:
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
-					target = random.choice(action.targets)
+					if type(action) is card.Spell:
+						target = random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+					# changed this from action.targets
+					else:
+						target = random.choice(action.targets)
 				# print("Playing %r on %r" % (action, targ	et))
 				action.play(target=target)
 			else:
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
-		'''else:
-			if action.can_attack():
-				action.attack(random.choice(action.targets))'''
 
 	for character in player.characters:
 				if character.can_attack():

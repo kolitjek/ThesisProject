@@ -10,7 +10,6 @@ from .deck import Deck
 from .entity import Entity, slot_property
 from .managers import PlayerManager
 from .utils import CardList
-from Agents.randomAgent import RandomAgent
 
 
 class Player(Entity, TargetableByAuras):

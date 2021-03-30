@@ -1,5 +1,7 @@
 import random
 from Agents.agent import Agent
+from fireplace import card
+
 import copy
 
 
@@ -13,7 +15,7 @@ class RandomAgent(Agent):
 			heropower = self.player.hero.power
 			if heropower.is_usable() and random.random() < 0.1:
 				if heropower.requires_target():
-					heropower.use(target=random.choice(heropower.targets))
+					heropower.use(target=random.choice(self.player.opponent.characters))
 				else:
 					heropower.use()
 				continue
@@ -21,16 +23,19 @@ class RandomAgent(Agent):
 			# iterate over our hand and play whatever is playable
 			played_cards = 0
 			for card_index in range(0, len(self.player.hand)):
-				card = self.player.hand[card_index - played_cards]  #FIXME this seems to break (out of range)?
-				if card.is_playable() and random.random() < 0.5:
+				c = self.player.hand[card_index - played_cards]  #FIXME this seems to break (out of range)?
+				if c.is_playable() and random.random() < 0.5:
 					target = None
 					played_cards += 1
-					if card.must_choose_one:
-						card = random.choice(card.choose_cards)
-					if card.requires_target():
-						target = random.choice(card.targets)
+					if c.must_choose_one:
+						c = random.choice(c.choose_cards)
+					if c.requires_target():
+						if type(c) is card.Spell:
+							target = random.choice(c.enemy_targets if c.enemy_targets != [] else c.targets)
+						else:
+							target = random.choice(c.targets)
 					#print("Playing %r on %r" % (card, target))
-					card.play(target=target)
+					c.play(target=target)
 
 					if self.player.choice:
 						choice = random.choice(self.player.choice.cards)

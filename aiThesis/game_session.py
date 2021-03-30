@@ -1,7 +1,5 @@
 from hearthstone.enums import CardClass
 from fireplace.player import Player
-from Agents.randomAgent import RandomAgent
-from Agents.mcts_agent import MCTSAgent
 from fireplace.utils import random_draft
 from .setup_players import create_players
 from fireplace.exceptions import GameOver
@@ -90,7 +88,7 @@ class GameSession:
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(len(currPlayer.hand)))
 		print("Field size :" + str(len(currPlayer.field)))
-		disable_print()
+		enable_print()
 		currPlayer.agent.play_turn()
 
 		if self.record_session:
@@ -114,7 +112,7 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		disable_print()
+		enable_print()
 		while True:
 			self.play_turn(self.game)
 

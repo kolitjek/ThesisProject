@@ -410,6 +410,11 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def targets(self):
 		return self.play_targets
 
+	@property
+	def enemy_targets(self):
+		return [card for card in self.game.current_player.opponent.characters if is_valid_target(self, card)]
+
+
 
 class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")

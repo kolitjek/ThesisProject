@@ -27,12 +27,14 @@ def simulate_game(node, depth=-1):
 	#Dprint("Simulation begins")
 	printController.disable_print()
 	while not simulated_game.simulation_finished:
+		#print("simulating")
 		simulate_turn(simulated_game)
 	#print("Player1 health: " + str(simulated_game.players[0].hero.health))
 	#print("Player2 health: " + str(simulated_game.players[1].hero.health))
 	#print("Currplayer health: " + str(simulated_root_player.hero.health))
 
 	back_propagate(node, True if simulated_root_player.hero.health > 0 else False) #FIXME need to be the right player every step
+	#raise GameOver("test")
 
 
 def simulate_turn(game):

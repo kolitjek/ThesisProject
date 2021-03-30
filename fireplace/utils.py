@@ -6,7 +6,6 @@ from pkgutil import iter_modules
 from typing import List
 from xml.etree import ElementTree
 from aiThesis.printController import *
-from Agents.randomAgent import RandomAgent
 
 
 from hearthstone.enums import CardClass, CardType
