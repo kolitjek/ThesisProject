@@ -3,6 +3,8 @@ from fireplace import card
 from hearthstone import enums
 import random
 
+from fireplace.targeting import is_valid_target
+
 
 def select_and_perform_actions(root_node, player):
 	perform_action_sequence(select_best_node(root_node).performed_action_space, player)
@@ -43,16 +45,19 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
 	printController.enable_print()
 
+
 	print("Actions to perfrom")
 	print(_action_sequence)
+
 	for action in _action_sequence:
 		target = None
+
 		if type(action) is card.HeroPower:
 			print("ACtion useable")
 			print(action.is_usable())
 			if action.is_usable():
 				if action.requires_target():
-					action.use(target=random.choice(action.targets))
+					action.use(target=random.choice(player.opponent.characters)) #changed this from action.targets
 				else:
 					action.use()
 				continue  # need this because hero is a special card type
@@ -62,16 +67,17 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 				if action.must_choose_one:
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
-					target = random.choice(action.targets)
+					if type(action) is card.Spell:
+						target = random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+						#changed this from action.targets
+					else:
+						target = random.choice(action.targets)
 				#print("Playing %r on %r" % (action, targ	et))
 				action.play(target=target)
 			else:
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
-		'''else:
-			if action.can_attack():
-				action.attack(random.choice(action.targets))'''
 
 	for character in player.characters:
 				if character.can_attack():
