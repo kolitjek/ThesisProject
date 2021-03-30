@@ -26,16 +26,18 @@ def expand_game_node(_node):
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
+			if (_node.parent == None):
+				print("parent")
 
 		if len(_node.action_space) == 0:
 			print("Trying to expand an action space of length 0...")
 			return
 
 		action_space_index = random.randint(0, len(_node.action_space) - 1)
-		choosen_action_space = _node.action_space[action_space_index]
-		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state, choosen_action_space),
+		chosen_action_space = _node.action_space[action_space_index]
+		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state, chosen_action_space),
 														 _node)
-		node_to_simulate.performed_action_space = choosen_action_space
+		node_to_simulate.performed_action_space = chosen_action_space
 
 		_node.explored_nodes.append(node_to_simulate)
 		_node.action_space.pop(action_space_index)
@@ -80,7 +82,8 @@ def permute_action_space(_node):
 
 	# partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
 	# partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
-
+	if(_node.parent == None or list_of_sequential_actions_board == []):
+		print("parent")
 	return list(list_of_sequential_actions_hand_permuted)
 	list_of_sequential_actions_board = set(itertools.permutations(list_of_sequential_actions_board))  # Permuting every action
 	# partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
@@ -95,6 +98,7 @@ def permute_action_space(_node):
 	for i in range(0, len(action_sequences)):  # Just to convert to a single tuple (not that good...)
 		if action_sequences[i][0] is not None and action_sequences[i][1] is not None:
 			action_sequences[i] = action_sequences[i][0] + action_sequences[i][1]
+
 
 	# copy_game_state = copy.deepcopy(_node.game_state)
 	return action_sequences

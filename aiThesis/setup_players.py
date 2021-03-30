@@ -3,18 +3,28 @@ from fireplace.player import Player
 from Agents.randomAgent import RandomAgent
 from Agents.mcts_agent import MCTSAgent
 from fireplace.utils import random_draft
+from .Path import BASE_PATH
+import json
+from hearthstone.enums import Zone
 
+HUNTER_FACE = "HUNTER_FACE"
+HUNTER_MID = "HUNTER_MID"
+MAGE = "MAGE"
+DRUID = "Druid"
+ROGUE = "ROGUE"
 
 def setup_player(name, deck, hero, agent):
 	player = Player(name, deck, hero)
 	player.agent = get_agent_from_string(agent, player)
+
+
 	return player
 
 
 def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Agent):
-	players = [setup_player(name1, p1Deck if p1Deck != [] else create_deck(p1Class),
+	players = [setup_player(name1, p1Deck if p1Deck != [] else retrive_hero_deck(p1Class),
 									  get_class_from_string(p1Class).default_hero, p1Agent),
-					setup_player(name2, p2Deck if p2Deck != [] else create_deck(p2Class),
+					setup_player(name2, p2Deck if p2Deck != [] else retrive_hero_deck(p2Class),
 									  get_class_from_string(p2Class).default_hero, p2Agent)]
 	return players
 
@@ -35,19 +45,39 @@ def create_deck(strClass):
 	deck = random_draft(get_class_from_string(strClass))  # Random deck with a given hero
 	return deck
 
+def retrive_hero_deck(here_type):
+	hero_type_path = ""
+
+	if here_type == DRUID:
+		hero_type_path = "gvg_fast_druid"
+	elif here_type == HUNTER_FACE:
+		hero_type_path = "gvg_face_hunter"
+	elif here_type == HUNTER_MID:
+		hero_type_path = "gvg_midrange_hunter"
+	elif here_type == "MAGE":
+		hero_type_path = "gvg_mech_mage"
+	elif here_type == ROGUE:
+		hero_type_path = "gvg_oil_rogue"
+	else:
+		hero_type_path = "gvg_mech_mage"
+
+	pathstring = BASE_PATH + "\\decks\\" + hero_type_path + ".json"
+	with open(pathstring) as f:
+		data = json.load(f)
+	return data["deck"]
 
 def get_class_from_string(strClass):
-	if strClass == "DRUID":
+	if strClass == DRUID:
 		return CardClass.DRUID.default_hero
-	elif strClass == "HUNTER":
+	elif strClass == HUNTER_FACE or strClass == HUNTER_MID:
 		return CardClass.HUNTER
-	elif strClass == "MAGE":
+	elif strClass == MAGE:
 		return CardClass.MAGE
 	elif strClass == "PALADIN":
 		return CardClass.PALADIN
 	elif strClass == "PRIEST":
 		return CardClass.PRIEST
-	elif strClass == "ROGUE":
+	elif strClass == ROGUE:
 		return CardClass.ROGUE
 	elif strClass == "SHAMAN":
 		return CardClass.SHAMAN

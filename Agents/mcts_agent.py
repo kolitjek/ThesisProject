@@ -27,15 +27,20 @@ class MCTSAgent(Agent):
 		for i in range(0, 10):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
+			if len(rootNode.explored_nodes) is 0 and len(rootNode.action_space) is 0:
+				break
 
-		select_and_perform_actions(rootNode, self.player)
-
+		if len(rootNode.explored_nodes) is not 0:
+			select_and_perform_actions(rootNode, self.player)
+		else:
+			print("No actions available, skipping turn...")
 		#rootNode.explored_nodes[0].print_local_relations()
 		print("******************************")
 		#print(rootNode.number_of_visits)
 		#print(rootNode.number_of_wins)
 
 		print(self.player.hand)
+
 		print("Performed optimal action")
 		pass
 	'''

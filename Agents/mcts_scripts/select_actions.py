@@ -5,6 +5,7 @@ import random
 
 
 def select_and_perform_actions(root_node, player):
+
 	perform_action_sequence(select_best_node(root_node).performed_action_space, player)
 	pass
 
@@ -20,7 +21,8 @@ def select_best_node(root_node):
 def print_tree(root_node, best_node):
 	root_node.print_local_relations()
 
-	print("Chosen node: " + str(best_node.id))
+	if(best_node != None):
+		print("Chosen node: " + str(best_node.id))
 
 
 def transfer_action_sequence(_action_sequence, _player):  # This insures that the actions are not applied on the base node

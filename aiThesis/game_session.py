@@ -10,6 +10,7 @@ from .game_session_data_handler import *
 from .printController import *
 import random
 from .game_data import GameData
+from aiThesis import printController
 
 class GameSession:
 	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type,  p1Agent, p2Agent):
@@ -51,6 +52,7 @@ class GameSession:
 
 	def test_full_game(self, player1, player2):
 		try:
+			printController.enable_print()
 			self.play_full_game(player1, player2)
 		except GameOver:
 			print("Game completed normally.")
@@ -115,7 +117,6 @@ class GameSession:
 		disable_print()
 		while True:
 			self.play_turn(self.game)
-			print("turn")
 
 		return self.game
 
@@ -130,7 +131,7 @@ class GameSession:
 
 		while True:
 			self.play_turn(self.game)
-			print("turn")
+
 
 		return game
 
