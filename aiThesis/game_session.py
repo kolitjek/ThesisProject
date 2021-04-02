@@ -84,10 +84,19 @@ class GameSession:
 		print("Health: " + str(currPlayer.hero.health))
 		print("Mana: " + str(currPlayer.mana))
 		print("Deck size: " + str(len(currPlayer.deck)))
-		print("Hand size: " + str(len(currPlayer.hand)))
-		print("Field size :" + str(len(currPlayer.field)))
-		enable_print()
+		print("Hand size: " + str(currPlayer.hand))
+		print("Field size :" + str(currPlayer.field))
+		disable_print()
 		currPlayer.agent.play_turn()
+		print("******PLAYER INfFO******** After")
+		print(str(currPlayer.name))
+		print("Hero: " + str(currPlayer.hero))
+		print("Turn: " + str(game.turn))
+		print("Health: " + str(currPlayer.hero.health))
+		print("Mana: " + str(currPlayer.mana))
+		print("Deck size: " + str(len(currPlayer.deck)))
+		print("Hand size: " + str(currPlayer.hand))
+		print("Field size :" + str(currPlayer.field))
 
 		if self.record_session:
 			self.session_data[-1].append_turn_data(game.turn, currPlayer.name, game.players[0].hero.health, game.players[1].hero.health, len(game.players[0].field), len(game.players[1].field), len(game.players[0].hand), len(game.players[1].hand), len(game.players[0].deck), len(game.players[1].deck))
@@ -110,7 +119,7 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		enable_print()
+		disable_print()
 		while True:
 			self.play_turn(self.game)
 

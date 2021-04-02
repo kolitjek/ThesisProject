@@ -169,6 +169,34 @@ class Player(Entity, TargetableByAuras):
 		self.game.manager.new_entity(card)
 		return card
 
+	@property
+	def hero_power_predefined_target(self):  # returns single predefined character
+		_cards = self.hero.power.targets
+		if len(_cards) > 0:
+			if len(_cards) > 1:
+				if _cards[0] is CardType.HERO:
+					return _cards[1]
+				else:
+					return _cards[0]
+			else:
+				return _cards[0]
+		else:
+			return []  # should be empty set by now
+
+	@property
+	def hero_power_predefined_enemy_target(self):  # returns single predefined enemy character
+		_cards = self.hero.power.targets
+		if len(_cards) > 0:
+			if len(_cards) > 1:
+				if _cards[0] is CardType.HERO:
+					return _cards[1]
+				else:
+					return _cards[0]
+			else:
+				return _cards[0]
+		else:
+			return _cards  # should be empty set by now
+
 	def prepare_for_game(self):
 		self.summon(self.starting_hero)
 		for id in self.starting_deck:

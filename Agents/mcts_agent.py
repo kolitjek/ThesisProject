@@ -25,7 +25,7 @@ class MCTSAgent(Agent):
 		#rootNode = expand_game_node(rootNode)
 
 
-		for i in range(0, 10):
+		for i in range(0, 100):
 
 
 			#print("ITERATIONS: " +str(i))

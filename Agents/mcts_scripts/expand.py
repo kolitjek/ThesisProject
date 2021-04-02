@@ -53,7 +53,7 @@ def expand_game_node(_node):
 
 def permute_action_space(_node):
 	player = _node.game_state.current_player
-	list_of_sequential_actions_hand = player.hand  # The total possible actions from the given space in perspective from the hand
+	list_of_sequential_actions_hand = player.hand[:]  # The total possible actions from the given space in perspective from the hand
 	list_of_sequential_actions_hand.append(
 		player.hero.power)  # The total possible actions from the given space in perspective from the board
 	list_of_sequential_actions_board = player.characters  # The total possible actions from the given space in perspective from the board

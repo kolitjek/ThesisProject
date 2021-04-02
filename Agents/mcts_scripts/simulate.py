@@ -24,7 +24,6 @@ def simulate_game(node, depth=-1):
 
 
 	#simulated_turns = 0
-	#Dprint("Simulation begins")
 	printController.disable_print()
 	while not simulated_game.simulation_finished:
 		#print("simulating")

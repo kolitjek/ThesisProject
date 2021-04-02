@@ -414,6 +414,36 @@ class PlayableCard(BaseCard, Entity, TargetableByAuras):
 	def enemy_targets(self):
 		return [card for card in self.game.current_player.opponent.characters if is_valid_target(self, card)]
 
+	@property
+	def predefined_target(self): # returns single predefined character
+		_cards = [card for card in self.game.characters if is_valid_target(self, card)]
+		if len(_cards) > 0:
+			if len(_cards) > 1:
+				if _cards[0] is CardType.HERO:
+					return _cards[1]
+				else:
+					return _cards[0]
+			else:
+				return _cards[0]
+		else:
+			return []  # should be empty set by now
+
+	@property
+	def predefined_enemy_target(self):  # returns single predefined enemy character
+		_cards = [card for card in self.game.current_player.opponent.characters if is_valid_target(self, card)]
+		if len(_cards) > 0:
+			if len(_cards) > 1:
+				if _cards[0] is CardType.HERO:
+					return _cards[1]
+				else:
+					return _cards[0]
+			else:
+				return _cards[0]
+		else:
+			return _cards  # should be empty set by now
+
+
+
 
 
 class LiveEntity(PlayableCard, Entity):
