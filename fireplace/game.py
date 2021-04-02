@@ -262,7 +262,7 @@ class BaseGame(Entity):
 
 		self.tick += 1
 
-	def setup(self):
+	def setup(self, itr = 0):
 		self.log("Setting up game %r", self)
 		self.state = State.RUNNING
 		self.step = Step.BEGIN_DRAW
@@ -273,7 +273,7 @@ class BaseGame(Entity):
 			player.zone = Zone.PLAY
 			self.manager.new_entity(player)
 
-		first, second = self.pick_first_player(self.scenario)
+		first, second = self.pick_first_player(self.scenario, itr)
 		self.player1 = first
 		self.player1.first_player = True
 		self.player2 = second
@@ -364,9 +364,10 @@ class CoinRules:
 	Randomly determines the starting player when the Game starts.
 	The second player gets "The Coin" (GAME_005).
 	"""
-	def pick_first_player(self, scenario):
+	def pick_first_player(self, scenario, itr):
 		if scenario == None:
-			winner = random.choice(self.players)
+			winner = self.players[itr % 2]
+			#winner = random.choice(self.players)
 			self.log("Tossing the coin... %s wins!", winner)
 			return winner, winner.opponent
 		else:
@@ -393,9 +394,9 @@ class MulliganRules:
 	Only begin the game after both Mulligans have been chosen.
 	"""
 
-	def start(self):
+	def start(self, itr = 0):
 		from .actions import MulliganChoice
-		self.setup()
+		self.setup(itr)
 		self.next_step = Step.BEGIN_MULLIGAN
 		self.log("Entering mulligan phase")
 		self.step, self.next_step = self.next_step, Step.MAIN_READY

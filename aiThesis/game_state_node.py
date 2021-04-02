@@ -1,6 +1,7 @@
 
 class GameStateNode:
 	nodeCount = 0
+	max_level_depth = 0
 	depth = 0
 
 	def __init__(self, _game_state, _parent=None):
@@ -9,6 +10,9 @@ class GameStateNode:
 
 		if _parent is not None:
 			self.depth_level = _parent.depth_level + 1
+
+			if GameStateNode.max_level_depth < self.depth_level:
+				GameStateNode.max_level_depth = self.depth_level
 		else:
 			self.depth_level = 0
 
@@ -38,7 +42,7 @@ class GameStateNode:
 
 		for node in self.explored_nodes:
 			action_space_length = str(len(node.action_space)) if node.action_space is not None else "?"
-			print("child id: " + str(node.id) + ", depth level: " + str(node.depth_level) + ', p(s): ' + str(node.game_state.current_player) + ", action space: " +
+			print("child id: " + str(node.id) + ", depth level: " + str(node.depth_level) + ', p(s): ' + str(node.game_state.current_player) +", performed actions: "+ str(node.performed_action_space) + ", action space: " +
 				action_space_length + ", explored nodes: " + str(len(node.explored_nodes)) + ", W/V: " + str(node.number_of_wins) + "/" + str(node.number_of_visits))
 
 		print("-------------------------------")

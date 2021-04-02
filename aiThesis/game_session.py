@@ -72,7 +72,7 @@ class GameSession:
 			self.session_data.append(GameData(self.iteration_number))
 
 		game = Game(players=(player1, player2), scenario=scenario)
-		game.start()
+		game.start(int(self.iteration_number))
 
 		return game
 

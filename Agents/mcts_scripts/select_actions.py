@@ -76,7 +76,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 						target = random.choice(action.targets)
 				#print("Playing %r on %r" % (action, targ	et))
 				action.play(target=target)
-			else:
+			#else: I think this causes the "can't end with open action..."
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)

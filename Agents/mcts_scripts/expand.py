@@ -24,14 +24,14 @@ def expand_game_node(_node):
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
-			if (_node.parent == None):
-				print("parent")
+
 
 		if len(_node.action_space) == 0:
 			print("Trying to expand an action space of length 0...")
 			return
 
-		action_space_index = random.randint(0, len(_node.action_space) - 1)
+		#action_space_index = random.randint(0, len(_node.action_space) - 1)
+		action_space_index = 0
 		chosen_action_space = _node.action_space[action_space_index]
 		node_to_simulate = game_state_node.GameStateNode(generate_new_state(_node.game_state, chosen_action_space),
 														 _node)
@@ -55,7 +55,7 @@ def expand_game_node(_node):
 
 def permute_action_space(_node):
 	player = _node.game_state.current_player
-	list_of_sequential_actions_hand = player.hand  # The total possible actions from the given space in perspective from the hand
+	list_of_sequential_actions_hand = player.hand[:]  # The total possible actions from the given space in perspective from the hand
 	list_of_sequential_actions_hand.append(
 		player.hero.power)  # The total possible actions from the given space in perspective from the board
 	list_of_sequential_actions_board = player.characters  # The total possible actions from the given space in perspective from the board
@@ -80,9 +80,8 @@ def permute_action_space(_node):
 
 	# partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
 	# partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
-	if(_node.parent == None or list_of_sequential_actions_board == []):
-		print("parent")
-	return list(list_of_sequential_actions_hand_permuted)
+	middle_index = len(list_of_sequential_actions_hand_permuted) // 2
+	return list(list_of_sequential_actions_hand_permuted[:middle_index])
 	list_of_sequential_actions_board = set(itertools.permutations(list_of_sequential_actions_board))  # Permuting every action
 	# partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
 
@@ -165,7 +164,6 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 					action.use(target=random.choice(player.opponent.characters))#target = random.choice(action.targets)
 				else:
 					action.use()
-				continue  # need this because hero is a special card type
 
 		elif action.zone is enums.Zone.HAND:  # does this covers enough...?
 			if action.is_playable():
@@ -174,19 +172,25 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 				if action.requires_target():
 					if type(action) is card.Spell:
 						target = random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+						#target = evaluate_spell_targets(action,action.targets)
 					# changed this from action.targets
 					else:
 						target = random.choice(action.targets)
 				# print("Playing %r on %r" % (action, targ	et))
 				action.play(target=target)
+
+				if player.choice:
+					choice = random.choice(player.choice.cards)
+					player.choice.choose(choice)
 			else:
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
 
-	for character in player.characters:
-				if character.can_attack():
-					character.attack(random.choice(character.targets))
+	for character in player.characters:  # This ignores the action sequence
+		if character.can_attack():
+			#character.attack(random.choice(character.targets))
+			character.attack(evaluate_character_targets(character,character.targets))
 
 	return new_game_state
 
@@ -197,3 +201,66 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 
 	return adapted_action_sequence
 	'''
+def evaluate_character_targets(character, targets):
+	if targets[0].health <= character.atk:
+		return targets[0]
+
+	for i in range(1, len(targets)):
+		if targets[i].health <= character.atk:
+			return targets[i]
+
+	if len(targets) > 1:
+		return targets[1]
+	else:
+		return targets[0]
+
+def evaluate_spell_targets(_spell, targets):
+	base_game = _spell.game
+	#printController.enable_print()
+	#print("player: " +  str(base_game.current_player.hero.health))
+	#print("opponent: " +  str(base_game.current_player.opponent.hero.health))
+	state_metric = -1000
+	chosen_target = None
+	for target in targets:
+		state_outcome = copy.deepcopy(base_game)
+		player = state_outcome.current_player
+		spell = [x for x in list(player.actionable_entities) if x.entity_id == _spell.entity_id][0]
+		target_copy = [x for x in spell.targets if x.entity_id == target.entity_id][0]
+		'''
+		print(spell.game == _spell.game)
+		print(id(_spell.game))
+		print(id(spell.game))
+		print(id(target.game))
+		'''
+		spell.play(target=target_copy)
+
+		cp_health_delta = base_game.current_player.hero.health - player.hero.health  #TODO is this a problem with life gain?
+		op_health_delta = base_game.current_player.opponent.hero.health - player.opponent.hero.health
+
+		cp_minions_health_delta = sum(c.health for c in base_game.current_player.field) - sum(c.health for c in player.field)
+		op_minions_health_delta = sum(c.health for c in base_game.current_player.opponent.field) - sum(c.health for c in player.opponent.field)
+
+		cp_minions_power_delta = sum(c.atk for c in base_game.current_player.field) - sum(c.atk for c in player.field)
+		op_minions_power_delta = sum(c.atk for c in base_game.current_player.opponent.field) - sum(c.atk for c in player.opponent.field)
+
+		current_state_metric = cp_health_delta + op_health_delta + cp_minions_health_delta + op_minions_health_delta + cp_minions_power_delta + op_minions_power_delta
+		if state_metric < current_state_metric:
+			state_metric = current_state_metric
+			chosen_target = target
+
+	return chosen_target
+		#print("Spell played")
+	'''
+	if targets[0].health <= character.atk:
+		return targets[0]
+
+	for i in range(1, len(targets)):
+		if targets[i].health <= character.atk:
+			return targets[i]
+
+	if len(targets) > 1:
+		return targets[1]
+	else:
+		return targets[0]
+	'''
+	pass

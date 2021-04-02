@@ -19,12 +19,14 @@ class MCTSAgent(Agent):
 
 	def play_turn(self):
 		GameStateNode.nodeCount = 0
+		GameStateNode.max_level_depth = 0
 
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
 		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
 
-		for i in range(0, 10):
+		#while  GameStateNode.max_level_depth <= 3:
+		for i in range(0, 1000):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 			if len(rootNode.explored_nodes) is 0 and len(rootNode.action_space) is 0:
@@ -35,6 +37,10 @@ class MCTSAgent(Agent):
 		else:
 			print("No actions available, skipping turn...")
 		#rootNode.explored_nodes[0].print_local_relations()
+		print("Tree info:")
+		print(" No. of nodes: " + str(GameStateNode.nodeCount))
+		print(" Max level depth: " + str(GameStateNode.max_level_depth))
+
 		print("******************************")
 		#print(rootNode.number_of_visits)
 		#print(rootNode.number_of_wins)
