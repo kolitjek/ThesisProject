@@ -26,7 +26,7 @@ class MCTSAgent(Agent):
 		#rootNode = expand_game_node(rootNode)
 
 		#while  GameStateNode.max_level_depth <= 3:
-		for i in range(0, 100):
+		for i in range(0, 50):
 
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
