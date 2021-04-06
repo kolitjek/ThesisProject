@@ -45,7 +45,7 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is based on randm targets
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	printController.enable_print()
+	printController.disable_print()
 
 
 	print("Actions to perfrom")

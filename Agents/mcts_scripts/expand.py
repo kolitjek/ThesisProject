@@ -80,8 +80,8 @@ def permute_action_space(_node):
 
 	# partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
 	# partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
-	middle_index = len(list_of_sequential_actions_hand_permuted) // 2
-	return list(list_of_sequential_actions_hand_permuted[:middle_index])
+	#middle_index = len(list_of_sequential_actions_hand_permuted) // 2
+	return list(set(list_of_sequential_actions_hand_permuted))
 	list_of_sequential_actions_board = set(itertools.permutations(list_of_sequential_actions_board))  # Permuting every action
 	# partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
 

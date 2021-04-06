@@ -24,7 +24,6 @@ def simulate_game(node, depth=-1):
 	simulated_game.players[1].agent = simulate_random_actions(simulated_game.players[1])
 
 	#simulated_turns = 0
-	#Dprint("Simulation begins")
 	printController.disable_print()
 
 	#printController.enable_print()
