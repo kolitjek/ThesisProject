@@ -1,5 +1,5 @@
 import math
-from .expand import expand_game_node
+from .expand import expand_game_node, permute_action_space
 
 
 def select_node(node):
@@ -39,5 +39,11 @@ def uct(node):
 		#print("Node ID else: " + str(node_to_select.id))
 
 	#print("Node ID: " + str(node_to_select.id))
+
+def create_actionSpace_for_root_node(node):
+	node.action_space = permute_action_space(node)
+	return node
+
+
 
 

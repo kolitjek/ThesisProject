@@ -1,10 +1,15 @@
 from Agents.agent import Agent
 from aiThesis.game_state_node import GameStateNode
 #from aiThesis.game_session import GameSession
-from .mcts_scripts.select_node import select_node
+from .mcts_scripts.select_node import select_node, create_actionSpace_for_root_node
 import random
 from fireplace import utils
+import multiprocessing
+from multiprocessing.pool import ThreadPool as Pool
+import numpy as np
 import copy
+import time
+import math
 from aiThesis.game_state_node import GameStateNode
 from Agents.mcts_scripts.select_actions import select_and_perform_actions
 
@@ -16,21 +21,30 @@ class MCTSAgent(Agent):
 		self.player = _player
 		self.gameTree = []
 		self.rootNode = None
+		self.branch_nodes = []
 
 	def play_turn(self):
 		GameStateNode.nodeCount = 0
 
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
+
+		#rootNode = create_actionSpace_for_root_node(rootNode)
+		#print("here")
+		#print(rootNode.action_space)
+
 		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
-
-
-		for i in range(0, 100):
-
-
+		#t0 = time.time()
+		#delegate_processors(rootNode.action_space, self.player.game)
+		#t1 = time.time()
+		#print("first timer: " + str(t1-t0))
+		t2 = time.time()
+		for i in range(0, 50):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 
+		t3 = time.time()
+		print("second timer: " + str(t3-t2))
 		select_and_perform_actions(rootNode, self.player)
 
 		#rootNode.explored_nodes[0].print_local_relations()
@@ -55,6 +69,9 @@ class MCTSAgent(Agent):
 		print(self.player.field)
 	'''
 
+
+
+
 	def construct_tree(self, game):
 		pass
 
@@ -69,3 +86,45 @@ class MCTSAgent(Agent):
 
 	def back_propergate(self):
 		pass
+
+def delegate_processors(action_space, game_state):
+	available_processors = multiprocessing.cpu_count() #fixme handle not enough processors
+
+	action_space_sets = np.array_split(action_space, (len(action_space) if available_processors >= len(action_space) else available_processors))
+	tasks = []
+	for ass in action_space_sets:
+		node = GameStateNode(copy.deepcopy(game_state))
+		node.action_space = ass.tolist()
+		tasks.append([node])
+
+	pool(tasks)
+
+def run_branch(action_space, game_state):
+	print("starting branch: ")
+	node = GameStateNode(copy.deepcopy(game_state))
+
+	node.action_space = action_space
+	for i in range(100):
+		select_node(node)
+	print("finished branch: " + str(id))
+	return node
+
+def pool(tasks):
+	p = Pool(3)
+	print(tasks)
+	p.map(task_exec, tasks)
+
+
+def task_exec(data):
+	print(data)
+	for i in range(0, 100):
+		select_node(data[0])
+	for node in data[0].explored_nodes:
+		action_space_length = str(len(node.action_space)) if node.action_space is not None else "?"
+		print("child id: " + str(node.id) + ", depth level: " + str(node.depth_level) + ', p(s): ' + str(
+			node.game_state.current_player) + ", action space: " +
+			  action_space_length + ", explored nodes: " + str(len(node.explored_nodes)) + ", W/V: " + str(
+			node.number_of_wins) + "/" + str(node.number_of_visits))
+
+	print("-------------------------------")
+
