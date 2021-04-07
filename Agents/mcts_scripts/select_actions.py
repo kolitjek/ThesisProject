@@ -2,6 +2,8 @@ from aiThesis import printController
 from fireplace import card
 from hearthstone import enums
 import random
+from aiThesis import card_filters
+
 
 from fireplace.targeting import is_valid_target
 
@@ -14,6 +16,11 @@ def select_and_perform_actions(root_node, player):
 def select_best_node(root_node):
 	best_node = None
 	for n in root_node.explored_nodes:
+		if n.isLeaf and n.number_of_wins is 1:
+			print("i'm gonna win!")
+			print_tree(root_node, n)
+			return n
+
 		if best_node is None or (n.number_of_visits >= best_node.number_of_visits and best_node.number_of_wins < n.number_of_wins):
 			best_node = n
 	print_tree(root_node, best_node)
@@ -45,7 +52,7 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is based on randm targets
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	printController.disable_print()
+	printController.enable_print()
 
 
 	print("Actions to perfrom")
@@ -59,7 +66,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 			print(action.is_usable())
 			if action.is_usable():
 				if action.requires_target():
-					action.use(target=random.choice(player.opponent.characters)) #changed this from action.targets
+					action.use(target=card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) )#random.choice(player.opponent.characters)) #changed this from action.targets
 				else:
 					action.use()
 				continue  # need this because hero is a special card type
@@ -70,7 +77,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
 					if type(action) is card.Spell:
-						target = random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+						target = card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) if card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) != [] else random.choice(action.targets) #random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
 						#changed this from action.targets
 					else:
 						target = random.choice(action.targets)
@@ -83,7 +90,9 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 
 	for character in player.characters:
 				if character.can_attack():
-					character.attack(random.choice(character.targets))
+					character.attack(card_filters.get_left_most_enemy_target(character.targets, player))#random.choice(character.targets))
+
+
 
 
 

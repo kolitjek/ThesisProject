@@ -8,6 +8,7 @@ from hearthstone import enums
 import random
 from collections import Counter
 import copy
+from aiThesis import card_filters
 from .simulate import simulate_game
 import numpy as np
 
@@ -161,7 +162,7 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 		if type(action) is card.HeroPower:
 			if action.is_usable():
 				if action.requires_target():
-					action.use(target=random.choice(player.opponent.characters))#target = random.choice(action.targets)
+					action.use(target=card_filters.get_left_most_enemy_target(player.opponent.characters, action.controller))#target = random.choice(action.targets)
 				else:
 					action.use()
 
@@ -171,8 +172,7 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
 					if type(action) is card.Spell:
-						target = random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
-						#target = evaluate_spell_targets(action,action.targets)
+						target = card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) if card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) != [] else random.choice(action.targets) #random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
 					# changed this from action.targets
 					else:
 						target = random.choice(action.targets)
@@ -186,11 +186,9 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
-
-	for character in player.characters:  # This ignores the action sequence
-		if character.can_attack():
-			#character.attack(random.choice(character.targets))
-			character.attack(evaluate_character_targets(character,character.targets))
+	for character in player.characters:
+				if character.can_attack():
+					character.attack(card_filters.get_left_most_enemy_target(character.targets, player))#random.choice(character.targets))
 
 	return new_game_state
 

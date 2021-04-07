@@ -1,6 +1,7 @@
 import math
 from .expand import expand_game_node
 from hearthstone import enums
+from .expand import expand_game_node, permute_action_space
 
 
 def select_node(node):
@@ -8,7 +9,7 @@ def select_node(node):
 
 
 def uct(node):
-	c = 1 #1.41421 # math.sqrt(2), C is a constant to adjust the amount of exploration and incorporates the sqrt(2) from the UCB1 formula
+	c = 1.41421 # math.sqrt(2), C is a constant to adjust the amount of exploration and incorporates the sqrt(2) from the UCB1 formula
 							#Ved ikke lige med den C her
 	arg_max_n = -1.0
 	node_to_select = node
@@ -31,8 +32,8 @@ def uct(node):
 
 	if node_to_select.game_state.state is not enums.State.RUNNING or node_to_select.id == node.id:
 		node_to_select.isLeaf = True
-		if(node_to_select.parent is not None):
-			select_node(node_to_select.parent)
+		#if(node_to_select.parent is not None):
+		#	select_node(node_to_select.parent)
 		return
 
 	if node_to_select.action_space is None or len(node.action_space) is not 0:
@@ -48,5 +49,11 @@ def uct(node):
 		#print("Node ID else: " + str(node_to_select.id))
 
 	#print("Node ID: " + str(node_to_select.id))
+
+def create_actionSpace_for_root_node(node):
+	node.action_space = permute_action_space(node)
+	return node
+
+
 
 

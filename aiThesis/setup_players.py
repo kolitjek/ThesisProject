@@ -10,7 +10,7 @@ from hearthstone.enums import Zone
 HUNTER_FACE = "HUNTER_FACE"
 HUNTER_MID = "HUNTER_MID"
 MAGE = "MAGE"
-DRUID = "Druid"
+DRUID = "DRUID"
 ROGUE = "ROGUE"
 
 def setup_player(name, deck, hero, agent):
