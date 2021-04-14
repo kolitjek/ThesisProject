@@ -21,6 +21,7 @@ class MCTSAgent(Agent):
 		self.player = _player
 		self.gameTree = []
 		self.rootNode = None
+		self.iterations = 10
 		self.branch_nodes = []
 
 	def play_turn(self):
@@ -45,7 +46,8 @@ class MCTSAgent(Agent):
 		#t1 = time.time()
 		#print("first timer: " + str(t1-t0))
 		t2 = time.time()
-		for i in range(0, 100 ):
+		print("helloomahfriend: " + str(self.iterations))
+		for i in range(self.iterations):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 			if len(rootNode.explored_nodes) is 0 and len(rootNode.action_space) is 0:

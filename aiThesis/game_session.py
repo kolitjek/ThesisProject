@@ -6,14 +6,17 @@ from fireplace.exceptions import GameOver
 from .scenario import Scenario
 from .game_session_data_handler import *
 from .printController import *
+from Agents import randomAgent
+import Agents
 import random
 from .game_data import GameData
 from aiThesis import printController
 
 class GameSession:
-	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type,  p1Agent, p2Agent):
+	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type, p1Agent, p2Agent ,mctsIterations):
 		self.scenario = scenario_name
 		self.iterations = iterations
+		self.mcts_iterations = mctsIterations #lsit of different
 		self.game = None
 		self.record_session = True
 		self.player1_name = p1name
@@ -32,21 +35,58 @@ class GameSession:
 
 
 	def start_session(self):
+		mcts_iteration_index = 0
+		if self.mcts_iterations is not None:
+			self.iterations = self.iterations - (self.iterations % len(self.mcts_iterations))
 		for i in range(self.iterations):
 			print("\n\n\n\n\n\n\n\n")
 			print("New Game")
 			print("*********************************************************************************************")
-			print("Iteration: " + str(i+1))
+			print("Game number: " + str(i+1))
 			self.iteration_number = str(i+1)
 			if self.scenario != None:
-				self.test_scenario(Scenario(self.scenario))
+				scenario = Scenario(self.scenario)
+				if self.mcts_iterations != None:
+					print(self.iterations)
+					print(self.mcts_iterations)
+					print(len(self.mcts_iterations))
+					print(i)
+					print((self.iterations / len(self.mcts_iterations)))
+					print(i % (self.iterations / len(self.mcts_iterations)))
+
+					if i is not 0 and i % int((self.iterations / len(self.mcts_iterations))) is 0:
+						mcts_iteration_index += 1
+						print("Gets here")
+						print(mcts_iteration_index)
+					print("mcts iterations: " + str(self.mcts_iterations[mcts_iteration_index]))
+
+					print(self.mcts_iterations)
+
+					self.set_mcts_agent_iterations(scenario.player1, self.mcts_iterations[mcts_iteration_index])
+					self.set_mcts_agent_iterations(scenario.player2, self.mcts_iterations[mcts_iteration_index])
+					print("here")
+					print(scenario.player2.agent.iterations)
+
+				self.test_scenario(scenario)
 			else:
 				players = create_players(self.player1_name, self.player2_name, self.player1_class, self.player2_class, self.player1_deck, self.player2_deck, self.player1_agent, self.player2_agent)
+				self.set_mcts_agent_iterations(players[0], self.mcts_iterations[mcts_iteration_index])
+				self.set_mcts_agent_iterations(players[1], self.mcts_iterations[mcts_iteration_index])
+
 				self.test_full_game(players[0], players[1])
 
 		self.print_game_session_data()
 		health_distribution_graph(self.session_data)
+		if(self.mcts_iterations is not None):
+			line_graph(self.session_data, self.mcts_iterations)
 
+	def set_mcts_agent_iterations(self, player, iterations):
+		print(type(player.agent))
+		if Agents.randomAgent.RandomAgent is not type(player.agent):
+			print("here2")
+			print(type(player.agent))
+			player.agent.iterations = int(iterations)
+			print(player.agent.iterations)
 
 	def test_full_game(self, player1, player2):
 		try:
@@ -88,7 +128,7 @@ class GameSession:
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(currPlayer.hand))
 		print("Field size :" + str(currPlayer.field))
-		enable_print()
+		disable_print()
 		currPlayer.agent.play_turn()
 		print("******PLAYER INfFO******** After")
 		print(str(currPlayer.name))
@@ -121,7 +161,7 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		enable_print()
+		disable_print()
 		while True:
 			self.play_turn(self.game)
 

@@ -14,3 +14,12 @@ def create_graph(data, legend, axis):
 	plt.legend(legend, prop={'size': 16}, loc='upper right')
 
 	plt.show()
+
+def create_line_graph(x,y, axis):
+
+	sns.lineplot(x, y)
+	plt.xlabel(axis[0], fontsize=18)
+	plt.ylabel(axis[1], fontsize=16)
+	plt.ylim(0, 100)
+
+	plt.show()
