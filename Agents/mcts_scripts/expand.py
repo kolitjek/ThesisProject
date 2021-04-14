@@ -25,6 +25,7 @@ def expand_game_node(_node):
 
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
+			_node.action_space.sort(key=len, reverse=True)
 
 
 		if len(_node.action_space) == 0:
@@ -82,6 +83,8 @@ def permute_action_space(_node):
 	# partial_actions_hand = list({x for x in partial_actions_hand if partial_actions_hand.count(x) >= 1})  # Remove repeating actions sequences
 	# partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
 	#middle_index = len(list_of_sequential_actions_hand_permuted) // 2
+	list_of_sequential_actions_hand_permuted.append(())
+	list_of_sequential_actions_hand_permuted.sort(key=len, reverse=True)
 	return list(set(list_of_sequential_actions_hand_permuted))
 	list_of_sequential_actions_board = set(itertools.permutations(list_of_sequential_actions_board))  # Permuting every action
 	# partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
@@ -114,6 +117,8 @@ def retrieve_valid_sequence(_action_sequence, player_mana, player):
 				target = return_target(action,player)
 				if type(target) is not list:
 					valid_actions.append(action)
+			else:
+				valid_actions.append(action)
 		else:
 			valid_actions.append(action)
 

@@ -12,9 +12,9 @@ from .setup_players import create_players
 from .Path import BASE_PATH
 class Scenario:
 	def __init__(self, scenario_name):
-		#parthstring = "C:\\Users\\Anton\\Desktop\\ThesisProject-master\\aiThesis\\scenarios\\" + scenario_name + ".json"
-		#parthstring = "C:\\Users\\45606\Documents\\ITU - Games\\ThesisProject\\aiThesis\\scenarios\\" + scenario_name + ".json"
-		parthstring = BASE_PATH + "\\scenarios\\" + scenario_name + ".json"
+		#zparthstring = "C:\\Users\\Anton\\Desktop\\ThesisProject-master\\aiThesis\\scenarios\\" + scenario_name + ".json"
+		parthstring = "C:\\Users\\45606\Documents\\ITU - Games\\ThesisProject\\aiThesis\\scenarios\\" + scenario_name + ".json"
+		#parthstring = BASE_PATH + "\\scenarios\\" + scenario_name + ".json"
 
 		with open(parthstring) as f:
 			data = json.load(f)
