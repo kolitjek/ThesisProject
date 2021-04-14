@@ -1,0 +1,26 @@
+{
+	"deck": ["EX1_544","EX1_544","CS2_084","CS2_084","DS1_184","EX1_611","EX1_531",
+	"CS2_237", "CS2_237","NEW1_031","NEW1_031","EX1_536","EX1_536", "EX1_539","EX1_539",
+	"EX1_538","EX1_538","DS1_070","DS1_070","EX1_534","EX1_534","CS2_171","CS2_171",
+	"EX1_162", "CS2_203", "CS2_203", "CS2_119", "CS2_119", "EX1_028", "EX1_028"],
+	"link": "https://www.hearthstonetopdecks.com/decks/reynads-midrange-hunter-hearthstone-classic/",
+
+	"card_details": {
+		"CS2_084": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"EX1_539": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"CS2_203": {
+			"type": "minion",
+			"target": "opponent"
+		},
+		"DS1_070": {
+			"type": "minion",
+			"target": "player"
+		}
+	}
+}

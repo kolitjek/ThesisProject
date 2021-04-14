@@ -74,7 +74,7 @@ def permute_action_space(_node):
 	# Dividing action between hand and board, is based on the idea that player cards first is optima
 	# partial_actions_hand = set(itertools.permutations(partial_actions_hand))  # Permuting every action
 	list_of_sequential_actions_hand = retrieve_valid_sequence(list_of_sequential_actions_hand,
-															  player.mana)  # Permuting every action
+															  player.mana, player)  # Permuting every action
 	list_of_sequential_actions_hand_permuted = []
 	for action_sequence in list_of_sequential_actions_hand:
 		list_of_sequential_actions_hand_permuted += set(itertools.permutations(action_sequence))
@@ -102,10 +102,26 @@ def permute_action_space(_node):
 	return action_sequences
 
 
-def retrieve_valid_sequence(_action_sequence, player_mana):
-	return [seq for i in range(len(_action_sequence), 0, -1) for seq in itertools.combinations(_action_sequence, i) if
-			return_mana_sum(seq) <= player_mana]
+def retrieve_valid_sequence(_action_sequence, player_mana, player):
 
+	valid_actions = []
+	for action in _action_sequence:
+
+		if type(action) is card.Spell:
+			if action.requires_target():
+				if(len(action.targets) is 0):
+					continue
+				target = return_target(action,player)
+				if type(target) is not list:
+					valid_actions.append(action)
+		else:
+			valid_actions.append(action)
+
+	return [seq for i in range(len(valid_actions), 0, -1) for seq in itertools.combinations(valid_actions, i) if
+			return_mana_sum(seq) <= player_mana]
+	'''return [seq for i in range(len(valid_actions), 0, -1) for seq in itertools.combinations(valid_actions, i) if
+			return_mana_sum(seq) <= player_mana]
+	'''
 
 def return_mana_sum(actions):
 	accumulated_mana = 0
@@ -126,6 +142,19 @@ def transfer_action_sequence(_action_sequence,
 
 	return adapted_action_sequence
 
+def return_target (action, player):
+	spell_target = player.card_details[action.id]["target"]
+	if (spell_target == "opponent"):
+		target = card_filters.get_left_most_enemy_target(action.enemy_targets,
+														 action.controller) if card_filters.get_left_most_enemy_target(
+			action.enemy_targets, action.controller) != [] else random.choice(
+			action.targets)  # random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+	else:
+		target = card_filters.get_left_most_friendly_target(action.targets,
+															action.controller) if card_filters.get_left_most_friendly_target(
+			action.enemy_targets, action.controller) != [] else random.choice(action.targets)
+
+	return target
 
 '''
 def evaluate_hand_to_board_sequence(_action_sequence, _player_mana):  # This is the time consumer...
@@ -172,12 +201,15 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
 					if type(action) is card.Spell:
-						target = card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) if card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) != [] else random.choice(action.targets) #random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+						target = return_target(action,player)
 					# changed this from action.targets
 					else:
 						target = random.choice(action.targets)
 				# print("Playing %r on %r" % (action, targ	et))
-				action.play(target=target)
+				try:
+					action.play(target=target)
+				except NameError:
+					print(NameError)
 
 				if player.choice:
 					choice = random.choice(player.choice.cards)

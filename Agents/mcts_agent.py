@@ -45,7 +45,7 @@ class MCTSAgent(Agent):
 		#t1 = time.time()
 		#print("first timer: " + str(t1-t0))
 		t2 = time.time()
-		for i in range(0, 100 ):
+		for i in range(0, 1):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 			if len(rootNode.explored_nodes) is 0 and len(rootNode.action_space) is 0:

@@ -1,0 +1,38 @@
+{
+	"deck": ["EX1_621", "EX1_621", "CS1_130", "CS1_130", "CS2_235","CS2_235","CS2_004","CS2_004",
+	"DS1_233", "EX1_622", "EX1_622", "EX1_339", "EX1_339", "EX1_622", "EX1_622", "EX1_591", "EX1_591",
+	"CS1_112", "CS1_112", "NEW1_020", "NEW1_020","CS2_117", "CS2_117","CS2_181", "CS2_181",
+	"CS2_179","EX1_284", "EX1_558", "EX1_016", "EX1_298"],
+	"link": "https://www.hearthstonetopdecks.com/decks/amazs-control-priest-hearthstone-classic/",
+
+	"card_details": {
+		"EX1_621": {
+			"type": "spell",
+			"target": "player"
+		},
+		"CS1_130": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"CS2_004": {
+			"type": "spell",
+			"target": "player"
+		},
+		"DS1_233": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"EX1_622": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"CS1_112": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"CS2_117": {
+			"type": "spell",
+			"target": "player"
+		}
+	}
+}

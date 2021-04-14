@@ -68,6 +68,7 @@ class Player(Entity, TargetableByAuras):
 		self.times_spell_played_this_game = 0
 		self.times_secret_played_this_game = 0
 		self.cthun = None
+		self.card_details = None
 
 	def __str__(self):
 		return self.name
