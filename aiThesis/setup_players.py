@@ -96,6 +96,6 @@ def get_class_from_string(strClass):
 	elif strClass == "WARRIOR":
 		return CardClass.WARRIOR
 	else:
-		print("STR INPUT FOR CLASS DID NOT MATCH ANY TYPE, RETURNING PRIEST CLASS AS DEFAULT. PRINTED IN start.py")
-		return CardClass.PRIEST.default_hero
+		print("STR INPUT FOR CLASS DID NOT MATCH ANY TYPE, RETURNING PRIEST CLASS AS DEFAULT. PRINTED IN setup_players.py")
+		return CardClass.PRIEST
 

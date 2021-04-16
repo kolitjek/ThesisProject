@@ -30,20 +30,19 @@ class GameSession:
 		self.player1_agent = p1Agent
 		self.player2_agent = p2Agent
 		self.session_data = []
-		self. iteration_number = -1
+		self. iteration_number = 0
 		self.number_of_wins_pr_player = [0, 0] #first index = player1, second index = player 2
 
 
 	def start_session(self):
 		mcts_iteration_index = 0
-		if self.mcts_iterations is not None:
-			self.iterations = self.iterations - (self.iterations % len(self.mcts_iterations))
+		#self.iterations = self.iterations - (self.iterations % len(self.mcts_iterations))
 		for i in range(self.iterations):
 			print("\n\n\n\n\n\n\n\n")
 			print("New Game")
 			print("*********************************************************************************************")
 			print("Game number: " + str(i+1))
-			self.iteration_number = str(i+1)
+			self.iteration_number += 1
 			if i is not 0 and i % int((self.iterations / len(self.mcts_iterations))) is 0:
 				mcts_iteration_index += 1
 				print("Gets here")
@@ -62,10 +61,10 @@ class GameSession:
 
 					print(self.mcts_iterations)
 
+
 					self.set_mcts_agent_iterations(scenario.player1, self.mcts_iterations[mcts_iteration_index])
 					self.set_mcts_agent_iterations(scenario.player2, self.mcts_iterations[mcts_iteration_index])
 					print("here")
-					#print(scenario.player2.agent.iterations)
 
 				self.test_scenario(scenario)
 			else:
