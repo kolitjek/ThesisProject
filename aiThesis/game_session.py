@@ -65,7 +65,7 @@ class GameSession:
 					self.set_mcts_agent_iterations(scenario.player1, self.mcts_iterations[mcts_iteration_index])
 					self.set_mcts_agent_iterations(scenario.player2, self.mcts_iterations[mcts_iteration_index])
 					print("here")
-					print(scenario.player2.agent.iterations)
+					#print(scenario.player2.agent.iterations)
 
 				self.test_scenario(scenario)
 			else:

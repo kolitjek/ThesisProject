@@ -21,7 +21,10 @@ class RandomAgent(Agent):
 					target = None
 					played_cards += 1
 					if c.must_choose_one:
-						c = random.choice(c.choose_cards)
+						if (c.choose_cards[0].is_playable):
+							c = c.choose_cards[0]
+						else:
+							c = c.choose_cards[1]
 					if c.requires_target():
 						if type(c) is card.Spell:
 							target = random.choice(c.enemy_targets if c.enemy_targets != [] else c.targets)#target = c._enemy_targets if c.predefined_enemy_target != [] else c.predefined_target

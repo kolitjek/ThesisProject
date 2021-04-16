@@ -74,7 +74,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 		elif action.zone is enums.Zone.HAND:  # does this covers enough...?
 			if action.is_playable():
 				if action.must_choose_one:
-					action = random.choice(action.choose_cards)
+					action = action.choose_cards[0]
 				if action.requires_target():
 					spell_target = player.card_details[action.id]["target"]
 

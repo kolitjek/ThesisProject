@@ -6,6 +6,33 @@
 	"link": "https://www.hearthstonetopdecks.com/best-hearthstone-classic-decks-for-every-class/#warrior",
 
 	"card_details": {
-
+		"PART_001": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_005": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"PART_004": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_002": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_003": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_006": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_007": {
+			"type": "spell",
+			"target": "player"
+		}
 	}
 }

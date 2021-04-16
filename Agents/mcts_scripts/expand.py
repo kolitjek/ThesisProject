@@ -84,7 +84,7 @@ def permute_action_space(_node):
 	# partial_actions_hand = evaluate_hand_to_board_sequence(partial_actions_hand, player.mana)  # This returns a squence that the player can afford
 	#middle_index = len(list_of_sequential_actions_hand_permuted) // 2
 	list_of_sequential_actions_hand_permuted.append(())
-	list_of_sequential_actions_hand_permuted.sort(key=len, reverse=True)
+	#list_of_sequential_actions_hand_permuted.sort(key=len, reverse=True)
 	return list(set(list_of_sequential_actions_hand_permuted))
 	list_of_sequential_actions_board = set(itertools.permutations(list_of_sequential_actions_board))  # Permuting every action
 	# partial_actions_board = list({x for x in partial_actions_board if partial_actions_board.count(x) >= 1})  # Remove repeating actions sequences
@@ -203,7 +203,11 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 		elif action.zone is enums.Zone.HAND:  # does this covers enough...?
 			if action.is_playable():
 				if action.must_choose_one:
-					action = random.choice(action.choose_cards)
+					if action.choose_cards[0].is_playable:
+						action = action.choose_cards[0]
+					else:
+						action = action.choose_cards[1]
+
 				if action.requires_target():
 					if type(action) is card.Spell:
 						target = return_target(action,player)

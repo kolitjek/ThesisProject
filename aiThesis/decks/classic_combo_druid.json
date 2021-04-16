@@ -1,0 +1,86 @@
+{
+	"deck": ["CS2_231", "CS2_231", "EX1_160", "EX1_160", "EX1_154", "EX1_154","CS2_011","CS2_011","EX1_166","EX1_166",
+	"EX1_165","CS2_012","CS2_012","EX1_165", "EX1_571", "EX1_571","NEW1_008", "NEW1_008", "EX1_008","EX1_008","EX1_012",
+		"EX1_096", "EX1_096", "EX1_556","EX1_556", "EX1_005","NEW1_026","NEW1_026","EX1_284","EX1_284"],
+	"link": "https://www.hearthpwn.com/decks/1381996-classic-murloc",
+
+	"card_details": {
+		"EX1_160": {
+			"type": "spell",
+			"choose": 0
+		},
+		"EX1_154": {
+			"type": "spell",
+			"choose": 0,
+			"target": "opponent"
+		},
+		"EX1_166": {
+			"type": "minion",
+			"choose": 0,
+			"target": "opponent"
+		},
+		"CS2_012": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"GVG_080": {
+			"type": "minion",
+			"target": "opponent"
+		},
+		"NEW1_008": {
+			"choose": 0
+		},
+		"EX1_005": {
+			"type": "minion",
+			"target": "opponent"
+		},
+		"EX1_166b": {
+			"type": "spell",
+			"target": "opponent"
+		},
+
+
+		"EX1_154a": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"EX1_154b": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"EX1_166a": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"PART_001": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_005": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"PART_004": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_002": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_003": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_006": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_007": {
+			"type": "spell",
+			"target": "player"
+		}
+
+
+	}
+}

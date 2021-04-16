@@ -53,7 +53,7 @@ def retrive_hero_deck(here_type):
 	deck_details_path = ""
 
 	if here_type == DRUID:
-		hero_type_path = "gvg_fast_druid"
+		hero_type_path = "classic_combo_druid"
 	elif here_type == HUNTER_FACE:
 		hero_type_path = "gvg_face_hunter"
 	elif here_type == HUNTER_MID:
@@ -78,7 +78,7 @@ def retrive_hero_deck(here_type):
 
 def get_class_from_string(strClass):
 	if strClass == DRUID:
-		return CardClass.DRUID.default_hero
+		return CardClass.DRUID
 	elif strClass == HUNTER_FACE or strClass == HUNTER_MID:
 		return CardClass.HUNTER
 	elif strClass == MAGE:
