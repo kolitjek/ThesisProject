@@ -12,11 +12,14 @@ HUNTER_MID = "HUNTER_MID"
 MAGE = "MAGE"
 DRUID = "DRUID"
 ROGUE = "ROGUE"
+PRIEST = "PRIEST"
+WARRIOR = "WARRIOR"
+
 
 def setup_player(name, deck, hero, agent):
-	player = Player(name, deck, hero)
+	player = Player(name, deck[0], hero)
 	player.agent = get_agent_from_string(agent, player)
-
+	player.card_details = deck[1]
 
 	return player
 
@@ -46,25 +49,32 @@ def create_deck(strClass):
 	return deck
 
 def retrive_hero_deck(here_type):
-	hero_type_path = ""
+
+	deck_details_path = ""
 
 	if here_type == DRUID:
 		hero_type_path = "gvg_fast_druid"
 	elif here_type == HUNTER_FACE:
 		hero_type_path = "gvg_face_hunter"
 	elif here_type == HUNTER_MID:
-		hero_type_path = "gvg_midrange_hunter"
-	elif here_type == "MAGE":
+		hero_type_path = "classic_midrange_hunter"
+	elif here_type == MAGE:
 		hero_type_path = "gvg_mech_mage"
 	elif here_type == ROGUE:
 		hero_type_path = "gvg_oil_rogue"
+	elif here_type == PRIEST:
+		hero_type_path = "classic_control_priest"
+	elif here_type == WARRIOR:
+		hero_type_path = "classic_aggro_warrior"
 	else:
 		hero_type_path = "gvg_mech_mage"
 
-	pathstring = BASE_PATH + "\\decks\\" + hero_type_path + ".json"
-	with open(pathstring) as f:
+	path_string = BASE_PATH + "\\decks\\" + hero_type_path + ".json"
+
+	with open(path_string) as f:
 		data = json.load(f)
-	return data["deck"]
+
+	return [data["deck"], data["card_details"]]
 
 def get_class_from_string(strClass):
 	if strClass == DRUID:
@@ -88,3 +98,4 @@ def get_class_from_string(strClass):
 	else:
 		print("STR INPUT FOR CLASS DID NOT MATCH ANY TYPE, RETURNING PRIEST CLASS AS DEFAULT. PRINTED IN setup_players.py")
 		return CardClass.PRIEST
+

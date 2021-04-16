@@ -1,6 +1,52 @@
 {
-	"deck": ["GVG_082", "GVG_082", "GVG_013", "GVG_085", "GVG_085", "CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006",
-			"GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029",
-			"CS2_029", "GVG_004", "GVG_004", "GVG_078", "GVG_096", "GVG_096", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-	"link": "https://tempostorm.com/hearthstone/decks/mech-mage-magicamy-meta-snapshot"
+	"deck": ["CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
+	"link": "https://tempostorm.com/hearthstone/decks/mech-mage-magicamy-meta-snapshot",
+
+	"card_details" : {
+		"GVG_082": {
+			"type": "minion",
+			"hasAbility": "True"
+		},
+		"CS2_029": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"CS2_024": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"PART_001": {
+			"type": "spell",
+			"target": "player"
+		},
+		"CS2_022": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"PART_005": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"PART_004": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_002": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_003": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_006": {
+			"type": "spell",
+			"target": "player"
+		},
+		"PART_007": {
+			"type": "spell",
+			"target": "player"
+		}
+
+	}
 }

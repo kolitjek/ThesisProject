@@ -11,7 +11,7 @@ import Agents
 import random
 from .game_data import GameData
 from aiThesis import printController
-
+import Agents
 class GameSession:
 	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type, p1Agent, p2Agent ,mctsIterations):
 		self.scenario = scenario_name
@@ -30,20 +30,23 @@ class GameSession:
 		self.player1_agent = p1Agent
 		self.player2_agent = p2Agent
 		self.session_data = []
-		self. iteration_number = -1
+		self. iteration_number = 0
 		self.number_of_wins_pr_player = [0, 0] #first index = player1, second index = player 2
 
 
 	def start_session(self):
 		mcts_iteration_index = 0
-		if self.mcts_iterations is not None:
-			self.iterations = self.iterations - (self.iterations % len(self.mcts_iterations))
+		#self.iterations = self.iterations - (self.iterations % len(self.mcts_iterations))
 		for i in range(self.iterations):
 			print("\n\n\n\n\n\n\n\n")
 			print("New Game")
 			print("*********************************************************************************************")
 			print("Game number: " + str(i+1))
-			self.iteration_number = str(i+1)
+			self.iteration_number += 1
+			if i is not 0 and i % int((self.iterations / len(self.mcts_iterations))) is 0:
+				mcts_iteration_index += 1
+				print("Gets here")
+				print(mcts_iteration_index)
 			if self.scenario != None:
 				scenario = Scenario(self.scenario)
 				if self.mcts_iterations != None:
@@ -54,18 +57,14 @@ class GameSession:
 					print((self.iterations / len(self.mcts_iterations)))
 					print(i % (self.iterations / len(self.mcts_iterations)))
 
-					if i is not 0 and i % int((self.iterations / len(self.mcts_iterations))) is 0:
-						mcts_iteration_index += 1
-						print("Gets here")
-						print(mcts_iteration_index)
 					print("mcts iterations: " + str(self.mcts_iterations[mcts_iteration_index]))
 
 					print(self.mcts_iterations)
 
+
 					self.set_mcts_agent_iterations(scenario.player1, self.mcts_iterations[mcts_iteration_index])
 					self.set_mcts_agent_iterations(scenario.player2, self.mcts_iterations[mcts_iteration_index])
 					print("here")
-					print(scenario.player2.agent.iterations)
 
 				self.test_scenario(scenario)
 			else:
@@ -91,6 +90,8 @@ class GameSession:
 	def test_full_game(self, player1, player2):
 		try:
 			printController.enable_print()
+
+
 			self.play_full_game(player1, player2)
 		except GameOver:
 			print("Game completed normally.")

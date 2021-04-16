@@ -46,6 +46,7 @@ class MCTSAgent(Agent):
 		#t1 = time.time()
 		#print("first timer: " + str(t1-t0))
 		t2 = time.time()
+
 		print("helloomahfriend: " + str(self.iterations))
 		for i in range(self.iterations):
 			#print("ITERATIONS: " +str(i))

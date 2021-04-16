@@ -1,0 +1,15 @@
+{
+	"deck": ["EX1_246","EX1_246","EX1_241","EX1_241"],
+	"link": "https://www.hearthpwn.com/decks/1381996-classic-murloc",
+
+	"card_details": {
+		"EX1_246": {
+			"type": "spell",
+			"target": "opponent"
+		},
+		"EX1_241": {
+			"type": "spell",
+			"target": "opponent"
+		}
+	}
+}

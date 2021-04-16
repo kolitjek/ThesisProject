@@ -76,13 +76,29 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 				if action.must_choose_one:
 					action = random.choice(action.choose_cards)
 				if action.requires_target():
+					spell_target = player.card_details[action.id]["target"]
+
+					if (spell_target == "opponent"):
+						target = card_filters.get_left_most_enemy_target(action.enemy_targets,
+																		 action.controller) if card_filters.get_left_most_enemy_target(
+							action.enemy_targets, action.controller) != [] else random.choice(
+							action.targets)  # random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
+					else:
+						target = card_filters.get_left_most_friendly_target(action.targets,
+																			action.controller) if card_filters.get_left_most_friendly_target(
+							action.enemy_targets, action.controller) != [] else random.choice(action.targets)
+					'''
 					if type(action) is card.Spell:
 						target = card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) if card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) != [] else random.choice(action.targets) #random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
 						#changed this from action.targets
 					else:
 						target = random.choice(action.targets)
+					'''
 				#print("Playing %r on %r" % (action, targ	et))
-				action.play(target=target)
+				try:
+					action.play(target=target)
+				except NameError:
+					print(NameError)
 			#else: I think this causes the "can't end with open action..."
 				if player.choice:
 					choice = random.choice(player.choice.cards)

@@ -4,7 +4,7 @@ from fireplace.utils import *
 from fireplace.actions import Hit
 from fireplace.actions import Shuffle
 from fireplace.deck import Deck
-
+from .setup_players import retrive_hero_deck
 
 from hearthstone.enums import Zone
 
@@ -19,7 +19,10 @@ class Scenario:
 		with open(parthstring) as f:
 			data = json.load(f)
 
-		players = create_players(data['player1Name'], data['player2Name'], data['player1Hero'], data['player2Hero'], data['player1Deck'], data['player2Deck'], data['player1Agent'], data['player2Agent'])
+		card_details_p1 = retrive_hero_deck(data['player1Hero'])[1]
+		card_details_p2 = retrive_hero_deck(data['player2Hero'])[1]
+
+		players = create_players(data['player1Name'], data['player2Name'], data['player1Hero'], data['player2Hero'], [data['player1Deck'], card_details_p1], [data['player2Deck'],card_details_p2], data['player1Agent'], data['player2Agent'])
 
 		self.player1 = players[0]
 		self.player2 = players[1]
