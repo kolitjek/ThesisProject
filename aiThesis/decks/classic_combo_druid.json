@@ -1,22 +1,25 @@
 {
 	"deck": ["CS2_231", "CS2_231", "EX1_160", "EX1_160", "EX1_154", "EX1_154","CS2_011","CS2_011","EX1_166","EX1_166",
-	"EX1_165","CS2_012","CS2_012","EX1_165", "EX1_571", "EX1_571","NEW1_008", "NEW1_008", "EX1_008","EX1_008","EX1_012",
+	"CS2_012","CS2_012","EX1_165","EX1_165", "EX1_571", "EX1_571","NEW1_008", "NEW1_008", "EX1_008","EX1_008","EX1_012",
 		"EX1_096", "EX1_096", "EX1_556","EX1_556", "EX1_005","NEW1_026","NEW1_026","EX1_284","EX1_284"],
-	"link": "https://www.hearthpwn.com/decks/1381996-classic-murloc",
+	"link": "https://www.hearthstonetopdecks.com/decks/ek0ps-token-druid-hearthstone-classic/",
 
 	"card_details": {
 		"EX1_160": {
 			"type": "spell",
-			"choose": 0
+			"choose_0": "EX1_160b",
+			"choose_1": "EX1_160a"
 		},
 		"EX1_154": {
 			"type": "spell",
-			"choose": 0,
+			"choose_0": "EX1_154a",
+			"choose_1": "EX1_154b",
 			"target": "opponent"
 		},
 		"EX1_166": {
 			"type": "minion",
-			"choose": 0,
+			"choose_0": "EX1_166a",
+			"choose_1": "EX1_166b",
 			"target": "opponent"
 		},
 		"CS2_012": {
@@ -28,7 +31,8 @@
 			"target": "opponent"
 		},
 		"NEW1_008": {
-			"choose": 0
+			"choose_0": "NEW1_008a",
+			"choose_1": "NEW1_008b"
 		},
 		"EX1_005": {
 			"type": "minion",
@@ -37,6 +41,11 @@
 		"EX1_166b": {
 			"type": "spell",
 			"target": "opponent"
+		},
+		"EX1_165": {
+			"type": "minion",
+			"choose_0": "EX1_165a",
+			"choose_1": "EX1_165b"
 		},
 
 

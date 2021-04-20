@@ -3,19 +3,23 @@
 				"beginScenarioAtTurn": 1,
 
 				"player1Name": "Player1",
-				"player1Hero": "MAGE",
+				"player1Hero": "DRUID",
 				"player1Health": 30,
 
-				"player1Deck": ["CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player1Hand": ["GVG_110","GVG_110", "GVG_110", "GVG_110", "GVG_110"],
+				"player1Deck": ["EX1_154","CS2_011","CS2_011","EX1_166","EX1_166",
+								"EX1_165","CS2_012","CS2_012","EX1_165", "EX1_571", "EX1_571","NEW1_008", "NEW1_008", "EX1_008","EX1_008","EX1_012",
+								"EX1_096", "EX1_096", "EX1_556","EX1_556", "EX1_005","NEW1_026","NEW1_026","EX1_284","EX1_284"],
+				"player1Hand": ["CS2_231", "CS2_231", "EX1_160", "EX1_160","EX1_154","GAME_005"],
 				"player1Field":[],
 				"player1Agent": "RANDOMAGENT",
 
 				"player2Name": "Player2",
-				"player2Hero": "MAGE",
+				"player2Hero": "DRUID",
 				"player2Health": 30,
-				"player2Deck": ["CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player2Hand": ["GVG_110","GVG_110", "GVG_110", "GVG_110"],
+				"player2Deck": ["EX1_154", "EX1_154","CS2_011","CS2_011","EX1_166","EX1_166",
+								"EX1_165","CS2_012","CS2_012","EX1_165", "EX1_571", "EX1_571","NEW1_008", "NEW1_008", "EX1_008","EX1_008","EX1_012",
+								"EX1_096", "EX1_096", "EX1_556","EX1_556", "EX1_005","NEW1_026","NEW1_026","EX1_284","EX1_284"],
+				"player2Hand": ["CS2_231", "CS2_231", "EX1_160", "EX1_160"],
 				"player2Field":[],
-				"player2Agent": "RANDOMAGENT"
+				"player2Agent": "BASEMCTS"
 			}
