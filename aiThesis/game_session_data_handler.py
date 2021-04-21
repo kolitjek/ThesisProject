@@ -5,6 +5,8 @@ import itertools
 import operator
 import numpy as np
 
+deck_ran = "this should be the name of the deck kappa"
+
 def health_distribution_graph(session_data):
 	player1_health =[]
 	player2_health =[]
@@ -16,7 +18,7 @@ def health_distribution_graph(session_data):
 	print(player2_health)
 
 
-	create_graph([player1_health, player2_health], ["Player 1", "Player 2"], ["Health", "Frequency"])
+	create_graph([player1_health, player2_health], ["Player 1", "Player 2"], ["Health", "Frequency"],  deck_ran + "_health_distribution" + ".PNG")
 
 def line_graph(session_data, mcts_iterations):
 	number_of_different_iterations = len(mcts_iterations)
@@ -35,7 +37,7 @@ def line_graph(session_data, mcts_iterations):
 				point += 1
 		y.append(point*100 / len(iterations))
 
-	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"])
+	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"], deck_ran + "_win_rate" + ".PNG")
 
 def avg_max_turn_box_plot(session_data, mcts_iterations):
 	number_of_different_iterations = len(mcts_iterations)
@@ -52,7 +54,7 @@ def avg_max_turn_box_plot(session_data, mcts_iterations):
 	print("avg_max_turn X: " +str(x))
 	print("avg_max_turn Y: " + str(y))
 
-	create_box_plot(x, y, ["Iterations", "Max_turn"])
+	create_box_plot(x, y, ["Iterations", "Max_turn"],  deck_ran + "_avg_max_turn" + ".PNG")
 
 
 def avg_max_turn_number(session_data, mcts_iterations):
@@ -91,7 +93,7 @@ def avg_mcts_action_space_pr_turn(session_data, mcts_iterations): #session_data_
 		print("Action space split list: " + str(lists))
 		print("Action space result: " + str (result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
-	create_line_graph(x, result, ["Turn", "Action space"], label=["Iterations: " + str(x) for x in mcts_iterations])
+	create_line_graph(x, result, ["Turn", "Action space"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_action_space" + ".PNG" )
 
 
 def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
@@ -110,7 +112,7 @@ def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations): 
 		result.append( [sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
 		print("avg_times_visited_children result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
-	create_line_graph(x, result, ["Turn", "avg_times_visited_children"], label=["Iterations: " + str(x) for x in mcts_iterations])
+	create_line_graph(x, result, ["Turn", "avg_times_visited_children"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_avg_times_visited_children" + ".PNG")
 
 
 def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
@@ -130,7 +132,7 @@ def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations): #sessio
 		result.append([sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
 		print("unexplored_children result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
-	create_line_graph(x, result, ["Turn", "unexplored_children"], label=["Iterations: " + str(x) for x in mcts_iterations])
+	create_line_graph(x, result, ["Turn", "unexplored_children"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_unexplored_children" + ".PNG")
 
 
 def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
@@ -151,4 +153,4 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations): #session_data_l
 		print("tree_depths result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
 
-	create_line_graph(x, result, ["Turn", "tree_depths"], label=["Iterations: " + str(x) for x in mcts_iterations])
+	create_line_graph(x, result, ["Turn", "tree_depths"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_tree_depths" + ".PNG")

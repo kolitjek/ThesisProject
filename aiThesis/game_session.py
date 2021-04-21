@@ -195,7 +195,7 @@ class GameSession:
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 
 			player.choice.choose(*cards_to_mulligan)
-
+		disable_print()
 		while True:
 			self.play_turn(self.game)
 

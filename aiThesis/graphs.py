@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def create_graph(data, legend, axis):
+def create_graph(data, legend, axis, path):
 
 	for _data in data:
 		sns.kdeplot(_data, shade=True)
@@ -14,20 +14,22 @@ def create_graph(data, legend, axis):
 	plt.ylabel(axis[1], fontsize=16)
 	plt.legend(legend, prop={'size': 16}, loc='upper right')
 
+	plt.savefig(path)
 	plt.show()
 
 
-def create_line_graph(x, y, axis, label):
+def create_line_graph(x, y, axis, label, path):
 	for i in range(0, len(x)):
 		plt.plot(x[i], y[i], label= label[i])
 	plt.xlabel(axis[0], fontsize=18)
 	plt.ylabel(axis[1], fontsize=16)
 
 	plt.legend()
+	plt.savefig(path)
 	plt.show()
 
 
-def create_box_plot(labels, data, axis):
+def create_box_plot(labels, data, axis, path):
 	# Random test data
 	labels_one_list = [item[0] for item in labels]
 	fig, ax = plt.subplots()
@@ -36,6 +38,7 @@ def create_box_plot(labels, data, axis):
 	plt.xlabel(axis[0], fontsize=18)
 	plt.ylabel(axis[1], fontsize=16)
 
+	plt.savefig(path)
 	plt.show()
 	data_0 = ("itr 0", [0,1,2,3,4])
 	data_1 = ("itr 1", [5,6,7,8,9])
