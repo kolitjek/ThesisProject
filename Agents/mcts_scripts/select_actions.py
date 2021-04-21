@@ -30,15 +30,15 @@ def select_best_node(root_node):
 def print_tree(root_node, best_node):
 	root_node.print_local_relations()
 
-	if(best_node != None):
-		print("Chosen node: " + str(best_node.id))
+	#if(best_node != None):
+		#print("Chosen node: " + str(best_node.id))
 
 
 def transfer_action_sequence(_action_sequence, _player):  # This insures that the actions are not applied on the base node
 	adapted_action_sequence = []
 	player_actions = _player.hand + [_player.hero.power] + _player.characters # list(_player.actionable_entities)
-	print("ACTIONS")
-	print(_action_sequence)
+	#print("ACTIONS")
+	#print(_action_sequence)
 	for action in _action_sequence:
 		for i in range(0, len(player_actions)):
 			if action.id == player_actions[i]:
@@ -55,15 +55,15 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 	printController.disable_print()
 
 
-	print("Actions to perfrom")
-	print(_action_sequence)
+	#print("Actions to perfrom")
+	#print(_action_sequence)
 
 	for action in _action_sequence:
 		target = None
 
 		if type(action) is card.HeroPower:
-			print("ACtion useable")
-			print(action.is_usable())
+			#print("ACtion useable")
+			#print(action.is_usable())
 			if action.is_usable():
 				if action.requires_target():
 					action.use(target=card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) )#random.choice(player.opponent.characters)) #changed this from action.targets

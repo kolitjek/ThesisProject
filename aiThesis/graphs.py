@@ -1,6 +1,7 @@
 import seaborn as sns
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def create_graph(data, legend, axis):
@@ -15,11 +16,24 @@ def create_graph(data, legend, axis):
 
 	plt.show()
 
-def create_line_graph(x,y, axis):
 
-	sns.lineplot(x, y)
+def create_line_graph(x, y, axis, label):
+	for i in range(0, len(x)):
+		plt.plot(x[i], y[i], label= label[i])
 	plt.xlabel(axis[0], fontsize=18)
 	plt.ylabel(axis[1], fontsize=16)
-	plt.ylim(0, 100)
+
+	plt.legend()
+	plt.show()
+
+
+def create_box_plot(labels, data, axis):
+	# Random test data
+	labels_one_list = [item[0] for item in labels]
+	fig, ax = plt.subplots()
+	ax.boxplot(data)
+	ax.set_xticklabels(labels_one_list)
+	plt.xlabel(axis[0], fontsize=18)
+	plt.ylabel(axis[1], fontsize=16)
 
 	plt.show()

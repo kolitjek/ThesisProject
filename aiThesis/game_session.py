@@ -7,6 +7,7 @@ from .scenario import Scenario
 from .game_session_data_handler import *
 from .printController import *
 from Agents import randomAgent
+import time
 import Agents
 import random
 from .game_data import GameData
@@ -32,12 +33,14 @@ class GameSession:
 		self.session_data = []
 		self. iteration_number = 0
 		self.number_of_wins_pr_player = [0, 0] #first index = player1, second index = player 2
+		self.gameTimes = []
 
 
 	def start_session(self):
 		mcts_iteration_index = 0
 		#self.iterations = self.iterations - (self.iterations % len(self.mcts_iterations))
 		for i in range(self.iterations):
+			tStart = time.time()
 			print("\n\n\n\n\n\n\n\n")
 			print("New Game")
 			print("*********************************************************************************************")
@@ -73,12 +76,28 @@ class GameSession:
 				self.set_mcts_agent_iterations(players[1], self.mcts_iterations[mcts_iteration_index])
 
 				self.test_full_game(players[0], players[1])
+			print("The game took: " + str(time.time()-tStart))
+			self.gameTimes.append(time.time()-tStart)
+
 
 		self.print_game_session_data()
 		health_distribution_graph(self.session_data)
 		if(self.mcts_iterations is not None):
 			line_graph(self.session_data, self.mcts_iterations)
+		print(self.gameTimes)
+		split = np.array_split(self.gameTimes, (len(self.mcts_iterations)))
+		for gametimes in split:
+			avg = 0
+			for gametime in gametimes:
+				avg += gametime
+			print("GameTime : " + str(avg / (self.iterations / len(self.mcts_iterations))))
+		avg_max_turn_box_plot(self.session_data, self.mcts_iterations)
+		avg_max_turn_number(self.session_data, self.mcts_iterations)
 
+		avg_mcts_action_space_pr_turn(self.session_data, self.mcts_iterations)
+		avg_mcts_avg_times_visited_children_pr_turn(self.session_data, self.mcts_iterations)
+		avg_mcts_unexplored_children_pr_turn(self.session_data, self.mcts_iterations)
+		avg_mcts_tree_depths_pr_turn(self.session_data, self.mcts_iterations)
 	def set_mcts_agent_iterations(self, player, iterations):
 		print(type(player.agent))
 		if Agents.randomAgent.RandomAgent is not type(player.agent):
@@ -89,7 +108,7 @@ class GameSession:
 
 	def test_full_game(self, player1, player2):
 		try:
-			printController.enable_print()
+			printController.disable_print()
 
 
 			self.play_full_game(player1, player2)
@@ -120,7 +139,7 @@ class GameSession:
 	def play_turn(self, game):
 		currPlayer = game.current_player
 
-		print("******PLAYER INFO********")
+		'''print("******PLAYER INFO********")
 		print(str(currPlayer.name))
 		print("Hero: " + str(currPlayer.hero))
 		print("Turn: " + str(game.turn))
@@ -128,10 +147,10 @@ class GameSession:
 		print("Mana: " + str(currPlayer.mana))
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(currPlayer.hand))
-		print("Field size :" + str(currPlayer.field))
+		print("Field size :" + str(currPlayer.field))'''
 		disable_print()
 		currPlayer.agent.play_turn()
-		print("******PLAYER INfFO******** After")
+		'''print("******PLAYER INfFO******** After")
 		print(str(currPlayer.name))
 		print("Hero: " + str(currPlayer.hero))
 		print("Turn: " + str(game.turn))
@@ -139,7 +158,7 @@ class GameSession:
 		print("Mana: " + str(currPlayer.mana))
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(currPlayer.hand))
-		print("Field size :" + str(currPlayer.field))
+		print("Field size :" + str(currPlayer.field))'''
 
 		if self.record_session:
 			self.session_data[-1].append_turn_data(game.turn, currPlayer.name, game.players[0].hero.health, game.players[1].hero.health, len(game.players[0].field), len(game.players[1].field), len(game.players[0].hand), len(game.players[1].hand), len(game.players[0].deck), len(game.players[1].deck))
@@ -191,6 +210,9 @@ class GameSession:
 											   len(game.players[1].field), len(game.players[0].hand),
 											   len(game.players[1].hand), len(game.players[0].deck),
 											   len(game.players[1].deck))
+
+		self.session_data[-1].append_mcts_data(game.players[1].agent)
+
 		if game.players[0].hero.health > 0:
 			self.number_of_wins_pr_player[0] += 1
 			self.session_data[-1].winning_player = "player1"

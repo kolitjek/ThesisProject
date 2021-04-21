@@ -27,7 +27,8 @@ class GameStateNode:
 		self.number_of_wins = 0
 
 	def print_local_relations(self):
-		print("------- Node relations -------")
+		pass
+		'''print("------- Node relations -------")
 		action_space_length = str(len(self.action_space)) if self.action_space is not None else "?"
 
 		print("Node id: " + str(self.id) + ", depth level: " + str(self.depth_level) + ', p(s): ' + str(self.game_state.current_player) + ", action space: " + action_space_length + ", explored nodes: "
@@ -45,7 +46,7 @@ class GameStateNode:
 			print("child id: " + str(node.id) + ", depth level: " + str(node.depth_level) + ', p(s): ' + str(node.game_state.current_player) +", performed actions: "+ str(node.performed_action_space) + ", action space: " +
 				action_space_length + ", explored nodes: " + str(len(node.explored_nodes)) + ", W/V: " + str(node.number_of_wins) + "/" + str(node.number_of_visits))
 
-		print("-------------------------------")
+		print("-------------------------------")'''
 
 	def update_node(self, did_win):
 		self.number_of_visits += 1

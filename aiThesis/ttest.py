@@ -8,6 +8,7 @@ import seaborn as sns
 import random
 from math import sqrt
 import statistics
+
 import matplotlib.pyplot as plt
 from os import listdir
 from scipy import stats
@@ -19,6 +20,9 @@ from scipy.stats import t
 from scipy.stats import sem
 from scipy.stats import levene
 
+
+def calc_standard_deviation(sample):
+	print("Standard Deviation: " + str(stats.tstd(sample)))
 
 # function for calculating the t-test for two independent samples
 def independent_ttest(data1, data2, alpha):

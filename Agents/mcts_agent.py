@@ -22,7 +22,10 @@ class MCTSAgent(Agent):
 		self.gameTree = []
 		self.rootNode = None
 		self.iterations = 10
-		self.branch_nodes = []
+		self.action_spaces = []
+		self.avg_times_visited_children = []
+		self.unexplored_children = []
+		self.tree_depths = []
 
 	def play_turn(self):
 		GameStateNode.nodeCount = 0
@@ -47,19 +50,28 @@ class MCTSAgent(Agent):
 		#print("first timer: " + str(t1-t0))
 		t2 = time.time()
 
-		print("helloomahfriend: " + str(self.iterations))
 		for i in range(self.iterations):
 			#print("ITERATIONS: " +str(i))
 			select_node(rootNode)
 			if len(rootNode.explored_nodes) is 0 and len(rootNode.action_space) is 0:
 				break
 
+		self.action_spaces.append(len(rootNode.explored_nodes) + len(rootNode.action_space))
+		if len(rootNode.action_space) > 0:
+			self.avg_times_visited_children.append((len(rootNode.explored_nodes) / (len(rootNode.explored_nodes) + len(rootNode.action_space))))
+		else:
+			visits = 0
+			for child in rootNode.explored_nodes:
+				visits += child.number_of_visits
+			self.avg_times_visited_children.append(visits / len(rootNode.explored_nodes))
+		self.unexplored_children.append(len(rootNode.action_space))
+		self.tree_depths.append(rootNode.max_level_depth)
 		if len(rootNode.explored_nodes) is not 0:
 			select_and_perform_actions(rootNode, self.player)
 		else:
 			print("No actions available, skipping turn...")
 		t3 = time.time()
-		print("second timer: " + str(t3-t2))
+		'''print("second timer: " + str(t3-t2))
 		#select_and_perform_actions(rootNode, self.player)
 
 		#rootNode.explored_nodes[0].print_local_relations()
@@ -73,7 +85,7 @@ class MCTSAgent(Agent):
 
 		print(self.player.hand)
 
-		print("Performed optimal action")
+		print("Performed optimal action")'''
 		pass
 	'''
 		print("___________________________________")
