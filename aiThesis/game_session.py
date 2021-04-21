@@ -88,11 +88,13 @@ class GameSession:
 			line_graph(self.session_data, self.mcts_iterations,heroes)
 		print(self.gameTimes)
 		split = np.array_split(self.gameTimes, (len(self.mcts_iterations)))
+		avg_computation_time(split, self.mcts_iterations, heroes)
 		for gametimes in split:
 			avg = 0
 			for gametime in gametimes:
 				avg += gametime
 			print("GameTime : " + str(avg / (self.iterations / len(self.mcts_iterations))))
+
 		avg_max_turn_box_plot(self.session_data, self.mcts_iterations,heroes)
 		avg_max_turn_number(self.session_data, self.mcts_iterations)
 
