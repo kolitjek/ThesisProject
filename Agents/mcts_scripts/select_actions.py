@@ -52,7 +52,7 @@ def transfer_action_sequence(_action_sequence, _player):  # This insures that th
 def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is based on randm targets
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	printController.disable_print()
+	printController.enable_print()
 
 
 	#print("Actions to perfrom")
@@ -60,7 +60,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 
 	for action in _action_sequence:
 		target = None
-
+		base_card_action = None
 		if type(action) is card.HeroPower:
 			#print("ACtion useable")
 			#print(action.is_usable())
@@ -74,7 +74,16 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 		elif action.zone is enums.Zone.HAND:  # does this covers enough...?
 			if action.is_playable():
 				if action.must_choose_one:
-					action = action.choose_cards[0]
+					chosen_spell = player.card_details[action.id]["choose_0"]
+					alternative_spell = player.card_details[action.id]["choose_1"]
+
+					if action.choose_cards.filter(id=chosen_spell)[0].is_playable():
+						base_card_action = action
+						action = action.choose_cards.filter(id=chosen_spell)[0]
+					elif action.choose_cards.filter(id=alternative_spell)[0].is_playable():
+						base_card_action = action
+						action = action.choose_cards.filter(id=alternative_spell)[0]
+
 				if action.requires_target():
 					spell_target = player.card_details[action.id]["target"]
 
@@ -96,7 +105,11 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 					'''
 				#print("Playing %r on %r" % (action, targ	et))
 				try:
-					action.play(target=target)
+					if action.is_playable():
+						if base_card_action is None:
+							action.play(target=target)
+						else:
+							base_card_action.play(target=target, choose = action)
 				except NameError:
 					print(NameError)
 			#else: I think this causes the "can't end with open action..."

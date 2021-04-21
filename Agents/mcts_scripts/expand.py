@@ -193,6 +193,7 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
 	for action in _action_sequence:
 		target = None
+		base_card_action = None
 		if type(action) is card.HeroPower:
 			if action.is_usable():
 				if action.requires_target():
@@ -203,10 +204,15 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 		elif action.zone is enums.Zone.HAND:  # does this covers enough...?
 			if action.is_playable():
 				if action.must_choose_one:
-					if action.choose_cards[0].is_playable:
-						action = action.choose_cards[0]
-					else:
-						action = action.choose_cards[1]
+					chosen_spell = player.card_details[action.id]["choose_0"]
+					alternative_spell = player.card_details[action.id]["choose_1"]
+
+					if action.choose_cards.filter(id=chosen_spell)[0].is_playable():
+						base_card_action = action
+						action = action.choose_cards.filter(id=chosen_spell)[0]
+					elif action.choose_cards.filter(id=alternative_spell)[0].is_playable():
+						base_card_action = action
+						action = action.choose_cards.filter(id=alternative_spell)[0]
 
 				if action.requires_target():
 					if type(action) is card.Spell:
@@ -216,7 +222,11 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 						target = random.choice(action.targets)
 				# print("Playing %r on %r" % (action, targ	et))
 				try:
-					action.play(target=target)
+					if action.is_playable():
+						if base_card_action is None:
+							action.play(target=target)
+						else:
+							base_card_action.play(target=target, choose=action)
 				except NameError:
 					print(NameError)
 
