@@ -32,7 +32,6 @@ class MCTSAgent(Agent):
 		GameStateNode.max_level_depth = 0
 
 		rootNode = GameStateNode(copy.deepcopy(self.player.game))
-		#rootNode.print_local_relations()
 		#rootNode = expand_game_node(rootNode)
 
 		#while  GameStateNode.max_level_depth <= 3:
@@ -67,11 +66,11 @@ class MCTSAgent(Agent):
 		self.unexplored_children.append(len(rootNode.action_space))
 		self.tree_depths.append(rootNode.max_level_depth)
 		if len(rootNode.explored_nodes) is not 0:
-			select_and_perform_actions(rootNode, self.player)
+			select_and_perform_actions(rootNode, self.player) #fixme should be added to else aswell..
 		else:
 			print("No actions available, skipping turn...")
 		t3 = time.time()
-		'''print("second timer: " + str(t3-t2))
+		print("second timer: " + str(t3-t2))
 		#select_and_perform_actions(rootNode, self.player)
 
 		#rootNode.explored_nodes[0].print_local_relations()
@@ -85,7 +84,7 @@ class MCTSAgent(Agent):
 
 		print(self.player.hand)
 
-		print("Performed optimal action")'''
+		print("Performed optimal action")
 		pass
 	'''
 		print("___________________________________")

@@ -7,7 +7,10 @@ import numpy as np
 import datetime
 import os
 
-def health_distribution_graph(session_data, heroes):
+
+deck_ran = "this should be the name of the deck kappa"
+
+def health_distribution_graph(session_data,heroes):
 	player1_health =[]
 	player2_health =[]
 	for game_data in session_data:
@@ -23,7 +26,7 @@ def health_distribution_graph(session_data, heroes):
 	df1 = pd.DataFrame([player1_health, player2_health], index=player, columns=col)
 	save_DF(df1, folder_path, "health_distribution")
 
-	create_graph([player1_health, player2_health], ["Player 1", "Player 2"], ["Health", "Frequency"])
+	create_graph([player1_health, player2_health], ["Player 1", "Player 2"], ["Health", "Frequency"],  folder_path + "/_health_distribution" + ".PNG")
 
 def line_graph(session_data, mcts_iterations, heroes):
 	number_of_different_iterations = len(mcts_iterations)
@@ -48,7 +51,7 @@ def line_graph(session_data, mcts_iterations, heroes):
 	df1 = pd.DataFrame(y[1:], index=itr_no, columns=["win rate"])
 	save_DF(df1, folder_path, "win_percentage")
 
-	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"])
+	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"], folder_path + "/_win_rate" + ".PNG")
 
 def avg_max_turn_box_plot(session_data, mcts_iterations,heroes):
 	number_of_different_iterations = len(mcts_iterations)
@@ -74,8 +77,7 @@ def avg_max_turn_box_plot(session_data, mcts_iterations,heroes):
 
 	save_DF(df1,folder_path, "max_turns")
 
-
-	create_box_plot(x, y, ["Iterations", "Max_turn"])
+	create_box_plot(x, y, ["Iterations", "Max_turn"],  folder_path + "/_avg_max_turn" + ".PNG")
 
 
 def avg_max_turn_number(session_data, mcts_iterations):
@@ -122,7 +124,7 @@ def avg_mcts_action_space_pr_turn(session_data, mcts_iterations,heroes): #sessio
 	df1 = pd.DataFrame(result, index=itr_no, columns=col)
 	save_DF(df1, folder_path, "avg_as_per_turn")
 
-	create_line_graph(x, result, ["Turn", "Action space"], label=itr_no)
+	create_line_graph(x, result, ["Turn", "Action space"], itr_no, folder_path + "/_action_space" + ".PNG")
 
 
 def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
@@ -142,12 +144,13 @@ def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations, h
 		print("avg_times_visited_children result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
 
+
 	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
 	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
 	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 	df1 = pd.DataFrame(result, index=itr_no, columns=col)
 	save_DF(df1, folder_path, "avg_times_visited_children")
-	create_line_graph(x, result, ["Turn", "avg_times_visited_children"], label=itr_no)
+	create_line_graph(x, result, ["Turn", "avg_times_visited_children"], itr_no, folder_path + "/_avg_times_visited_children" + ".PNG")
 
 def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
 	number_of_different_iterations = len(mcts_iterations)
@@ -172,7 +175,7 @@ def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations, heroes):
 	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 	df1 = pd.DataFrame(result, index=itr_no, columns=col)
 	save_DF(df1, folder_path, "avg_unexplored_children")
-	create_line_graph(x, result, ["Turn", "unexplored_children"], label=itr_no)
+	create_line_graph(x, result, ["Turn", "unexplored_children"],itr_no, folder_path + "/_unexplored_children" + ".PNG")
 
 
 def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
@@ -199,7 +202,7 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #sessio
 	df1 = pd.DataFrame(result, index=itr_no, columns=col)
 	save_DF(df1, folder_path, "tree_depths")
 
-	create_line_graph(x, result, ["Turn", "tree_depths"], label=itr_no)
+	create_line_graph(x, result, ["Turn", "tree_depths"], itr_no, folder_path + "/_tree_depths" + ".PNG")
 
 
 
