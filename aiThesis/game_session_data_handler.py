@@ -64,7 +64,7 @@ def avg_max_turn_box_plot(session_data, mcts_iterations,heroes):
 	y = [np.array([0.0])]
 	for i in mcts_iterations[:]:
 		x.append([i])
-		itr_no.append('itr: ' + i)
+		itr_no.append('itr: ' + str(i))
 	for iterations in n_split:
 		y.append(iterations)
 	print("avg_max_turn X: " +str(x))
