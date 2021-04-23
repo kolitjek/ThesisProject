@@ -14,6 +14,7 @@ from .game_data import GameData
 from aiThesis import printController
 import Agents
 class GameSession:
+
 	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type, p1Agent, p2Agent ,mctsIterations):
 		self.scenario = scenario_name
 		self.iterations = iterations
@@ -81,23 +82,26 @@ class GameSession:
 
 
 		self.print_game_session_data()
-		health_distribution_graph(self.session_data)
+		heroes = {"p1":self.player1_class,"p2":self.player1_class}
+		health_distribution_graph(self.session_data, heroes)
 		if(self.mcts_iterations is not None):
-			line_graph(self.session_data, self.mcts_iterations)
+			line_graph(self.session_data, self.mcts_iterations,heroes)
 		print(self.gameTimes)
 		split = np.array_split(self.gameTimes, (len(self.mcts_iterations)))
+		avg_computation_time(split, self.mcts_iterations, heroes)
 		for gametimes in split:
 			avg = 0
 			for gametime in gametimes:
 				avg += gametime
 			print("GameTime : " + str(avg / (self.iterations / len(self.mcts_iterations))))
-		avg_max_turn_box_plot(self.session_data, self.mcts_iterations)
+
+		avg_max_turn_box_plot(self.session_data, self.mcts_iterations,heroes)
 		avg_max_turn_number(self.session_data, self.mcts_iterations)
 
-		avg_mcts_action_space_pr_turn(self.session_data, self.mcts_iterations)
-		avg_mcts_avg_times_visited_children_pr_turn(self.session_data, self.mcts_iterations)
-		avg_mcts_unexplored_children_pr_turn(self.session_data, self.mcts_iterations)
-		avg_mcts_tree_depths_pr_turn(self.session_data, self.mcts_iterations)
+		avg_mcts_action_space_pr_turn(self.session_data, self.mcts_iterations, heroes)
+		avg_mcts_avg_times_visited_children_pr_turn(self.session_data, self.mcts_iterations,heroes)
+		avg_mcts_unexplored_children_pr_turn(self.session_data, self.mcts_iterations,heroes)
+		avg_mcts_tree_depths_pr_turn(self.session_data, self.mcts_iterations,heroes)
 	def set_mcts_agent_iterations(self, player, iterations):
 		print(type(player.agent))
 		if Agents.randomAgent.RandomAgent is not type(player.agent):

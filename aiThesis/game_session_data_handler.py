@@ -4,10 +4,13 @@ from .graphs import *
 import itertools
 import operator
 import numpy as np
+import datetime
+import os
+
 
 deck_ran = "this should be the name of the deck kappa"
 
-def health_distribution_graph(session_data):
+def health_distribution_graph(session_data,heroes):
 	player1_health =[]
 	player2_health =[]
 	for game_data in session_data:
@@ -17,10 +20,15 @@ def health_distribution_graph(session_data):
 	print(player1_health)
 	print(player2_health)
 
+	player = ["player: " + str(x) for x in range(1,3)]
+	col = ["game: " + str(x) for x in range(0, len(player1_health))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame([player1_health, player2_health], index=player, columns=col)
+	save_DF(df1, folder_path, "health_distribution")
 
-	create_graph([player1_health, player2_health], ["Player 1", "Player 2"], ["Health", "Frequency"],  deck_ran + "_health_distribution" + ".PNG")
+	create_graph([player1_health, player2_health], ["Player 1", "Player 2"], ["Health", "Frequency"],  folder_path + "/_health_distribution" + ".PNG")
 
-def line_graph(session_data, mcts_iterations):
+def line_graph(session_data, mcts_iterations, heroes):
 	number_of_different_iterations = len(mcts_iterations)
 	player2_health = []
 	for game_data in session_data:
@@ -37,24 +45,39 @@ def line_graph(session_data, mcts_iterations):
 				point += 1
 		y.append(point*100 / len(iterations))
 
-	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"], deck_ran + "_win_rate" + ".PNG")
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	#col = ['turn ' + str(i) for i in range(0, len(max(y, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(y[1:], index=itr_no, columns=["win rate"])
+	save_DF(df1, folder_path, "win_percentage")
 
-def avg_max_turn_box_plot(session_data, mcts_iterations):
+	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"], folder_path + "/_win_rate" + ".PNG")
+
+def avg_max_turn_box_plot(session_data, mcts_iterations,heroes):
 	number_of_different_iterations = len(mcts_iterations)
 	max_turn = []
 	for game_data in session_data:
 		max_turn.append(game_data.game_data[-1].turn_number)
 	n_split = np.array_split(max_turn, number_of_different_iterations)
 	x = [["0"]]
+	itr_no = []
 	y = [np.array([0.0])]
 	for i in mcts_iterations[:]:
 		x.append([i])
+		itr_no.append('itr: ' + str(i))
 	for iterations in n_split:
 		y.append(iterations)
 	print("avg_max_turn X: " +str(x))
 	print("avg_max_turn Y: " + str(y))
 
-	create_box_plot(x, y, ["Iterations", "Max_turn"],  deck_ran + "_avg_max_turn" + ".PNG")
+	col = ['game ' + str(i) for i in range(0, len(max(y, key=len)))]
+
+	folder_path = "./data/"+heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(y[1:], index=[itr_no],columns=[col])
+
+	save_DF(df1,folder_path, "max_turns")
+
+	create_box_plot(x, y, ["Iterations", "Max_turn"],  folder_path + "/_avg_max_turn" + ".PNG")
 
 
 def avg_max_turn_number(session_data, mcts_iterations):
@@ -76,7 +99,8 @@ def avg_max_turn_number(session_data, mcts_iterations):
 	print("avg_max_turn: " + str(y))
 
 
-def avg_mcts_action_space_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
+
+def avg_mcts_action_space_pr_turn(session_data, mcts_iterations,heroes): #session_data_lists, mcts_iterations, text_x, text_y
 	number_of_different_iterations = len(mcts_iterations)
 	to_be_split = []
 	for game_data in session_data:
@@ -93,10 +117,17 @@ def avg_mcts_action_space_pr_turn(session_data, mcts_iterations): #session_data_
 		print("Action space split list: " + str(lists))
 		print("Action space result: " + str (result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
-	create_line_graph(x, result, ["Turn", "Action space"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_action_space" + ".PNG" )
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "avg_as_per_turn")
+
+	create_line_graph(x, result, ["Turn", "Action space"], itr_no, folder_path + "/_action_space" + ".PNG")
 
 
-def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
+def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
 	number_of_different_iterations = len(mcts_iterations)
 	to_be_split = []
 	for game_data in session_data:
@@ -112,10 +143,16 @@ def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations): 
 		result.append( [sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
 		print("avg_times_visited_children result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
-	create_line_graph(x, result, ["Turn", "avg_times_visited_children"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_avg_times_visited_children" + ".PNG")
 
 
-def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "avg_times_visited_children")
+	create_line_graph(x, result, ["Turn", "avg_times_visited_children"], itr_no, folder_path + "/_avg_times_visited_children" + ".PNG")
+
+def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
 	number_of_different_iterations = len(mcts_iterations)
 	to_be_split = []
 	for game_data in session_data:
@@ -132,10 +169,16 @@ def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations): #sessio
 		result.append([sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
 		print("unexplored_children result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
-	create_line_graph(x, result, ["Turn", "unexplored_children"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_unexplored_children" + ".PNG")
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "avg_unexplored_children")
+	create_line_graph(x, result, ["Turn", "unexplored_children"],itr_no, folder_path + "/_unexplored_children" + ".PNG")
 
 
-def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations): #session_data_lists, mcts_iterations, text_x, text_y
+def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
 	number_of_different_iterations = len(mcts_iterations)
 	to_be_split = []
 	for game_data in session_data:
@@ -153,4 +196,26 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations): #session_data_l
 		print("tree_depths result: " + str(result))
 	x = list(([(range(0, len(i)) for i in result)])[0])
 
-	create_line_graph(x, result, ["Turn", "tree_depths"], ["Iterations: " + str(x) for x in mcts_iterations], deck_ran + "_tree_depths" + ".PNG")
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "tree_depths")
+
+	create_line_graph(x, result, ["Turn", "tree_depths"], itr_no, folder_path + "/_tree_depths" + ".PNG")
+
+def avg_computation_time(session_data, mcts_iterations, heroes):
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['game ' + str(i) for i in range(0,len(session_data[0]))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(session_data, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "avg_computation_time")
+	pass
+
+def save_DF(data_frame, path, data_type):
+	if not os.path.exists(path):
+		os.makedirs(path)
+	date = datetime.datetime.now()
+	data_frame.to_csv(path+"/" + data_type+"_" + str(date.strftime("%x")).replace("/","_")+".csv")
+
