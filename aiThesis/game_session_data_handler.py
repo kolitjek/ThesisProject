@@ -109,9 +109,18 @@ def avg_mcts_action_space_pr_turn(session_data, mcts_iterations,heroes): #sessio
 	n_split = [x.tolist() for x in n_split]
 	print(n_split)
 	result =[]
+	index = 0
 	for action_spaces in n_split:
 		print("\n")
 		print("Action space: " + str(action_spaces))
+
+		itr_no = ["game: " + str(x) for x in range(0,len(action_spaces))]
+		col = ['turn ' + str(i) for i in range(0, len(max(action_spaces, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(action_spaces, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_action_space_itr_" + str(mcts_iterations[index] + "_"))
+
+		index += 1
 		lists = list(map(list,itertools.zip_longest(*action_spaces)))
 		result.append( [sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
 		print("Action space split list: " + str(lists))
@@ -135,7 +144,15 @@ def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations, h
 	n_split = (np.array_split(to_be_split, number_of_different_iterations))
 	n_split = [x.tolist() for x in n_split]
 	result =[]
+	index = 0
 	for avg_times_visited_children in n_split:
+
+		itr_no = ["game: " + str(x) for x in range(0, len(avg_times_visited_children))]
+		col = ['turn ' + str(i) for i in range(0, len(max(avg_times_visited_children, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(avg_times_visited_children, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_times_visited_itr_" + str(mcts_iterations[index] + "_"))
+		index += 1
 		print("\n")
 		print("avg_times_visited_children : " + str(avg_times_visited_children))
 		lists = list(map(list,itertools.zip_longest(*avg_times_visited_children)))
@@ -160,7 +177,16 @@ def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations, heroes):
 	n_split = (np.array_split(to_be_split, number_of_different_iterations))
 	n_split = [x.tolist() for x in n_split]
 	result =[]
+	index = 0
 	for unexplored_children in n_split:
+
+		itr_no = ["game: " + str(x) for x in range(0, len(unexplored_children))]
+		col = ['turn ' + str(i) for i in range(0, len(max(unexplored_children, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(unexplored_children, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_unexplored_children_itr_" + str(mcts_iterations[index] + "_"))
+		index += 1
+		print("\n")
 		print("\n")
 		print("Unexplored_children: " + str(unexplored_children))
 		lists = list(map(list, itertools.zip_longest(*unexplored_children)))
@@ -186,7 +212,16 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #sessio
 	n_split = (np.array_split(to_be_split, number_of_different_iterations))
 	n_split = [x.tolist() for x in n_split]
 	result =[]
+	index = 0
 	for tree_depths in n_split:
+
+		itr_no = ["game: " + str(x) for x in range(0, len(tree_depths))]
+		col = ['turn ' + str(i) for i in range(0, len(max(tree_depths, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(tree_depths, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_tree_depth_itr_" + str(mcts_iterations[index] + "_"))
+		index += 1
+
 		print("\n")
 		print("Tree_depts: " + str(tree_depths))
 		lists = list(map(list,itertools.zip_longest(*tree_depths)))
