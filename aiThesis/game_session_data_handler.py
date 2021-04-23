@@ -207,7 +207,7 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #sessio
 def avg_computation_time(session_data, mcts_iterations, heroes):
 
 	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
-	col = ['game ' + str(i) for i in mcts_iterations]
+	col = ['game ' + str(i) for i in range(0,len(session_data[0]))]
 	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 	df1 = pd.DataFrame(session_data, index=itr_no, columns=col)
 	save_DF(df1, folder_path, "avg_computation_time")
