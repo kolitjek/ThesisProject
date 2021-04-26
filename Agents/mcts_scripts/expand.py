@@ -109,7 +109,7 @@ def retrieve_valid_sequence(_action_sequence, player_mana, player):
 
 	valid_actions = []
 	for action in _action_sequence:
-
+		print(str(type(action)))
 		if type(action) is card.Spell:
 			if action.requires_target():
 				if(len(action.targets) is 0):
