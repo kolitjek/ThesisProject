@@ -15,18 +15,22 @@ def create_graph(data, legend, axis, path):
 	plt.legend(legend, prop={'size': 16}, loc='upper right')
 
 	plt.savefig(path)
-	plt.show()
+	plt.clf()
 
 
-def create_line_graph(x, y, axis, label, path):
+def create_line_graph(x, y, axis, label, path, ylim = None):
 	for i in range(0, len(x)):
 		plt.plot(x[i], y[i], label= label[i])
 	plt.xlabel(axis[0], fontsize=18)
 	plt.ylabel(axis[1], fontsize=16)
 
+	if ylim is not None:
+		plt.ylim(0, ylim)
+
 	plt.legend()
 	plt.savefig(path)
-	plt.show()
+	plt.clf()
+
 
 
 def create_box_plot(labels, data, axis, path):
@@ -39,6 +43,6 @@ def create_box_plot(labels, data, axis, path):
 	plt.ylabel(axis[1], fontsize=16)
 
 	plt.savefig(path)
-	plt.show()
+	plt.clf()
 
 

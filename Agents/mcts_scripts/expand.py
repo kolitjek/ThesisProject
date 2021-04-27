@@ -10,8 +10,10 @@ from collections import Counter
 import copy
 from aiThesis import card_filters
 from .simulate import simulate_game
+from .mcts_card_play_order import mcts_card_play_order
 import numpy as np
 
+play_order = mcts_card_play_order()
 
 def expand_game_node(_node):
 	# Steps:
@@ -26,6 +28,13 @@ def expand_game_node(_node):
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
 			_node.action_space.sort(key=len, reverse=True)
+			print("Player: " + str(_node.game_state.current_player))
+			print("Player hand: " + str(_node.game_state.current_player.hand))
+			print("Size of Action Space before: " + str(len(_node.action_space)))
+			_node.initial_action_space_length = len(_node.action_space)
+			_node.action_space = play_order.filter_sequences(_node.action_space)
+			_node.improved_action_space_in_percentage = (1 - len(_node.action_space) / _node.initial_action_space_length) *100
+			print("Size of Action Space after: " + str(len(_node.action_space)))
 
 
 		if len(_node.action_space) == 0:
@@ -109,7 +118,6 @@ def retrieve_valid_sequence(_action_sequence, player_mana, player):
 
 	valid_actions = []
 	for action in _action_sequence:
-		print(str(type(action)))
 		if type(action) is card.Spell:
 			if action.requires_target():
 				if(len(action.targets) is 0):

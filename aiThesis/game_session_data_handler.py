@@ -51,7 +51,7 @@ def line_graph(session_data, mcts_iterations, heroes):
 	df1 = pd.DataFrame(y[1:], index=itr_no, columns=["win rate"])
 	save_DF(df1, folder_path, "win_percentage")
 
-	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"], folder_path + "/_win_rate" + ".PNG")
+	create_line_graph([x], [y],  ["Iterations", "Win percentage"], ["Line"], folder_path + "/_win_rate" + ".PNG", 100)
 
 def avg_max_turn_box_plot(session_data, mcts_iterations,heroes):
 	number_of_different_iterations = len(mcts_iterations)
@@ -238,6 +238,77 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #sessio
 	save_DF(df1, folder_path, "tree_depths")
 
 	create_line_graph(x, result, ["Turn", "tree_depths"], itr_no, folder_path + "/_tree_depths" + ".PNG")
+
+def avg_mcts_initial_action_space_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
+	number_of_different_iterations = len(mcts_iterations)
+	to_be_split = []
+	for game_data in session_data:
+		to_be_split.append(game_data.initial_action_space_length)
+	n_split = (np.array_split(to_be_split, number_of_different_iterations))
+	n_split = [x.tolist() for x in n_split]
+	result =[]
+	index = 0
+	print(n_split)
+	for initial_action_spaces in n_split:
+		print(initial_action_spaces)
+		itr_no = ["game: " + str(x) for x in range(0, len(initial_action_spaces))]
+		col = ['turn ' + str(i) for i in range(0, len(max(initial_action_spaces, key=len)))] #fixme cant col = ['turn ' + str(i) for i in range(0, len(max(initial_action_spaces, key=len)))] TypeError: object of type 'int' has no len()
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(initial_action_spaces, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_initial_action_space_itr_" + str(mcts_iterations[index] + "_"))
+		index += 1
+
+		print("\n")
+		print("initial_action_spaces: " + str(initial_action_spaces))
+		lists = list(map(list,itertools.zip_longest(*initial_action_spaces)))
+		print("initial_action_spaces split list: " + str(initial_action_spaces))
+		print([len([i for i in x if i is not None]) for x in lists])
+		result.append([sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
+		print("initial_action_spaces result: " + str(result))
+	x = list(([(range(0, len(i)) for i in result)])[0])
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "initial_action_spaces")
+
+	create_line_graph(x, result, ["Turn", "initial_action_spaces"], itr_no, folder_path + "/_initial_action_spaces" + ".PNG")
+
+def avg_mcts_improved_action_space_in_percentage(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
+	number_of_different_iterations = len(mcts_iterations)
+	to_be_split = []
+	for game_data in session_data:
+		to_be_split.append(game_data.improved_action_space_in_percentage)
+	n_split = (np.array_split(to_be_split, number_of_different_iterations))
+	n_split = [x.tolist() for x in n_split]
+	result =[]
+	index = 0
+	for improved_action_space_in_percentages in n_split:
+
+		itr_no = ["game: " + str(x) for x in range(0, len(improved_action_space_in_percentages))]
+		col = ['turn ' + str(i) for i in range(0, len(max(improved_action_space_in_percentages, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(improved_action_space_in_percentages, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_improved_action_space_in_percentages_itr_" + str(mcts_iterations[index] + "_"))
+		index += 1
+
+		print("\n")
+		print("improved_action_space_in_percentages: " + str(improved_action_space_in_percentages))
+		lists = list(map(list,itertools.zip_longest(*improved_action_space_in_percentages)))
+		print("improved_action_space_in_percentages split list: " + str(improved_action_space_in_percentages))
+		print([len([i for i in x if i is not None]) for x in lists])
+		result.append([sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
+		print("improved_action_space_in_percentages result: " + str(result))
+	x = list(([(range(0, len(i)) for i in result)])[0])
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "improved_action_space_in_percentages")
+
+	create_line_graph(x, result, ["Turn", "improved_action_space_in_percentages"], itr_no, folder_path + "/_improved_action_space_in_percentages" + ".PNG", 100)
 
 def avg_computation_time(session_data, mcts_iterations, heroes):
 

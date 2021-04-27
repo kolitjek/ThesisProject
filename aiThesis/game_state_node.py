@@ -25,6 +25,8 @@ class GameStateNode:
 		self.isLeaf = False
 		self.number_of_visits = 0
 		self.number_of_wins = 0
+		self.initial_action_space_length = 0
+		self.improved_action_space_in_percentage = 0
 
 	def print_local_relations(self):
 

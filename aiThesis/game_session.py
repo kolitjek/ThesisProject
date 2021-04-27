@@ -102,6 +102,8 @@ class GameSession:
 		avg_mcts_avg_times_visited_children_pr_turn(self.session_data, self.mcts_iterations,heroes)
 		avg_mcts_unexplored_children_pr_turn(self.session_data, self.mcts_iterations,heroes)
 		avg_mcts_tree_depths_pr_turn(self.session_data, self.mcts_iterations,heroes)
+		avg_mcts_initial_action_space_pr_turn(self.session_data, self.mcts_iterations,heroes)
+		avg_mcts_improved_action_space_in_percentage(self.session_data, self.mcts_iterations,heroes)
 	def set_mcts_agent_iterations(self, player, iterations):
 		print(type(player.agent))
 		if Agents.randomAgent.RandomAgent is not type(player.agent):
