@@ -118,7 +118,7 @@ def avg_mcts_action_space_pr_turn(session_data, mcts_iterations,heroes): #sessio
 		col = ['turn ' + str(i) for i in range(0, len(max(action_spaces, key=len)))]
 		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 		df1 = pd.DataFrame(action_spaces, index=itr_no, columns=col)
-		save_DF(df1, folder_path, "raw_action_space_itr_" + str(mcts_iterations[index] + "_"))
+		save_DF(df1, folder_path, "raw_action_space_itr_" + str(mcts_iterations[index]) + "_")
 
 		index += 1
 		lists = list(map(list,itertools.zip_longest(*action_spaces)))
@@ -151,7 +151,7 @@ def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations, h
 		col = ['turn ' + str(i) for i in range(0, len(max(avg_times_visited_children, key=len)))]
 		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 		df1 = pd.DataFrame(avg_times_visited_children, index=itr_no, columns=col)
-		save_DF(df1, folder_path, "raw_times_visited_itr_" + str(mcts_iterations[index] + "_"))
+		save_DF(df1, folder_path, "raw_times_visited_itr_" + str(mcts_iterations[index]) + "_")
 		index += 1
 		print("\n")
 		print("avg_times_visited_children : " + str(avg_times_visited_children))
@@ -184,7 +184,7 @@ def avg_mcts_unexplored_children_pr_turn(session_data, mcts_iterations, heroes):
 		col = ['turn ' + str(i) for i in range(0, len(max(unexplored_children, key=len)))]
 		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 		df1 = pd.DataFrame(unexplored_children, index=itr_no, columns=col)
-		save_DF(df1, folder_path, "raw_unexplored_children_itr_" + str(mcts_iterations[index] + "_"))
+		save_DF(df1, folder_path, "raw_unexplored_children_itr_" + str(mcts_iterations[index]) + "_")
 		index += 1
 		print("\n")
 		print("\n")
@@ -219,7 +219,7 @@ def avg_mcts_tree_depths_pr_turn(session_data, mcts_iterations, heroes): #sessio
 		col = ['turn ' + str(i) for i in range(0, len(max(tree_depths, key=len)))]
 		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 		df1 = pd.DataFrame(tree_depths, index=itr_no, columns=col)
-		save_DF(df1, folder_path, "raw_tree_depth_itr_" + str(mcts_iterations[index] + "_"))
+		save_DF(df1, folder_path, "raw_tree_depth_itr_" + str(mcts_iterations[index]) + "_")
 		index += 1
 
 		print("\n")
@@ -255,7 +255,7 @@ def avg_mcts_initial_action_space_pr_turn(session_data, mcts_iterations, heroes)
 		col = ['turn ' + str(i) for i in range(0, len(max(initial_action_spaces, key=len)))] #fixme cant col = ['turn ' + str(i) for i in range(0, len(max(initial_action_spaces, key=len)))] TypeError: object of type 'int' has no len()
 		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 		df1 = pd.DataFrame(initial_action_spaces, index=itr_no, columns=col)
-		save_DF(df1, folder_path, "raw_initial_action_space_itr_" + str(mcts_iterations[index] + "_"))
+		save_DF(df1, folder_path, "raw_initial_action_space_itr_" + str(mcts_iterations[index]) + "_")
 		index += 1
 
 		print("\n")
@@ -290,7 +290,7 @@ def avg_mcts_improved_action_space_in_percentage(session_data, mcts_iterations, 
 		col = ['turn ' + str(i) for i in range(0, len(max(improved_action_space_in_percentages, key=len)))]
 		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 		df1 = pd.DataFrame(improved_action_space_in_percentages, index=itr_no, columns=col)
-		save_DF(df1, folder_path, "raw_improved_action_space_in_percentages_itr_" + str(mcts_iterations[index] + "_"))
+		save_DF(df1, folder_path, "raw_improved_action_space_in_percentages_itr_" + str(mcts_iterations[index]) + "_")
 		index += 1
 
 		print("\n")
