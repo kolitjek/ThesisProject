@@ -1,6 +1,6 @@
 from hearthstone.enums import CardClass
 from fireplace.player import Player
-from Agents.randomAgent import RandomAgent
+from Agents.playAllAgent import PlayAllAgent
 from Agents.mcts_agent import MCTSAgent
 from fireplace.utils import random_draft
 from .Path import BASE_PATH
@@ -34,14 +34,14 @@ def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Ag
 
 def get_agent_from_string(agentString, player):
 	if agentString == "RANDOMAGENT":
-		return RandomAgent(player)
+		return PlayAllAgent(player)
 	elif (agentString == "BASEMCTS"):
 		# TODO make a baseMCTS class
 		return MCTSAgent(player)
 	# return None
 	else:
 		print("DID NOT FIND AN AGENT MATCHING THE SPECIFIED INPUT, CHOOSING DEFAULT AGENT (RANDOM AGENT)")
-		return RandomAgent(player)
+		return PlayAllAgent(player)
 
 
 def create_deck(strClass):

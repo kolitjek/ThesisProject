@@ -15,7 +15,7 @@ from importlib import import_module
 from pkgutil import iter_modules
 from typing import List
 from xml.etree import ElementTree
-from Agents.randomAgent import RandomAgent
+from Agents.playAllAgent import PlayAllAgent
 from Agents.mcts_agent import MCTSAgent
 
 from hearthstone.enums import CardClass, CardType

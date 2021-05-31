@@ -1,6 +1,6 @@
 import copy
 from .back_propagate import back_propagate
-from Agents.randomAgent import RandomAgent
+from Agents.playAllAgent import PlayAllAgent
 from aiThesis import printController
 from fireplace.exceptions import GameOver
 from hearthstone import enums
@@ -48,7 +48,7 @@ def simulate_turn(game):
 
 
 def simulate_random_actions(player):
-	return RandomAgent(player)
+	return PlayAllAgent(player)
 
 
 def evaluate_simulated_state(game, simulated_game, currplayer):

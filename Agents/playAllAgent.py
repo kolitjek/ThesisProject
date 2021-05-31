@@ -5,7 +5,7 @@ from fireplace import card
 import copy
 
 
-class RandomAgent(Agent):
+class PlayAllAgent(Agent):
 
 	def __init__(self, _player):
 		self.player = _player
