@@ -6,7 +6,7 @@ from fireplace.exceptions import GameOver
 from .scenario import Scenario
 from .game_session_data_handler import *
 from .printController import *
-from Agents import playAllAgent
+from Agents import play_all_agent
 import time
 import Agents
 import random
@@ -106,7 +106,7 @@ class GameSession:
 		avg_mcts_improved_action_space_in_percentage(self.session_data, self.mcts_iterations,heroes)
 	def set_mcts_agent_iterations(self, player, iterations):
 		print(type(player.agent))
-		if Agents.playAllAgent.PlayAllAgent is not type(player.agent):
+		if Agents.play_all_agent.PlayAllAgent is not type(player.agent):
 			print("here2")
 			print(type(player.agent))
 			player.agent.iterations = int(iterations)

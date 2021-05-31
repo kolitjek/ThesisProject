@@ -1,6 +1,6 @@
 import copy
 from .back_propagate import back_propagate
-from Agents.playAllAgent import PlayAllAgent
+from Agents.play_all_agent import PlayAllAgent
 from aiThesis import printController
 from fireplace.exceptions import GameOver
 from hearthstone import enums

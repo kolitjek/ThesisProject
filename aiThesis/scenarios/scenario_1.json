@@ -8,7 +8,7 @@
 				"player1Deck": ["LOOT_539","ICC_093", "EX1_556", "LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556"],
 				"player1Hand": ["ICC_093", "ICC_093", "ICC_093"],
 				"player1Field": [ "ICC_093", "ICC_093", "ICC_093"],
-				"player1Agent": "RANDOMAGENT",
+				"player1Agent": "PLAYALLAGENT",
 
 				"player2Name": "Player2",
 				"player2Hero": "WARRIOR",
@@ -16,5 +16,5 @@
 				"player2Deck": ["LOOT_539","ICC_093", "EX1_556", "LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556"],
 				"player2Hand": ["ICC_093" ,"ICC_093"],
 				"player2Field":["ICC_093", "ICC_093"],
-				"player2Agent": "RANDOMAGENT"
+				"player2Agent": "MCTSSequential"
 			}

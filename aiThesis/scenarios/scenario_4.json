@@ -11,7 +11,7 @@
 								"EX1_096", "EX1_096", "EX1_556","EX1_556", "EX1_005","NEW1_026","NEW1_026","EX1_284","EX1_284"],
 				"player1Hand": ["CS2_231", "CS2_231", "EX1_160", "EX1_160","EX1_154","GAME_005"],
 				"player1Field":[],
-				"player1Agent": "RANDOMAGENT",
+				"player1Agent": "PLAYALLAGENT",
 
 				"player2Name": "Player2",
 				"player2Hero": "DRUID",
@@ -21,5 +21,5 @@
 								"EX1_096", "EX1_096", "EX1_556","EX1_556", "EX1_005","NEW1_026","NEW1_026","EX1_284","EX1_284"],
 				"player2Hand": ["CS2_231", "CS2_231", "EX1_160", "EX1_160"],
 				"player2Field":[],
-				"player2Agent": "BASEMCTS"
+				"player2Agent": "MCTSSequential"
 			}

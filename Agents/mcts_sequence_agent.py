@@ -1,7 +1,7 @@
 from Agents.agent import Agent
 from aiThesis.game_state_node import GameStateNode
 #from aiThesis.game_session import GameSession
-from .mcts_scripts.select_node import select_node, create_actionSpace_for_root_node
+from .mcts_sequential_actions.select_node import select_node, create_actionSpace_for_root_node
 import random
 from fireplace import utils
 import multiprocessing
@@ -11,10 +11,10 @@ import copy
 import time
 import math
 from aiThesis.game_state_node import GameStateNode
-from Agents.mcts_scripts.select_actions import select_and_perform_actions
+from Agents.mcts_sequential_actions.select_actions import select_and_perform_actions
 
 
-class MCTSAgent(Agent):
+class MCTSSequentialAgent(Agent):
 	currentGameState = None  # only for quick test
 
 	def __init__(self, _player):
@@ -94,8 +94,8 @@ class MCTSAgent(Agent):
 		print("___________________________________")
 		print(self.player.hero.health)
 		print("Playing with MCTS agent")
-		if MCTSAgent.currentGameState is not None:
-			print("Game turn: " + str(MCTSAgent.currentGameState.turn))
+		if MCTSSequentialAgent.currentGameState is not None:
+			print("Game turn: " + str(MCTSSequentialAgent.currentGameState.turn))
 		print("___________________________________")
 		print("Actionable entities: ")
 		print(self.player.actionable_entities)
