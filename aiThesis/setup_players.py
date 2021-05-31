@@ -35,7 +35,7 @@ def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Ag
 def get_agent_from_string(agentString, player):
 	if agentString == "PLAYALLAGENT":
 		return PlayAllAgent(player)
-	elif (agentString == "MCTSSequential"):
+	elif (agentString == "MCTSSEQ"):
 		# TODO make a baseMCTS class
 		return MCTSSequentialAgent(player)
 	# return None
