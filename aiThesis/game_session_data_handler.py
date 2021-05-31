@@ -316,7 +316,7 @@ def avg_computation_time(session_data, mcts_iterations, heroes):
 	col = ['game ' + str(i) for i in range(0,len(session_data[0]))]
 	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
 	df1 = pd.DataFrame(session_data, index=itr_no, columns=col)
-	save_DF(df1, folder_path, "avg_computation_time")
+	save_DF(df1, folder_path, "computation_times")
 	pass
 
 def save_DF(data_frame, path, data_type):

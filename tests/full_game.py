@@ -26,7 +26,7 @@ def main():
 		for i in range(int(numgames)):
 			test_full_game()
 	else:
-		print(printsController)
+		#print(printsController)
 		test_full_game()
 
 
