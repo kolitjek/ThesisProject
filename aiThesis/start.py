@@ -22,6 +22,8 @@ from hearthstone.enums import CardClass, CardType
 
 from aiThesis.utils import CMDInterface
 from aiThesis.scenario import Scenario
+import pandas as pd
+import pathlib
 
 from aiThesis.game_session import GameSession
 #best decks from witchwood which is the latest expansion we have got
@@ -31,13 +33,17 @@ sys.path.append("")
 
 def main():
 
-	cmdU = CMDInterface()
+	'''cmdU = CMDInterface()
 	args = cmdU.parse_date()
 	cards.db.initialize()
 	gameSession = GameSession(args.s, args.n, args.name1, args.name2, args.p1Class, args.p2Class, args.p1Deck, args.p2Deck, args.p1DeckType, args.p2DeckType,
 							  args.p1Agent, args.p2Agent, args.mctsIterations)
 
-	gameSession.start_session()
+	gameSession.start_session()'''
+	print(str(pathlib.Path(__file__).parent.absolute()) + "\\data\\DRUID_vs_DRUID\\win_percentage_05_04_21.csv")
+	data = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "\\data\\DRUID_vs_DRUID\\win_percentage_05_04_21.csv")
+	data.head()
+	print(data)
 
 if __name__ == "__main__":
 	main()

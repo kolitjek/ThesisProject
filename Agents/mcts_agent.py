@@ -26,6 +26,8 @@ class MCTSAgent(Agent):
 		self.avg_times_visited_children = []
 		self.unexplored_children = []
 		self.tree_depths = []
+		self.initial_action_space_length = []
+		self.improved_action_space_in_percentage = []
 
 	def play_turn(self):
 		GameStateNode.nodeCount = 0
@@ -65,6 +67,8 @@ class MCTSAgent(Agent):
 			self.avg_times_visited_children.append(visits / len(rootNode.explored_nodes))
 		self.unexplored_children.append(len(rootNode.action_space))
 		self.tree_depths.append(rootNode.max_level_depth)
+		self.improved_action_space_in_percentage.append(rootNode.improved_action_space_in_percentage)
+		self.initial_action_space_length.append(rootNode.initial_action_space_length)
 		if len(rootNode.explored_nodes) is not 0:
 			select_and_perform_actions(rootNode, self.player) #fixme should be added to else aswell..
 		else:
