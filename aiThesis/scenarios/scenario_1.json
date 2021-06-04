@@ -16,5 +16,5 @@
 				"player2Deck": ["LOOT_539","ICC_093", "EX1_556", "LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556","LOOT_539","ICC_093", "EX1_556"],
 				"player2Hand": ["ICC_093" ,"ICC_093"],
 				"player2Field":["ICC_093", "ICC_093"],
-				"player2Agent": "MCTSSequential"
+				"player2Agent": "MCTSSIN"
 			}

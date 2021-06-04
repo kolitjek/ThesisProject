@@ -28,13 +28,13 @@ def expand_game_node(_node):
 		if _node.action_space is None:  # Maybe this has to change?
 			_node.action_space = permute_action_space(_node)
 			_node.action_space.sort(key=len, reverse=True)
-			print("Player: " + str(_node.game_state.current_player))
-			print("Player hand: " + str(_node.game_state.current_player.hand))
-			print("Size of Action Space before: " + str(len(_node.action_space)))
+			#print("Player: " + str(_node.game_state.current_player))
+			#print("Player hand: " + str(_node.game_state.current_player.hand))
+			#print("Size of Action Space before: " + str(len(_node.action_space)))
 			_node.initial_action_space_length = len(_node.action_space)
 			_node.action_space = play_order.filter_sequences(_node.action_space)
 			_node.improved_action_space_in_percentage = (1 - len(_node.action_space) / _node.initial_action_space_length) *100
-			print("Size of Action Space after: " + str(len(_node.action_space)))
+			#print("Size of Action Space after: " + str(len(_node.action_space)))
 
 
 		if len(_node.action_space) == 0:
