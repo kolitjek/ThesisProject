@@ -32,7 +32,6 @@ class MCTSSingleAgent(Agent):
 		#player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
-		#printController.enable_print()
 
 		for i in range(self.iterations):
 			select_node(root_node)
@@ -41,7 +40,6 @@ class MCTSSingleAgent(Agent):
 
 		#root_node.print_local_relations()
 		print("MCTS Done")
-
 		print("Actions performed: ", select_and_perform_actions(root_node,self.player))
 		player_status(self.player)
 		player_status(self.player.game.player2)

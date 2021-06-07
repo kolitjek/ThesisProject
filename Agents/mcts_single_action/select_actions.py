@@ -26,9 +26,13 @@ def select_best_node(root_node):
 	frontier_node.print_local_relations()
 	action_list = []
 	while len(frontier_node.explored_nodes) > 0 and frontier_node.node_type is not NodeType.end_node:
+		temp_action_id = frontier_node.performed_action_space
 		frontier_node = copy.deepcopy(action_traversal(frontier_node))
 		print("Action performed of the selected node (not added yet): ", frontier_node.performed_action_space)
 		frontier_node.print_local_relations()
+
+		if temp_action_id is not None and temp_action_id == frontier_node.performed_action_space:
+			print("SAME CARD")
 
 		if root_node.game_state.current_player.name == frontier_node.game_state.current_player.name:
 			print("I can take this action...")
@@ -65,8 +69,8 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	printController.disable_print()
-	#printController.enable_print()
+	#printController.disable_print()
+	printController.enable_print()
 
 
 	#print("Actions to perfrom")

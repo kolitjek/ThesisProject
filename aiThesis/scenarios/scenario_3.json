@@ -1,6 +1,6 @@
 {
 				"startingPlayer": "player2",
-				"beginScenarioAtTurn": 3,
+				"beginScenarioAtTurn": 1,
 
 				"player1Name": "Player1",
 				"player1Hero": "MAGE",

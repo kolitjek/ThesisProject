@@ -1,6 +1,6 @@
 from hearthstone import enums
 from fireplace import card
-from aiThesis import game_state_node
+from aiThesis import game_state_node, printController
 from aiThesis.morph_node import MorphNode, NodeType
 from aiThesis.single_action_edge import SingleActionEdge, EdgeType
 from .simulate import simulate_game
@@ -115,7 +115,7 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 	new_game_state = copy.deepcopy(_base_game_state)
 	new_game_state.is_simulation = True
 	player = new_game_state.current_player
-	# printController.disable_print()
+	printController.disable_print()
 	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
 
 	for action in _action_sequence:

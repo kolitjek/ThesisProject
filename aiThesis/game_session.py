@@ -154,7 +154,8 @@ class GameSession:
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(currPlayer.hand))
 		print("Field size :" + str(currPlayer.field))'''
-		disable_print()
+		# disable_print()
+		enable_print()
 		currPlayer.agent.play_turn()
 		'''print("******PLAYER INfFO******** After")
 		print(str(currPlayer.name))
@@ -187,7 +188,8 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		disable_print()
+		#disable_print()
+		enable_print()
 		while True:
 			self.play_turn(self.game)
 
@@ -201,7 +203,8 @@ class GameSession:
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 
 			player.choice.choose(*cards_to_mulligan)
-		disable_print()
+		#disable_print()
+		enable_print()
 		while True:
 			self.play_turn(self.game)
 
