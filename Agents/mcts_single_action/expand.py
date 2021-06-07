@@ -20,9 +20,35 @@ def expand_node(_node):
 			_node.action_space = []
 			for entity in current_player.actionable_entities:
 				if entity.zone is enums.Zone.HAND:
-					if entity.cost <= current_player.mana and entity.id not in id_list:
+					if entity.is_playable() and entity.cost <= current_player.mana and entity.id not in id_list:
 						_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
 						id_list.append(entity.id)
+						'''
+						if(_node.performed_action_space is not None and entity.id == _node.performed_action_space.id):
+							print("parent had same id, running up")
+							temp = copy.deepcopy(_node)
+							print("child hand")
+							print(temp.game_state.current_player.hand)
+							temp.print_local_relations()
+
+							print(entity.id)
+
+							count = 0
+							while temp.parent != None and temp.performed_action_space is not None and temp.performed_action_space.id == entity.id:
+
+
+								count += 1
+								print("same: ", count)
+
+								temp = temp.parent
+								print("parent hand")
+								print(temp.game_state.current_player.hand)
+								#print(entity.uuid == temp.performed_action_space.uuid)
+								temp.print_local_relations()
+							print("end....")
+						'''
+
+
 					# print("card in hand: ", entity)
 					else:
 						pass
