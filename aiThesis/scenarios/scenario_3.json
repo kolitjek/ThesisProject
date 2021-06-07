@@ -1,6 +1,6 @@
 {
 				"startingPlayer": "player2",
-				"beginScenarioAtTurn": 3,
+				"beginScenarioAtTurn": 1,
 
 				"player1Name": "Player1",
 				"player1Hero": "MAGE",
@@ -15,7 +15,7 @@
 				"player2Hero": "MAGE",
 				"player2Health": 30,
 				"player2Deck": ["CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player2Hand": ["GVG_013","GVG_082", "GVG_082", "GVG_085" ],
+				"player2Hand": ["GVG_013","GVG_082", "GVG_082", "GVG_085"],
 				"player2Field":[],
 				"player2Agent": "MCTSSIN"
 			}

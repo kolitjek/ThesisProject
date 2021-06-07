@@ -1,10 +1,10 @@
 from Agents.agent import Agent
 from aiThesis.morph_node import MorphNode,NodeType
-from .mcts_single_action.selection import select_node, player_ref
+from Agents.mcts_single_action.selection import select_node, player_ref
 import copy
-from .mcts_single_action.select_actions import select_and_perform_actions
+from Agents.mcts_single_action.select_actions import select_and_perform_actions
 from aiThesis.game_state_node import GameStateNode
-from aiThesis import printController
+
 
 class MCTSSingleAgent(Agent):
 

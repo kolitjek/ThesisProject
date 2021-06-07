@@ -5,7 +5,6 @@ from Agents.mcts_sequence_agent import MCTSSequentialAgent
 from Agents.mcts_single_agent import MCTSSingleAgent
 from fireplace.utils import random_draft
 from .Path import BASE_PATH
-from .Path import absolute_path
 import json
 from hearthstone.enums import Zone
 
@@ -74,9 +73,8 @@ def retrive_hero_deck(here_type):
 		hero_type_path = "gvg_mech_mage"
 
 	"C:\\Users\\45606\Documents\\ITU - Games\\ThesisProject"
-	print(absolute_path)
 
-	path_string = absolute_path + "\\decks\\" + hero_type_path + ".json"
+	path_string = BASE_PATH + "\\decks\\" + hero_type_path + ".json"
 
 	with open(path_string) as f:
 		data = json.load(f)
