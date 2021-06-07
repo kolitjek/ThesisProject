@@ -2,7 +2,7 @@ from hearthstone import enums
 
 from aiThesis.printController import disable_print
 from fireplace import card
-from aiThesis import game_state_node
+from aiThesis import game_state_node, printController
 from aiThesis.morph_node import MorphNode, NodeType
 from aiThesis.single_action_edge import SingleActionEdge, EdgeType
 from .simulate import simulate_game
@@ -127,6 +127,8 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 	player = new_game_state.current_player
 	disable_print()
 	action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
+
+
 
 	for action in action_sequence:
 		target = None
