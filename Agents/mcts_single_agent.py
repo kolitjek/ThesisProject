@@ -47,7 +47,7 @@ class MCTSSingleAgent(Agent):
 		player_status(self.player.game.player2)
 		print("switch")
 
-		self.action_spaces.append(len(root_node.explored_nodes) + len(root_node.action_space))
+		self.action_spaces.append(count_action_space(root_node)+1)
 		if len(root_node.action_space) > 0:
 			self.avg_times_visited_children.append(
 				(len(root_node.explored_nodes) / (len(root_node.explored_nodes) + len(root_node.action_space))))
