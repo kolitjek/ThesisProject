@@ -42,7 +42,8 @@ class MCTSSingleAgent(Agent):
 
 		#root_node.print_local_relations()
 		print("MCTS Done")
-		print("Actions performed: ", select_and_perform_actions(root_node,self.player))
+		performed_actions = select_and_perform_actions(root_node,self.player)
+		print("Actions performed: ", performed_actions)
 		player_status(self.player)
 		player_status(self.player.game.player2)
 		print("switch")
@@ -63,7 +64,7 @@ class MCTSSingleAgent(Agent):
 		print("THE ACTION SPACE IS: ")
 		print(count_action_space(root_node)+1)
 
-		generate_tree(root_node, single_turn=False)
+		generate_tree(root_node,performed_actions, single_turn=False)
 
 		'''
 		print("MCTS FINISHED...")

@@ -4,7 +4,7 @@ import pydot
 import graphviz
 from networkx.drawing.nx_pydot import graphviz_layout
 
-def generate_tree(_root, single_turn = True):
+def generate_tree(_root, actions_taken, single_turn = True):
 
 	if single_turn:
 		tree_nodes = retrieve_nodes_single_turn(_root)
@@ -17,7 +17,7 @@ def generate_tree(_root, single_turn = True):
 	graph_edges = []
 	for node in tree_nodes:
 		graph_nodes.append((node.id, {"color": "blue" if node.game_state.current_player.name == _root.game_state.current_player.name else 'red'}))
-		graph_edges.append((node.parent.id, node.id, {"entity": str(node.performed_action_space)}))
+		graph_edges.append((node.parent.id, node.id, {"entity": str(node.performed_action_space), "color": 'black'}))
 
 	g.add_nodes_from(graph_nodes)
 	g.add_edges_from(graph_edges)
@@ -25,9 +25,10 @@ def generate_tree(_root, single_turn = True):
 	pos = graphviz_layout(g, prog="dot")
 	node_colors = list(nx.get_node_attributes(g,"color").values())
 	edge_labels = nx.get_edge_attributes(g, 'entity')
+	edge_color = nx.get_edge_attributes(g, 'color').values()
 	#p = nx.drawing.nx_pydot.to_pydot(g)
-	nx.draw(g, pos,with_labels=True, node_color=node_colors)
-	nx.draw_networkx_edge_labels(g, pos, edge_labels);
+	nx.draw(g, pos,with_labels=True, node_color=node_colors, edge_color= edge_color)
+	nx.draw_networkx_edge_labels(g, pos, edge_labels)
 	plt.show()
 	#plt.savefig("tree_plots/path.png")
 
@@ -48,10 +49,6 @@ def retrieve_nodes_single_turn(_root_node):
 def retreive_nodes_all(_root_node):
 	action_spaces = []
 	for child in _root_node.explored_nodes:
-
-		if child.performed_action_space == None:
-			child.print_local_relations()
-			print("_____")
 
 		action_spaces.append(child)
 		one_layer_deeper = retreive_nodes_all(child)
