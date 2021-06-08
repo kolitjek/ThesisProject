@@ -9,6 +9,12 @@ class mcts_card_play_order:
 		if(node.parent is None or node.performed_action_space is None):
 			return True
 		parent_action = node.performed_action_space
+		'''print("parent:")
+		node.parent.print_local_relations()
+		print("Child:")
+		node.print_local_relations()
+		print("current action: ", curr_action)'''
+
 		if self.get_order_value(parent_action) > self.get_order_value(curr_action):
 			'''print("****** BRANCH SKIPPED ******")
 			print("Parent action performed: " + str(parent_action))
@@ -18,7 +24,7 @@ class mcts_card_play_order:
 			return True
 
 	def get_order_value(self, _card):
-		if type(_card) is card.Minion:
+		if type(_card) is card.Minion: # så den henter ikke fra dictionarien?
 			return 5 if _card.has_combo else (3 if _card.has_battlecry else (4 if _card.has_choose_one else 0))
 		else:
 			return self.order_values[str(type(_card))]

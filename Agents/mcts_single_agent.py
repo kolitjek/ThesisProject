@@ -4,7 +4,8 @@ from Agents.mcts_single_action.selection import select_node, player_ref
 import copy
 from Agents.mcts_single_action.select_actions import select_and_perform_actions
 from aiThesis.game_state_node import GameStateNode
-
+import matplotlib.pyplot as plt
+from aiThesis.tree_plot import generate_tree
 
 class MCTSSingleAgent(Agent):
 
@@ -29,6 +30,7 @@ class MCTSSingleAgent(Agent):
 
 		print("starting hand!")
 		player_status(self.player)
+
 		#player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
@@ -60,6 +62,8 @@ class MCTSSingleAgent(Agent):
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
 		print("THE ACTION SPACE IS: ")
 		print(count_action_space(root_node)+1)
+
+		generate_tree(root_node)
 
 		'''
 		print("MCTS FINISHED...")

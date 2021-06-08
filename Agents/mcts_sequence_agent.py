@@ -13,7 +13,6 @@ import math
 from aiThesis.game_state_node import GameStateNode
 from Agents.mcts_sequential_actions.select_actions import select_and_perform_actions
 
-
 class MCTSSequentialAgent(Agent):
 	currentGameState = None  # only for quick test
 
@@ -37,7 +36,6 @@ class MCTSSequentialAgent(Agent):
 		#rootNode = expand_game_node(rootNode)
 
 		#while  GameStateNode.max_level_depth <= 3:
-
 
 		#rootNode = create_actionSpace_for_root_node(rootNode)
 		#print("here")
