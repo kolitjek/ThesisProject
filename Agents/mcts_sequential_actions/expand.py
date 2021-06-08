@@ -33,6 +33,7 @@ def expand_game_node(_node):
 			#print("Size of Action Space before: " + str(len(_node.action_space)))
 			_node.initial_action_space_length = len(_node.action_space)
 			_node.action_space = play_order.filter_sequences(_node.action_space)
+			print("The action space is: " + str(len(_node.action_space)))
 			_node.improved_action_space_in_percentage = (1 - len(_node.action_space) / _node.initial_action_space_length) *100
 			#print("Size of Action Space after: " + str(len(_node.action_space)))
 
@@ -321,3 +322,4 @@ def evaluate_spell_targets(_spell, targets):
 		return targets[0]
 	'''
 	pass
+

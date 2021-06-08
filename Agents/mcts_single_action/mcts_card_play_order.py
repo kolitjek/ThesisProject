@@ -10,9 +10,9 @@ class mcts_card_play_order:
 			return True
 		parent_action = node.performed_action_space
 		if self.get_order_value(parent_action) > self.get_order_value(curr_action):
-			print("****** BRANCH SKIPPED ******")
+			'''print("****** BRANCH SKIPPED ******")
 			print("Parent action performed: " + str(parent_action))
-			print("Curr action: " + str(curr_action))
+			print("Curr action: " + str(curr_action))'''
 			return False
 		else:
 			return True

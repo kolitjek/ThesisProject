@@ -6,6 +6,8 @@ import copy
 from aiThesis import card_filters
 from .selection import action_traversal
 from aiThesis.morph_node import NodeType
+
+
 def select_and_perform_actions(root_node, player):
 
 	selected_actions = select_best_node(root_node)
