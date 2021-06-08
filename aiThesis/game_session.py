@@ -114,7 +114,7 @@ class GameSession:
 
 	def test_full_game(self, player1, player2):
 		try:
-			enable_print()
+			disable_print()
 
 
 			self.play_full_game(player1, player2)
@@ -156,7 +156,7 @@ class GameSession:
 		print("Field size :" + str(currPlayer.field))'''
 
 		# disable_print()
-		enable_print()
+		disable_print()
 		currPlayer.agent.play_turn()
 		'''print("******PLAYER INfFO******** After")
 		print(str(currPlayer.name))
@@ -190,7 +190,7 @@ class GameSession:
 		scenario.setup_scenario(self.game)
 
 
-		enable_print()
+		disable_print()
 		while True:
 			self.play_turn(self.game)
 
@@ -205,7 +205,7 @@ class GameSession:
 
 			player.choice.choose(*cards_to_mulligan)
 
-		enable_print()
+		disable_print()
 		while True:
 			self.play_turn(self.game)
 
