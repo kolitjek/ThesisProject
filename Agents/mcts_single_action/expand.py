@@ -29,9 +29,9 @@ def expand_node(_node):
 					if entity.is_playable() and entity.cost <= current_player.mana and entity.id not in id_list:
 						#print(entity)
 						#print(_node.print_local_relations())
-						#if play_order.filter_action(_node, entity):
-						_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
-						id_list.append(entity.id)
+						if play_order.filter_action(_node, entity):
+							_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+							id_list.append(entity.id)
 					# print("card in hand: ", entity)
 					else:
 						pass
