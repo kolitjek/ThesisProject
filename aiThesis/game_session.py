@@ -114,7 +114,7 @@ class GameSession:
 
 	def test_full_game(self, player1, player2):
 		try:
-			printController.disable_print()
+			enable_print()
 
 
 			self.play_full_game(player1, player2)
@@ -154,6 +154,7 @@ class GameSession:
 		print("Deck size: " + str(len(currPlayer.deck)))
 		print("Hand size: " + str(currPlayer.hand))
 		print("Field size :" + str(currPlayer.field))'''
+
 		# disable_print()
 		enable_print()
 		currPlayer.agent.play_turn()
@@ -188,7 +189,7 @@ class GameSession:
 
 		scenario.setup_scenario(self.game)
 
-		#disable_print()
+
 		enable_print()
 		while True:
 			self.play_turn(self.game)
@@ -203,7 +204,7 @@ class GameSession:
 			cards_to_mulligan = random.sample(player.choice.cards, mull_count)
 
 			player.choice.choose(*cards_to_mulligan)
-		#disable_print()
+
 		enable_print()
 		while True:
 			self.play_turn(self.game)

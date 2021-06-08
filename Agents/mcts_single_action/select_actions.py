@@ -69,8 +69,9 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 
 
 	_action_sequence = transfer_action_sequence(_action_sequence, player)
-	#printController.disable_print()
 	printController.enable_print()
+	#printController.enable_print()
+
 
 
 	#print("Actions to perfrom")

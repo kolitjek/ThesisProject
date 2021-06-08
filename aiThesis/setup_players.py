@@ -72,6 +72,8 @@ def retrive_hero_deck(here_type):
 	else:
 		hero_type_path = "gvg_mech_mage"
 
+	"C:\\Users\\45606\Documents\\ITU - Games\\ThesisProject"
+
 	path_string = BASE_PATH + "\\decks\\" + hero_type_path + ".json"
 
 	with open(path_string) as f:

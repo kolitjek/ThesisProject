@@ -1,4 +1,6 @@
 from hearthstone import enums
+
+from aiThesis.printController import disable_print
 from fireplace import card
 from aiThesis import game_state_node, printController
 from aiThesis.morph_node import MorphNode, NodeType
@@ -7,12 +9,16 @@ from .simulate import simulate_game
 from aiThesis import card_filters
 import random
 import copy
+from .mcts_card_play_order import mcts_card_play_order
 
 INCLUDE_ATTACK = False
 TEST = True
 
 
+play_order = mcts_card_play_order()
+
 def expand_node(_node):
+
 	current_player = _node.game_state.current_player
 	id_list = []
 	if _node.game_state.state is enums.State.RUNNING:
@@ -21,34 +27,11 @@ def expand_node(_node):
 			for entity in current_player.actionable_entities:
 				if entity.zone is enums.Zone.HAND:
 					if entity.is_playable() and entity.cost <= current_player.mana and entity.id not in id_list:
-						_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
-						id_list.append(entity.id)
-						'''
-						if(_node.performed_action_space is not None and entity.id == _node.performed_action_space.id):
-							print("parent had same id, running up")
-							temp = copy.deepcopy(_node)
-							print("child hand")
-							print(temp.game_state.current_player.hand)
-							temp.print_local_relations()
-
-							print(entity.id)
-
-							count = 0
-							while temp.parent != None and temp.performed_action_space is not None and temp.performed_action_space.id == entity.id:
-
-
-								count += 1
-								print("same: ", count)
-
-								temp = temp.parent
-								print("parent hand")
-								print(temp.game_state.current_player.hand)
-								#print(entity.uuid == temp.performed_action_space.uuid)
-								temp.print_local_relations()
-							print("end....")
-						'''
-
-
+						#print(entity)
+						#print(_node.print_local_relations())
+						if play_order.filter_action(_node, entity):
+							_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+							id_list.append(entity.id)
 					# print("card in hand: ", entity)
 					else:
 						pass
@@ -91,6 +74,7 @@ def expand_node(_node):
 	if chosen_action_space.edge_type == EdgeType.empty:
 		node_to_simulate = MorphNode(generate_new_state(_node.game_state, chosen_action_space), NodeType.end_node,
 									 _node)
+		attack(node_to_simulate.game_state.current_player)
 		node_to_simulate.game_state.end_turn()
 	else:
 		node_to_simulate = MorphNode(generate_new_state(_node.game_state, chosen_action_space), NodeType.action_node,
@@ -141,10 +125,12 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 	new_game_state = copy.deepcopy(_base_game_state)
 	new_game_state.is_simulation = True
 	player = new_game_state.current_player
-	printController.disable_print()
-	_action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
+	disable_print()
+	action_sequence = transfer_action_sequence(_action_sequence, new_game_state)
 
-	for action in _action_sequence:
+
+
+	for action in action_sequence:
 		target = None
 		base_card_action = None
 		if type(action) is card.HeroPower:
@@ -191,9 +177,43 @@ def generate_new_state(_base_game_state, _action_sequence):  # IMPORTANT!: this 
 				if player.choice:
 					choice = random.choice(player.choice.cards)
 					player.choice.choose(choice)
+
+	'''for character in player.characters:
+		if character.can_attack():
+			character.attack(
+				card_filters.get_left_most_enemy_target(character.targets, player))  # random.choice(character.targets))'''
+
+	return new_game_state
+
+
+def attack(player):
 	for character in player.characters:
 		if character.can_attack():
 			character.attack(
 				card_filters.get_left_most_enemy_target(character.targets, player))  # random.choice(character.targets))
 
-	return new_game_state
+
+'''
+if(_node.performed_action_space is not None and entity.id == _node.performed_action_space.id):
+							print("parent had same id, running up")
+							temp = copy.deepcopy(_node)
+							print("child hand")
+							print(temp.game_state.current_player.hand)
+							temp.print_local_relations()
+
+							print(entity.id)
+
+							count = 0
+							while temp.parent != None and temp.performed_action_space is not None and temp.performed_action_space.id == entity.id:
+
+
+								count += 1
+								print("same: ", count)
+
+								temp = temp.parent
+								print("parent hand")
+								print(temp.game_state.current_player.hand)
+								#print(entity.uuid == temp.performed_action_space.uuid)
+								temp.print_local_relations()
+							print("end....")
+'''

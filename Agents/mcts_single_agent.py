@@ -1,10 +1,11 @@
 from Agents.agent import Agent
 from aiThesis.morph_node import MorphNode,NodeType
-from .mcts_single_action.selection import select_node, player_ref
+from Agents.mcts_single_action.selection import select_node, player_ref
 import copy
-from .mcts_single_action.select_actions import select_and_perform_actions
+from Agents.mcts_single_action.select_actions import select_and_perform_actions
 from aiThesis.game_state_node import GameStateNode
-from aiThesis import printController
+import matplotlib.pyplot as plt
+from aiThesis.tree_plot import generate_tree
 
 class MCTSSingleAgent(Agent):
 
@@ -29,6 +30,7 @@ class MCTSSingleAgent(Agent):
 
 		print("starting hand!")
 		player_status(self.player)
+
 		#player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
@@ -59,6 +61,7 @@ class MCTSSingleAgent(Agent):
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
 
+		generate_tree(root_node)
 
 		'''
 		print("MCTS FINISHED...")
