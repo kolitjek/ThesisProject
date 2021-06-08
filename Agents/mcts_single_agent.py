@@ -61,7 +61,7 @@ class MCTSSingleAgent(Agent):
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
 
-		generate_tree(root_node)
+		generate_tree(root_node, single_turn=False)
 
 		'''
 		print("MCTS FINISHED...")

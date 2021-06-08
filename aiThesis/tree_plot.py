@@ -9,7 +9,7 @@ def generate_tree(_root, single_turn = True):
 	if single_turn:
 		tree_nodes = retrieve_nodes_single_turn(_root)
 	if not single_turn:
-		tree_nodes = retreive_nodes_all()
+		tree_nodes = retreive_nodes_all(_root)
 
 
 	g = nx.DiGraph()
@@ -21,6 +21,45 @@ def generate_tree(_root, single_turn = True):
 
 	g.add_nodes_from(graph_nodes)
 	g.add_edges_from(graph_edges)
+
+	pos = graphviz_layout(g, prog="dot")
+	node_colors = list(nx.get_node_attributes(g,"color").values())
+	edge_labels = nx.get_edge_attributes(g, 'entity')
+	#p = nx.drawing.nx_pydot.to_pydot(g)
+	nx.draw(g, pos,with_labels=True, node_color=node_colors)
+	nx.draw_networkx_edge_labels(g, pos, edge_labels);
+	plt.show()
+	#plt.savefig("tree_plots/path.png")
+
+def retrieve_nodes_single_turn(_root_node):
+	action_spaces = []
+	for child in _root_node.explored_nodes:
+		if child.performed_action_space is None:
+			continue
+		else:
+			action_spaces.append(child)
+			one_layer_deeper = retrieve_nodes_single_turn(child)
+			if one_layer_deeper != []:
+				for item in one_layer_deeper:
+					action_spaces.append(item)
+
+	return action_spaces
+
+def retreive_nodes_all(_root_node):
+	action_spaces = []
+	for child in _root_node.explored_nodes:
+
+		if child.performed_action_space == None:
+			child.print_local_relations()
+			print("_____")
+
+		action_spaces.append(child)
+		one_layer_deeper = retreive_nodes_all(child)
+
+		for item in one_layer_deeper:
+			action_spaces.append(item)
+	return action_spaces
+
 	'''
 	child1 = _root.explored_nodes[0]
 	child2 = _root.explored_nodes[1]
@@ -38,32 +77,3 @@ def generate_tree(_root, single_turn = True):
 		(child3.parent.id, child3.id, {"entity":str(child3.performed_action_space)})
 	])
 	'''
-
-
-	pos = graphviz_layout(g, prog="dot")
-	node_colors = list(nx.get_node_attributes(g,"color").values())
-	edge_labels = nx.get_edge_attributes(g, 'entity')
-	#p = nx.drawing.nx_pydot.to_pydot(g)
-	nx.draw(g, pos,with_labels=True, node_color=node_colors)
-	nx.draw_networkx_edge_labels(g, pos, edge_labels);
-	plt.show()
-	print("asd")
-	#plt.savefig("tree_plots/path.png")
-
-def retrieve_nodes_single_turn(_root_node):
-	action_spaces = []
-	for child in _root_node.explored_nodes:
-		if child.performed_action_space is None:
-			continue
-		else:
-			action_spaces.append(child)
-			one_layer_deeper = retrieve_nodes_single_turn(child)
-			if one_layer_deeper != []:
-				for item in one_layer_deeper:
-					action_spaces.append(item)
-
-	return action_spaces
-
-def retreive_nodes_all():
-	pass
-
