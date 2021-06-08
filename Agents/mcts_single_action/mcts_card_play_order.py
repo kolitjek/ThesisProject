@@ -9,16 +9,16 @@ class mcts_card_play_order:
 		if(node.parent is None or node.performed_action_space is None):
 			return True
 		parent_action = node.performed_action_space
-		print("parent:")
+		'''print("parent:")
 		node.parent.print_local_relations()
 		print("Child:")
 		node.print_local_relations()
-		print("current action: ", curr_action)
+		print("current action: ", curr_action)'''
 
 		if self.get_order_value(parent_action) > self.get_order_value(curr_action):
-			print("****** BRANCH SKIPPED ******")
+			'''print("****** BRANCH SKIPPED ******")
 			print("Parent action performed: " + str(parent_action))
-			print("Curr action: " + str(curr_action))
+			print("Curr action: " + str(curr_action))'''
 			return False
 		else:
 			return True

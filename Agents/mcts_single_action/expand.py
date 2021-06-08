@@ -37,7 +37,8 @@ def expand_node(_node):
 						pass
 				if type(entity) is card.HeroPower and entity.cost <= current_player.mana:
 					if not entity.exhausted:
-						_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+						if play_order.filter_action(_node, entity):
+							_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
 
 
 				#						print("can't play card: ", entity)

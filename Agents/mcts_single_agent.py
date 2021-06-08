@@ -60,6 +60,8 @@ class MCTSSingleAgent(Agent):
 		self.tree_depths.append(root_node.max_level_depth)
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
+		print("THE ACTION SPACE IS: ")
+		print(count_action_space(root_node)+1)
 
 		generate_tree(root_node, single_turn=False)
 
@@ -91,3 +93,15 @@ def player_status (player):
 	print("graveyard: ", player.graveyard)
 	print("--------------")
 #break
+
+def count_action_space(_node):
+	action_space = 0
+	for child in _node.explored_nodes:
+		if child.performed_action_space is None:
+			continue
+		else:
+			action_space += 1
+			action_space += count_action_space(child)
+
+	return action_space
+
