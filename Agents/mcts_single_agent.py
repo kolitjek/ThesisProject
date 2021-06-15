@@ -51,9 +51,8 @@ class MCTSSingleAgent(Agent):
 		print("Actions performed: ", performed_actions)
 		player_status(self.player)
 		player_status(self.player.game.player2)
-		print("switch")
 
-		self.action_spaces.append(len(root_node.explored_nodes) + len(root_node.action_space))
+		self.action_spaces.append(count_action_space(root_node)+1)
 		if len(root_node.action_space) > 0:
 			self.avg_times_visited_children.append(
 				(len(root_node.explored_nodes) / (len(root_node.explored_nodes) + len(root_node.action_space))))
@@ -66,9 +65,9 @@ class MCTSSingleAgent(Agent):
 		self.tree_depths.append(root_node.max_level_depth)
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
-		print("THE ACTION SPACE IS: ")
-		print(count_action_space(root_node)+1)
 
+
+		#generate_tree(root_node,performed_actions, single_turn=True)
 
 		'''
 		print("MCTS FINISHED...")
