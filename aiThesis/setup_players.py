@@ -17,30 +17,30 @@ PRIEST = "PRIEST"
 WARRIOR = "WARRIOR"
 
 
-def setup_player(name, deck, hero, agent):
+def setup_player(name, deck, hero, agent, print_tree):
 	player = Player(name, deck[0], hero)
-	player.agent = get_agent_from_string(agent, player)
+	player.agent = get_agent_from_string(agent, player,print_tree)
 	player.card_details = deck[1]
 
 	return player
 
 
-def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Agent):
+def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Agent,print_tree):
 	players = [setup_player(name1, p1Deck if p1Deck != [] else retrive_hero_deck(p1Class),
-									  get_class_from_string(p1Class).default_hero, p1Agent),
+									  get_class_from_string(p1Class).default_hero, p1Agent,print_tree),
 					setup_player(name2, p2Deck if p2Deck != [] else retrive_hero_deck(p2Class),
-									  get_class_from_string(p2Class).default_hero, p2Agent)]
+									  get_class_from_string(p2Class).default_hero, p2Agent,print_tree)]
 	return players
 
 
-def get_agent_from_string(agentString, player):
+def get_agent_from_string(agentString, player, _print_tree):
 	if agentString == "PLAYALLAGENT":
 		return PlayAllAgent(player)
 	elif agentString == "MCTSSIN":
-		return MCTSSingleAgent(player)
+		return MCTSSingleAgent(player, _print_tree=_print_tree)
 	elif (agentString == "MCTSSEQ"):
 		# TODO make a baseMCTS class
-		return MCTSSequentialAgent(player)
+		return MCTSSequentialAgent(player, _print_tree=_print_tree)
 	# return None
 	else:
 		print("DID NOT FIND AN AGENT MATCHING THE SPECIFIED INPUT, CHOOSING DEFAULT AGENT (RANDOM AGENT)")

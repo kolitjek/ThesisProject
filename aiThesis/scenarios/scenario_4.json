@@ -7,15 +7,17 @@
 				"player1Health": 30,
 
 				"player1Deck": ["GVG_085","CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player1Hand": ["GVG_013","GVG_082", "GVG_082", "GVG_085","GAME_005"],
-				"player1Field":[],
+				"player1Hand": ["GVG_082","GVG_085","GVG_082","GVG_085"],
+				"player1Field":["GVG_002","GVG_002","FP1_004","FP1_004","FP1_004"],
 				"player1Agent": "PLAYALLAGENT",
+
 
 				"player2Name": "Player2",
 				"player2Hero": "MAGE",
-				"player2Health": 30,
+				"player2Health": 15,
 				"player2Deck": ["GVG_085","CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player2Hand": ["GVG_013","GVG_082", "GVG_082","GVG_085" ],
+				"player2Hand": ["GVG_013","GVG_082" ],
 				"player2Field":[],
-				"player2Agent": "MCTSSIN"
+				"player2Agent": "MCTSSIN",
+				"plotTree": "full"
 			}

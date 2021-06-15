@@ -14,8 +14,8 @@ from .game_data import GameData
 from aiThesis import printController
 import Agents
 class GameSession:
-
-	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type, p1Agent, p2Agent ,mctsIterations):
+	print_tree = None
+	def __init__(self, scenario_name, iterations, p1name, p2name, p1Class, p2Class, p1Deck, p2Deck, p1_deck_type, p2_deck_type, p1Agent, p2Agent ,mctsIterations, _print_tree):
 		self.scenario = scenario_name
 		self.iterations = iterations
 		self.mcts_iterations = mctsIterations #lsit of different
@@ -35,6 +35,7 @@ class GameSession:
 		self. iteration_number = 0
 		self.number_of_wins_pr_player = [0, 0] #first index = player1, second index = player 2
 		self.gameTimes = []
+		self.print_tree = _print_tree
 
 
 	def start_session(self):
@@ -72,7 +73,7 @@ class GameSession:
 
 				self.test_scenario(scenario)
 			else:
-				players = create_players(self.player1_name, self.player2_name, self.player1_class, self.player2_class, self.player1_deck, self.player2_deck, self.player1_agent, self.player2_agent)
+				players = create_players(self.player1_name, self.player2_name, self.player1_class, self.player2_class, self.player1_deck, self.player2_deck, self.player1_agent, self.player2_agent, self.print_tree)
 				self.set_mcts_agent_iterations(players[0], self.mcts_iterations[mcts_iteration_index])
 				self.set_mcts_agent_iterations(players[1], self.mcts_iterations[mcts_iteration_index])
 

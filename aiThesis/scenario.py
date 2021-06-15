@@ -22,7 +22,7 @@ class Scenario:
 		card_details_p1 = retrive_hero_deck(data['player1Hero'])[1]
 		card_details_p2 = retrive_hero_deck(data['player2Hero'])[1]
 
-		players = create_players(data['player1Name'], data['player2Name'], data['player1Hero'], data['player2Hero'], [data['player1Deck'], card_details_p1], [data['player2Deck'],card_details_p2], data['player1Agent'], data['player2Agent'])
+		players = create_players(data['player1Name'], data['player2Name'], data['player1Hero'], data['player2Hero'], [data['player1Deck'], card_details_p1], [data['player2Deck'],card_details_p2], data['player1Agent'], data['player2Agent'],data['plotTree'])
 
 		self.player1 = players[0]
 		self.player2 = players[1]

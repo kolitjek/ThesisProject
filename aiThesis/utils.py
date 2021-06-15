@@ -1,6 +1,7 @@
 import argparse
 import matplotlib.pyplot as plt
 
+
 class CMDInterface:
 	def __init__(self):
 		self.parser = argparse.ArgumentParser(description="Setting up game")
@@ -17,6 +18,7 @@ class CMDInterface:
 		self.parser.add_argument("-p1Agent", metavar='p1Agent', type=str, default="PLAYALLAGENT")
 		self.parser.add_argument("-p2Agent", metavar='p2Agent', type=str, default="MCTSSIN")
 		self.parser.add_argument("-mctsIterations",  nargs='*', default=[1])
+		self.parser.add_argument("-plotTree", metavar='plotTree', type=str, default=None)
 
 
 	def parse_date(self):

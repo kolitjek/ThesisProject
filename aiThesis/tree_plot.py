@@ -3,21 +3,30 @@ import networkx as nx
 import pydot
 import graphviz
 from networkx.drawing.nx_pydot import graphviz_layout
-
-def generate_tree(_root, actions_taken, single_turn = True):
+from hearthstone.enums import BlockType, CardType, PlayState, State, Step, Zone
+def generate_tree(_root, single_turn = True):
 
 	if single_turn:
 		tree_nodes = retrieve_nodes_single_turn(_root)
 	if not single_turn:
 		tree_nodes = retreive_nodes_all(_root)
 
-
 	g = nx.DiGraph()
-	graph_nodes = [(_root.id, {"color": "blue"})]
+	graph_nodes = [(_root.id, {"color": "#A4D8F3"})]
 	graph_edges = []
 	for node in tree_nodes:
-		graph_nodes.append((node.id, {"color": "blue" if node.game_state.current_player.name == _root.game_state.current_player.name else 'red'}))
-		graph_edges.append((node.parent.id, node.id, {"entity": str(node.performed_action_space), "color": 'black'}))
+		mcts_win = False
+		if node.isLeaf and node.game_state.state == State.COMPLETE:
+			for player in node.game_state.players:
+				if player.name == _root.game_state.current_player.name:
+					mcts_win = player.playstate == PlayState.WINNING
+			graph_nodes.append((node.id, {"color": "#A5F2B3" if mcts_win else '#F2EEA5'}))
+			graph_edges.append((node.parent.id, node.id, {"entity": str(node.performed_action_space), "color": 'black'}))
+		else:
+			graph_nodes.append((node.id, {
+				"color": "#A4D8F3" if node.game_state.current_player.name == _root.game_state.current_player.name else '#F7BABA'}))
+			graph_edges.append(
+				(node.parent.id, node.id, {"entity": str(node.performed_action_space), "color": 'black'}))
 
 	g.add_nodes_from(graph_nodes)
 	g.add_edges_from(graph_edges)
