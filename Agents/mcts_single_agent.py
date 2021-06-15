@@ -40,7 +40,7 @@ class MCTSSingleAgent(Agent):
 			if len(root_node.explored_nodes) is 0 and len(root_node.action_space) is 0:
 				break
 
-		#root_node.print_local_relations()
+		root_node.print_local_relations()
 		print("MCTS Done")
 
 		if self.print_tree != None:

@@ -19,7 +19,7 @@ def generate_tree(_root, single_turn = True):
 		if node.isLeaf and node.game_state.state == State.COMPLETE:
 			for player in node.game_state.players:
 				if player.name == _root.game_state.current_player.name:
-					mcts_win = player.playstate == PlayState.WINNING
+					mcts_win = player.playstate == PlayState.WON
 			graph_nodes.append((node.id, {"color": "#A5F2B3" if mcts_win else '#F2EEA5'}))
 			graph_edges.append((node.parent.id, node.id, {"entity": str(node.performed_action_space), "color": 'black'}))
 		else:

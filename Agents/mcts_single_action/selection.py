@@ -34,8 +34,8 @@ def uct(node, traversal = False):
 
 	if node_to_select.game_state.state is not enums.State.RUNNING or node_to_select.id == node.id:
 		node_to_select.isLeaf = True
-		#if(node_to_select.parent is not None):
-		#	select_node(node_to_select.parent)
+		if node_to_select.parent is not None:
+			select_node(node_to_select.parent)
 		return
 
 	if node_to_select.action_space is None or len(node.action_space) is not 0:
