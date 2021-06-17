@@ -101,7 +101,7 @@ def return_target(action, player):
 	else:
 		target = card_filters.get_left_most_friendly_target(action.targets,
 															action.controller) if card_filters.get_left_most_friendly_target(
-			action.enemy_targets, action.controller) != [] else random.choice(action.targets)
+			action.targets, action.controller) != [] else random.choice(action.targets)
 
 	return target
 

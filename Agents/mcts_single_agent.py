@@ -31,7 +31,7 @@ class MCTSSingleAgent(Agent):
 		print("starting hand!")
 		player_status(self.player)
 
-		#player_status(self.player.game.player2)
+		player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
 
