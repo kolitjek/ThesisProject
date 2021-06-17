@@ -6,11 +6,11 @@ from Agents.mcts_single_action.select_actions import select_and_perform_actions
 from aiThesis.game_state_node import GameStateNode
 import matplotlib.pyplot as plt
 from aiThesis.tree_plot import generate_tree
-
+from aiThesis.utils import CMDInterface
 class MCTSSingleAgent(Agent):
 
 	PLAYER_REF = None
-	def __init__(self, _player):
+	def __init__(self, _player, _print_tree):
 		self.player = _player
 		player_ref.ROOT_PLAYER = self.player
 		self.action_spaces = []
@@ -19,7 +19,7 @@ class MCTSSingleAgent(Agent):
 		self.tree_depths = []
 		self.initial_action_space_length = []
 		self.improved_action_space_in_percentage = []
-
+		self.print_tree = _print_tree
 		self.iterations = None
 
 	def play_turn(self):
@@ -31,7 +31,7 @@ class MCTSSingleAgent(Agent):
 		print("starting hand!")
 		player_status(self.player)
 
-		#player_status(self.player.game.player2)
+		player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
 
@@ -41,7 +41,16 @@ class MCTSSingleAgent(Agent):
 				break
 
 		#root_node.print_local_relations()
+		print("MCTS Done")
+
+
+		if self.print_tree != None:
+			only_single_turn = True if self.print_tree == "single" else False
+			generate_tree(root_node, single_turn=only_single_turn)
+
 		performed_actions = select_and_perform_actions(root_node,self.player)
+
+
 		print("Actions performed: ", performed_actions)
 		player_status(self.player)
 		player_status(self.player.game.player2)
@@ -59,8 +68,6 @@ class MCTSSingleAgent(Agent):
 		self.tree_depths.append(root_node.max_level_depth)
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
-
-		generate_tree(root_node,performed_actions, single_turn=False)
 
 		'''
 		print("MCTS FINISHED...")

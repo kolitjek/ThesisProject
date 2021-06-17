@@ -22,8 +22,8 @@ class FilteredPlayAllAgent(Agent):
 
 				c = self.player.hand[card_index - played_cards]  #FIXME this seems to break (out of range)?
 				if self.first_turn_in_simulation and not self.filter.filter_action(self.node, c):
-					print("SKIPPED CARD IN FILTERED PLAY ALL AGENT")
-					print("Performed Action: "  + str(self.node.performed_action_space) + ", card skipped: " + str(c))
+					#print("SKIPPED CARD IN FILTERED PLAY ALL AGENT")
+					#print("Performed Action: "  + str(self.node.performed_action_space) + ", card skipped: " + str(c))
 					continue
 				if c.is_playable(): # removed 50% chance to skip // and random.random() < 0.5
 					target = None
@@ -78,5 +78,4 @@ class FilteredPlayAllAgent(Agent):
 
 
 			break
-		print(self.first_turn_in_simulation)
 		self.first_turn_in_simulation = False

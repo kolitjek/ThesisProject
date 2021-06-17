@@ -22,10 +22,9 @@ def simulate_game(_node):
 	back_propagate(_node, True if simulated_root_player.hero.health > 0 else False) #FIXME need to be the right player every step
 
 def get_simulator_agent(player, _node):
-	print(player.simulator_agent)
-	if player.simulator_agent is "PLAYALLAGENT":
+	if player.simulator_agent == "PLAYALLAGENT":
 		return PlayAllAgent(player)
-	elif player.simulator_agent is "FILTEREDPLAYALLAGENT":
+	elif player.simulator_agent == "FILTEREDPLAYALLAGENT":
 		return FilteredPlayAllAgent(player, _node)
 	else:
 		raise Exception("No simulator string maches any agent type")

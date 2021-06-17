@@ -95,7 +95,7 @@ def perform_action_sequence(_action_sequence, player):  # IMPORTANT!: this is ba
 					else:
 						target = card_filters.get_left_most_friendly_target(action.targets,
 																			action.controller) if card_filters.get_left_most_friendly_target(
-							action.enemy_targets, action.controller) != [] else random.choice(action.targets)
+							action.targets, action.controller) != [] else random.choice(action.targets)
 					'''
 					if type(action) is card.Spell:
 						target = card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) if card_filters.get_left_most_enemy_target(action.enemy_targets, action.controller) != [] else random.choice(action.targets) #random.choice(action.enemy_targets if action.enemy_targets != [] else action.targets)
