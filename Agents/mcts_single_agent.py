@@ -30,8 +30,10 @@ class MCTSSingleAgent(Agent):
 
 		print("starting hand!")
 		player_status(self.player)
+		player_status(self.player.game.players[0])
 
-		player_status(self.player.game.player2)
+
+		#player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
 
@@ -44,14 +46,11 @@ class MCTSSingleAgent(Agent):
 		print("MCTS Done")
 
 
-		performed_actions = select_and_perform_actions(root_node,self.player)
-		if self.print_tree != None:
-			only_single_turn = True if self.print_tree == "single" else False
-			generate_tree(root_node, performed_actions[1], single_turn=only_single_turn)
+		performed_actions = select_and_perform_actions(root_node,self.player, self.print_tree)
+
 
 		print("Actions performed: ", performed_actions[0])
-		player_status(self.player)
-		player_status(self.player.game.player2)
+		player_status(self.player.game.players[1])
 
 		self.action_spaces.append(count_action_space(root_node)+1)
 		if len(root_node.action_space) > 0:
