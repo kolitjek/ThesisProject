@@ -23,15 +23,15 @@ def select_best_node(root_node):
 			print("i'm gonna win!")
 			return [n.performed_action_space]
 
-	frontier_node = copy.deepcopy(root_node)
+	frontier_node = root_node
 
-	#frontier_node.print_local_relations()
+	frontier_node.print_local_relations()
 	action_list = []
 	while len(frontier_node.explored_nodes) > 0 and frontier_node.node_type is not NodeType.end_node:
 		temp_action_id = frontier_node.performed_action_space
-		frontier_node = copy.deepcopy(action_traversal(frontier_node))
+		frontier_node = action_traversal(frontier_node)
 		#print("Action performed of the selected node (not added yet): ", frontier_node.performed_action_space)
-		#frontier_node.print_local_relations()
+		frontier_node.print_local_relations()
 
 		if temp_action_id is not None and temp_action_id == frontier_node.performed_action_space:
 			print("SAME CARD")

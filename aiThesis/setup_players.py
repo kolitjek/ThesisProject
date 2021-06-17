@@ -17,19 +17,20 @@ PRIEST = "PRIEST"
 WARRIOR = "WARRIOR"
 
 
-def setup_player(name, deck, hero, agent):
+def setup_player(name, deck, hero, agent, simulator_agent):
 	player = Player(name, deck[0], hero)
 	player.agent = get_agent_from_string(agent, player)
+	player.simulator_agent = simulator_agent
 	player.card_details = deck[1]
 
 	return player
 
 
-def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Agent):
+def create_players(name1, name2, p1Class, p2Class, p1Deck, p2Deck, p1Agent, p2Agent, p1SimAgent, p2SimAgents):
 	players = [setup_player(name1, p1Deck if p1Deck != [] else retrive_hero_deck(p1Class),
-									  get_class_from_string(p1Class).default_hero, p1Agent),
+									  get_class_from_string(p1Class).default_hero, p1Agent, p1SimAgent),
 					setup_player(name2, p2Deck if p2Deck != [] else retrive_hero_deck(p2Class),
-									  get_class_from_string(p2Class).default_hero, p2Agent)]
+									  get_class_from_string(p2Class).default_hero, p2Agent, p2SimAgents)]
 	return players
 
 

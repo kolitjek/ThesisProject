@@ -20,8 +20,8 @@ def simulate_game(node, depth=-1):
 
 	simulated_root_player = simulated_game.players[0] if root_node.game_state.current_player is root_node.game_state.players[0] else simulated_game.players[1]
 
-	simulated_game.players[0].agent = simulate_random_actions(simulated_game.players[0])
-	simulated_game.players[1].agent = simulate_random_actions(simulated_game.players[1])
+	simulated_game.players[0].agent = get_simulator_agent(simulated_game.players[0])
+	simulated_game.players[1].agent = get_simulator_agent(simulated_game.players[1])
 
 	#simulated_turns = 0
 	printController.disable_print()
@@ -47,7 +47,7 @@ def simulate_turn(game):
 	game.end_turn()
 
 
-def simulate_random_actions(player):
+def get_simulator_agent(player):
 	return PlayAllAgent(player)
 
 

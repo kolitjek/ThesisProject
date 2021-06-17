@@ -2,6 +2,8 @@ from fireplace import card
 class mcts_card_play_order:
 	def __init__(self):                             #normal_minion / battlecry / combo
 		self.order_values = {"<class 'fireplace.card.Minion'>": [0, 4, 5, 7], "<class 'fireplace.card.Secret'>": 1, "<class 'fireplace.card.Weapon'>": 2, "<class 'fireplace.card.HeroPower'>": 3,   "<class 'fireplace.card.Spell'>": 6}
+		self.special_card_values = {"The Coin": 0}
+
 
 		#fixme maybe introduce a reevaluate handcost card?
 		#fixme maybe add types of spells AOE, heal, burn, buff ect
@@ -24,8 +26,18 @@ class mcts_card_play_order:
 			return True
 
 	def get_order_value(self, _card):
+		if self.check_for_special_card(_card) is not None:
+			print("found THE COIN returning " + str(self.check_for_special_card(_card)) + " as value")
+			return self.check_for_special_card(_card)
 		if type(_card) is card.Minion: # så den henter ikke fra dictionarien?
 			return 7 if _card.has_combo else (4 if _card.has_battlecry else (5 if _card.has_choose_one else 0))
 		else:
 			return self.order_values[str(type(_card))]
+
+	def check_for_special_card(self, _card):
+		if str(_card) in self.special_card_values.keys():
+			return self.special_card_values[str(_card)]
+		else:
+			return None
+
 

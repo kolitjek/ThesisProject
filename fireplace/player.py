@@ -69,6 +69,7 @@ class Player(Entity, TargetableByAuras):
 		self.times_secret_played_this_game = 0
 		self.cthun = None
 		self.card_details = None
+		self.simulator_agent = "NO SIMULATOR SELECTED"
 
 	def __str__(self):
 		return self.name

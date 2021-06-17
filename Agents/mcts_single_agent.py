@@ -60,7 +60,7 @@ class MCTSSingleAgent(Agent):
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
 
-		#generate_tree(root_node,performed_actions, single_turn=True)
+		generate_tree(root_node,performed_actions, single_turn=False)
 
 		'''
 		print("MCTS FINISHED...")
@@ -82,12 +82,17 @@ class MCTSSingleAgent(Agent):
 
 def player_status (player):
 	print("-------STATUS-------")
-	print(player.name)
+	print(player.game.current_player)
 	print("health: ", player.characters[0].health)
 	print("mana: ", player.mana)
 	print("Hand: ", player.hand)
 	print("field: ", player.field)
 	print("graveyard: ", player.graveyard)
+	print("player2_hand: " + str(player.game.player2.hand))
+	print("player2_hand: " + str(player.game.player2.name))
+	print("player2_hand: " + str(player.game.players[1].name))
+
+
 	print("--------------")
 #break
 
