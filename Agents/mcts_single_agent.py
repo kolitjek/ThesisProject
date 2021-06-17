@@ -44,14 +44,12 @@ class MCTSSingleAgent(Agent):
 		print("MCTS Done")
 
 
+		performed_actions = select_and_perform_actions(root_node,self.player)
 		if self.print_tree != None:
 			only_single_turn = True if self.print_tree == "single" else False
-			generate_tree(root_node, single_turn=only_single_turn)
+			generate_tree(root_node, performed_actions[1], single_turn=only_single_turn)
 
-		performed_actions = select_and_perform_actions(root_node,self.player)
-
-
-		print("Actions performed: ", performed_actions)
+		print("Actions performed: ", performed_actions[0])
 		player_status(self.player)
 		player_status(self.player.game.player2)
 
