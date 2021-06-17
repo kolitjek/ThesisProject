@@ -12,7 +12,7 @@ from hearthstone.enums import PlayState
 
 def select_and_perform_actions(root_node, player):
 	selected_actions = select_best_node(root_node)
-	perform_action_sequence(selected_actions, player)
+	perform_action_sequence(selected_actions[0], player)
 	return selected_actions
 
 
@@ -66,7 +66,7 @@ def retrieve_action_path (win_node):
 def select_best_node(root_node):
 	best_node = None
 	win_paths = retrieve_nodes_single_turn(root_node)
-
+	action_nodes = []
 	if win_paths is not None and len(win_paths) != 0 and win_paths[0] is not None:
 		win_actions = retrieve_action_path(win_paths[0])
 		print("Performing WINNING action: ", win_actions)
@@ -99,7 +99,9 @@ def select_best_node(root_node):
 
 		if frontier_node.node_type is not NodeType.end_node:
 			action_list.append(frontier_node.performed_action_space)
-	return action_list
+
+		action_nodes.append(frontier_node)
+	return [action_list,action_nodes]
 
 
 def transfer_action_sequence(_action_sequence,
