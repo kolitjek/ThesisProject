@@ -87,15 +87,13 @@ class MCTSSingleAgent(Agent):
 
 def player_status (player):
 	print("-------STATUS-------")
-	print(player.game.current_player)
+	print(player.name)
 	print("health: ", player.characters[0].health)
 	print("mana: ", player.mana)
 	print("Hand: ", player.hand)
 	print("field: ", player.field)
 	print("graveyard: ", player.graveyard)
-	print("player2_hand: " + str(player.game.player2.hand))
-	print("player2_hand: " + str(player.game.player2.name))
-	print("player2_hand: " + str(player.game.players[1].name))
+
 
 
 	print("--------------")

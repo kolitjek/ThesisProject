@@ -57,11 +57,13 @@ def retrieve_nodes_single_turn(_root_node):
 
 def retrieve_action_path (win_node):
 	action_list = []
+	action_nodes = []
 	while win_node.parent is not None:
 		action_list.append(win_node.performed_action_space)
+		action_nodes.append(win_node)
 		win_node = win_node.parent
 	action_list.reverse()
-	return action_list
+	return [action_list, action_nodes]
 
 def select_best_node(root_node):
 	best_node = None
@@ -69,7 +71,7 @@ def select_best_node(root_node):
 	action_nodes = []
 	if win_paths is not None and len(win_paths) != 0 and win_paths[0] is not None:
 		win_actions = retrieve_action_path(win_paths[0])
-		print("Performing WINNING action: ", win_actions)
+		print("Performing WINNING action: ", win_actions[0])
 		return win_actions
 
 	'''
