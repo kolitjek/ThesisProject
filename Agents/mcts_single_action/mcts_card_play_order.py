@@ -8,9 +8,18 @@ class mcts_card_play_order:
 		#fixme maybe introduce a reevaluate handcost card?
 		#fixme maybe add types of spells AOE, heal, burn, buff ect
 	def filter_action(self, node, curr_action):
+
 		if(node.parent is None or node.performed_action_space is None):
 			return True
 		parent_action = node.performed_action_space
+
+
+		print("******")
+		print(curr_action)
+		print(curr_action.controller)
+		print(parent_action)
+		print(parent_action.controller)
+		print("******")
 		'''print("parent:")
 		node.parent.print_local_relations()
 		print("Child:")

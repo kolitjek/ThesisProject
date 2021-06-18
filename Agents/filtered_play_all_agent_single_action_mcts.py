@@ -21,7 +21,7 @@ class FilteredPlayAllAgent(Agent):
 			for card_index in range(0, len(self.player.hand)):
 
 				c = self.player.hand[card_index - played_cards]  #FIXME this seems to break (out of range)?
-				if self.first_turn_in_simulation and not self.filter.filter_action(self.node, c):
+				if self.first_turn_in_simulation and self.player.game.current_player != self.player.game.players[0] and not self.filter.filter_action(self.node, c):
 					#print("SKIPPED CARD IN FILTERED PLAY ALL AGENT")
 					#print("Performed Action: "  + str(self.node.performed_action_space) + ", card skipped: " + str(c))
 					continue
