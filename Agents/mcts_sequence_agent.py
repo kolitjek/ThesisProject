@@ -12,7 +12,7 @@ import time
 import math
 from aiThesis.game_state_node import GameStateNode
 from Agents.mcts_sequential_actions.select_actions import select_and_perform_actions
-from aiThesis.tree_plot import generate_tree
+#from aiThesis.tree_plot import generate_tree
 class MCTSSequentialAgent(Agent):
 	currentGameState = None  # only for quick test
 
@@ -57,9 +57,9 @@ class MCTSSequentialAgent(Agent):
 				break
 
 
-		if self.print_tree != None:
-			only_single_turn = True if self.print_tree == "single" else False
-			generate_tree(rootNode, single_turn=only_single_turn)
+		#if self.print_tree != None:
+			#only_single_turn = True if self.print_tree == "single" else False
+			#generate_tree(rootNode, single_turn=only_single_turn)
 
 		self.action_spaces.append(len(rootNode.explored_nodes) + len(rootNode.action_space))
 		if len(rootNode.action_space) > 0:
