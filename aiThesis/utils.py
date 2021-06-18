@@ -16,9 +16,9 @@ class CMDInterface:
 		self.parser.add_argument("-p1DeckType", metavar='p1DeckType', type=str, default="RANDOM")
 		self.parser.add_argument("-p2DeckType", metavar='p2DeckType', type=str, default="RANDOM")
 		self.parser.add_argument("-p1Agent", metavar='p1Agent', type=str, default="PLAYALLAGENT")
-		self.parser.add_argument("-p2Agent", metavar='p2Agent', type=str, default="MCTSSIN")
+		self.parser.add_argument("-p2Agent", metavar='p2Agent', type=str, default="MCTSSEQ")
 		self.parser.add_argument("-p1SimulatorAgent", metavar='p1AgentSim', type=str, default="PLAYALLAGENT")
-		self.parser.add_argument("-p2SimulatorAgent", metavar='p2AgentSim', type=str, default="FILTEREDPLAYALLAGENT")
+		self.parser.add_argument("-p2SimulatorAgent", metavar='p2AgentSim', type=str, default="PLAYALLAGENT")
 		self.parser.add_argument("-mctsIterations",  nargs='*', default=[1])
 		self.parser.add_argument("-plotTree", metavar='plotTree', type=str, default=None)
 

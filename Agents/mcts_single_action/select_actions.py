@@ -13,7 +13,6 @@ from aiThesis.tree_plot import generate_tree
 
 def select_and_perform_actions(root_node, player, print_tree):
 	selected_actions = select_best_node(root_node)
-
 	if print_tree != None:
 		only_single_turn = True if print_tree == "single" else False
 		generate_tree(root_node, selected_actions[1], single_turn=only_single_turn)
