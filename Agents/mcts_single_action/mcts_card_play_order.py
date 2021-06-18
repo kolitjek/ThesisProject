@@ -19,11 +19,7 @@ class mcts_card_play_order:
 		print("current action: ", curr_action)'''
 
 		if self.get_order_value(parent_action, hello) > self.get_order_value(curr_action, hello):
-			print("****** BRANCH SKIPPED ******")
-			print("Player: " + node.game_state.current_player.name)
-			print("came from: " + hello)
-			print("Parent action performed: " + str(parent_action))
-			print("Curr action: " + str(curr_action))
+
 			return False
 		else:
 			return True
