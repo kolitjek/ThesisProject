@@ -29,8 +29,6 @@ class FilteredPlayAllAgent(Agent):
 
 					if self.first_turn_in_simulation and self.node.game_state.current_player.name == self.player.name and not self.filter.filter_action(
 						self.node, c, hello="SIM"):
-						print("Tried to filter")
-						print(self.player.game.current_player.name)
 
 						# print("SKIPPED CARD IN FILTERED PLAY ALL AGENT")
 						# print("Performed Action: "  + str(self.node.performed_action_space) + ", card skipped: " + str(c))

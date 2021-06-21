@@ -29,23 +29,23 @@ def expand_node(_node):
 					if entity.is_playable() and entity.cost <= current_player.mana and entity.id not in id_list:
 						#print(entity)
 						#print(_node.print_local_relations())
-						if current_player.name == current_player.game.players[1].name:
-							if play_order.filter_action(_node, entity, hello="expand"):
-								_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
-								id_list.append(entity.id)  # fixme det her er ikke for HP????
-						else:
-							_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
-							id_list.append(entity.id)
+						#if current_player.name == current_player.game.players[1].name:
+						#	if play_order.filter_action(_node, entity, hello="expand"):
+						#		_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+						#		id_list.append(entity.id)  # fixme det her er ikke for HP????
+						#else:
+						_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+						id_list.append(entity.id)
 					# print("card in hand: ", entity)
 					else:
 						pass
 				if type(entity) is card.HeroPower and entity.cost <= current_player.mana:
 					if not entity.exhausted:
-						if current_player.name == current_player.game.players[1].name:
-							if play_order.filter_action(_node, entity, hello="expand"):
-								_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
-						else:
-							_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+						#if current_player.name == current_player.game.players[1].name:
+						#	if play_order.filter_action(_node, entity, hello="expand"):
+						#		_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
+						#else:
+						_node.action_space.append(SingleActionEdge(copy.deepcopy(entity), EdgeType.card_play))
 
 
 				#						print("can't play card: ", entity)
