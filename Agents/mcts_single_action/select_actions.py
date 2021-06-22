@@ -7,15 +7,15 @@ from aiThesis import card_filters
 from .selection import action_traversal
 from aiThesis.morph_node import NodeType
 from hearthstone.enums import PlayState
-#from aiThesis.tree_plot import generate_tree
+from aiThesis.tree_plot import generate_tree
 
 
 
 def select_and_perform_actions(root_node, player, print_tree):
 	selected_actions = select_best_node(root_node)
-	#if print_tree != None:
-		#only_single_turn = True if print_tree == "single" else False
-		#generate_tree(root_node, selected_actions[1], single_turn=only_single_turn)
+	if print_tree != None:
+		only_single_turn = True if print_tree == "single" else False
+		generate_tree(root_node, selected_actions[1], single_turn=only_single_turn)
 
 	perform_action_sequence(selected_actions[0], player)
 	return selected_actions

@@ -6,15 +6,15 @@ totalPath = str(pathlib.Path(__file__).parent.absolute())
 mcts_single = "_single_action"
 mcts_sequence= "_sequential_actions"
 
-druid_base_path = "\\data_for_analysis\\base\\DRUID_vs_DRUID\\"
-hunter_base_path = "\\data_for_analysis\\base\\HUNTER_vs_HUNTER\\"
+druid_base_path = "\\data_for_analysis\\base\\DRUID_vs_DRUID"
+hunter_base_path = "\\data_for_analysis\\base\\HUNTER_vs_HUNTER"
 warrior_base_path = "\\data_for_analysis\\base\\WARRIOR_vs_WARRIOR"
-priest_base_path = "\\data_for_analysis\\base\\PRIEST_vs_PRIEST\\"
+priest_base_path = "\\data_for_analysis\\base\\PRIEST_vs_PRIEST"
 
-druid_filtered_path = "\\data_for_analysis\\filtered\\DRUID_vs_DRUID\\"
-hunter_filtered_path = "\\data_for_analysis\\filtered\\HUNTER_vs_HUNTER\\"
+druid_filtered_path = "\\data_for_analysis\\filtered\\DRUID_vs_DRUID"
+hunter_filtered_path = "\\data_for_analysis\\filtered\\HUNTER_vs_HUNTER"
 warrior_filtered_path = "\\data_for_analysis\\filtered\\WARRIOR_vs_WARRIOR"
-priest_filtered_path = "\\data_for_analysis\\filtered\\PRIEST_vs_PRIEST\\"
+priest_filtered_path = "\\data_for_analysis\\filtered\\PRIEST_vs_PRIEST"
 
 #fixme be aware of raw unexplored children has two underscores between iterations and date
 
