@@ -10,8 +10,9 @@ from fireplace.targeting import is_valid_target
 
 def select_and_perform_actions(root_node, player):
 
-	perform_action_sequence(select_best_node(root_node).performed_action_space, player)
-	pass
+	return perform_action_sequence(select_best_node(root_node).performed_action_space, player)
+
+
 
 def select_best_node(root_node):
 	best_node = None
