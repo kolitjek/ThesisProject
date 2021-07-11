@@ -15,7 +15,40 @@ def main():
 	model_vs_model_evaluation()
 
 def model_vs_model_evaluation():
-	pass
+	'''
+	w_vs_w_single_action = prepare_win_rate_analysis(load_win_rate(warrior_base_path, mcts_single),
+													 load_win_rate(warrior_filtered_path, mcts_single), mcts_type_si)
+	w_vs_w_sequential_actions = prepare_win_rate_analysis(load_win_rate(warrior_base_path, mcts_sequence),
+														  load_win_rate(warrior_filtered_path, mcts_sequence),
+														  mcts_type_se)
+
+	full_analysis_basemodels(w_vs_w_single_action,w_vs_w_sequential_actions, 'Warrior')
+	h_vs_h_single_action = prepare_win_rate_analysis(load_win_rate(hunter_base_path, mcts_single),
+													 load_win_rate(hunter_filtered_path, mcts_single), mcts_type_si)
+	h_vs_h_sequential_actions = prepare_win_rate_analysis(load_win_rate(hunter_base_path, mcts_sequence),
+														  load_win_rate(hunter_filtered_path, mcts_sequence),
+														  mcts_type_se)
+	full_analysis_basemodels(h_vs_h_single_action,h_vs_h_sequential_actions, 'Hunter')
+	p_vs_p_single_action = prepare_win_rate_analysis(load_win_rate(priest_base_path, mcts_single),
+													 load_win_rate(priest_filtered_path, mcts_single), mcts_type_si)
+	p_vs_p_sequential_action = prepare_win_rate_analysis(load_win_rate(priest_base_path, mcts_sequence),
+														 load_win_rate(priest_filtered_path, mcts_sequence),
+														 mcts_type_se)
+	full_analysis_basemodels(p_vs_p_single_action, p_vs_p_sequential_action, 'Priest')
+	'''
+	d_vs_d_single_action = prepare_win_rate_analysis(load_win_rate(druid_base_path, mcts_single),
+													 load_win_rate(druid_filtered_path, mcts_single), mcts_type_si)
+
+	d_vs_d_sequential_action = prepare_win_rate_analysis(load_win_rate(druid_base_path, mcts_sequence),
+														 load_win_rate(druid_filtered_path, mcts_sequence),
+														 mcts_type_se)
+
+	full_analysis_basemodels(d_vs_d_single_action, d_vs_d_sequential_action, 'Druid')
+	'''
+
+	'''
+	plt.show()
+
 
 def internal_itr_evaluation ():
 	'''
@@ -52,6 +85,15 @@ def internal_itr_evaluation ():
 	'''
 	plt.show()
 
+def full_analysis_basemodels(data_single, data_sequential, hero_type):
+	segmented_base_models = prepare_win_rate_and_segment_basemodels(data_single, data_sequential)
+
+	print(segmented_base_models)
+	chi_results = calculate_chi_statistic(segmented_base_models)
+
+	create_table([itrs[i] for i in range(len(itrs))], ['dof', 'chi2', 'p', 'Reject H0'],
+				 chi_results,
+				 'Chi Squared results for base models, ' + hero_type)
 
 def full_analysis(data_single, data_sequential, hero_type):
 	data_type_list = ['MCTS_SiN', 'MCTS_SiP', 'MCTS_SeN', 'MCTS_SeP']
@@ -121,6 +163,15 @@ def prepare_win_rate_analysis(baseline_data, filtered_data, type):
 	merged_table = baseline_data
 	return merged_table.join(filtered_data_extracted)
 
+def prepare_win_rate_and_segment_basemodels(single_data, sequential_data):
+
+	w_vs_w_single_action_normal = single_data[['MCTS_SiN']]
+	w_vs_w_sequential_actions_normal = sequential_data[['MCTS_SeN']]
+	base_models_df = w_vs_w_single_action_normal
+	base_models_df['MCTS_SeN'] = w_vs_w_sequential_actions_normal['MCTS_SeN']
+
+	return segment_data_basemodels(base_models_df)
+
 
 def segment_data(data, data_type):
 	data_table = [[[0 for k in range(2)] for j in range(2)] for i in range(len(data))]
@@ -140,6 +191,23 @@ def segment_data(data, data_type):
 
 	return data_table
 
+def segment_data_basemodels(data):
+	data_table = [[[0 for k in range(2)] for j in range(2)] for i in range(len(data))]
+	total_samples = 100
+	count = 0
+	print(data.head(10))
+	for index, row in data.iterrows():
+		if row['MCTS_' + 'SiN'] >= 50 and row['MCTS_' + 'SeN'] >= 50:
+			data_table[count][0][0] = row['MCTS_' + 'SiN']
+			data_table[count][0][1] = total_samples - row['MCTS_' + 'SiN']
+			data_table[count][1][0] = row['MCTS_' + 'SeN']
+			data_table[count][1][1] = total_samples - row['MCTS_' + 'SeN']
+
+		count += 1
+
+	# print(len(data_table))
+
+	return data_table
 
 def create_table(x_axis, y_axis, data, label):
 	fig, ax = plt.subplots(1)
