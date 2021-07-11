@@ -1,12 +1,11 @@
 ,win rate
-Iterations: 1,10.0
-Iterations: 10,38.0
-Iterations: 25,41.0
-Iterations: 50,55.0
-Iterations: 100,56.0
-Iterations: 200,67.0
-Iterations: 300,67.0
-Iterations: 400,63.0
-Iterations: 500,72.0
-Iterations: 800,81.0
-Iterations: 1000,82.0
+1,10.0
+10,38.0
+25,41.0
+50,55.0
+100,56.0
+200,67.0
+300,67.0
+400,63.0
+500,72.0
+800,81.0
