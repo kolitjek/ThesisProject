@@ -7,6 +7,7 @@ class mcts_card_play_order:
 
 		#fixme maybe introduce a reevaluate handcost card?
 		#fixme maybe add types of spells AOE, heal, burn, buff ect
+
 	def filter_action(self, node, curr_action, hello = "____"):
 		if(node.parent is None or node.performed_action_space is None):
 			return True

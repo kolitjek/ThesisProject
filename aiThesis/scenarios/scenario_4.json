@@ -1,26 +1,25 @@
 {
-				"startingPlayer": "player1",
-				"beginScenarioAtTurn": 4,
+				"startingPlayer": "player2",
+				"beginScenarioAtTurn": 5,
 
-				"player1Name": "PLAYALL",
+				"player1Name": "PlayAllAgent",
 				"player1Hero": "MAGE",
-				"player1Health": 15,
+				"player1Health": 3,
 
-				"player1Deck": ["GVG_085","CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player1Hand": ["GVG_082","GVG_085"],
+				"player1Deck": ["CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
+				"player1Hand": ["CS2_024","GVG_013","GVG_082", "GVG_082", "GVG_085", "GAME_005"],
 				"player1Field":[],
 				"player1Agent": "PLAYALLAGENT",
 				"p1SimAgent": "PLAYALLAGENT",
 
-
-				"player2Name": "MCTS",
+				"player2Name": "FilteredMCTS",
 				"player2Hero": "MAGE",
-				"player2Health": 3,
-				"player2Deck": ["GVG_085","CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
-				"player2Hand": ["CS2_024","GVG_085"],
-				"player2Field":["GVG_002","GVG_002","FP1_004"],
+				"player2Health": 10,
+				"player2Deck": ["CS2_024", "CS2_024", "FP1_004", "FP1_004", "GVG_006", "GVG_006", "GVG_002", "GVG_002", "EX1_294", "EX1_294", "GVG_044", "GVG_044", "GVG_102" ,"GVG_102", "CS2_029", "CS2_029", "GVG_004", "GVG_004", "GVG_078", "EX1_284", "FP1_030", "EX1_559", "GVG_110"],
+				"player2Hand": ["CS2_024","GVG_013","GVG_082", "GVG_082", "GVG_085"],
+				"player2Field":[],
 				"player2Agent": "MCTSSIN",
-				"p2SimAgent": "FILTEREDPLAYALLAGENT",
+				"p2SimAgent": "PLAYALLAGENT",
+				"plotTree": "all"
 
-				"plotTree": "full"
 			}

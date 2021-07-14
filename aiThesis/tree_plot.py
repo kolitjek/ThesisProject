@@ -29,9 +29,9 @@ def generate_tree(_root, play_path, single_turn = True):
 		else:
 			graph_nodes.append((node.id, {
 				"color": "#A4D8F3" if node.game_state.current_player.name == _root.game_state.current_player.name else '#F7BABA'}))
-			for action_node in play_path:
-				if action_node.id is node.id:
-					edge_color = '#E15BF4'
+			#for action_node in play_path:
+			#	if action_node.id is node.id:
+			#		edge_color = '#E15BF4'
 
 			graph_edges.append(
 				(node.parent.id, node.id, {"entity": str(node.performed_action_space), "color": edge_color}))

@@ -18,6 +18,7 @@ def select_and_perform_actions(root_node, player):
 		generate_tree(root_node, [], single_turn=only_single_turn)
 	pass
 
+
 def select_best_node(root_node):
 	best_node = None
 	for n in root_node.explored_nodes:

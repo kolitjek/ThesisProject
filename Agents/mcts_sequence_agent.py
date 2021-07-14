@@ -12,7 +12,7 @@ import time
 import math
 from aiThesis.game_state_node import GameStateNode
 from Agents.mcts_sequential_actions.select_actions import select_and_perform_actions
-#from aiThesis.tree_plot import generate_tree
+from aiThesis.tree_plot import generate_tree
 class MCTSSequentialAgent(Agent):
 	currentGameState = None  # only for quick test
 
@@ -58,9 +58,7 @@ class MCTSSequentialAgent(Agent):
 				break
 
 
-		#if self.print_tree != None:
-			#only_single_turn = True if self.print_tree == "single" else False
-			#generate_tree(rootNode, single_turn=only_single_turn)
+
 
 		self.action_spaces.append(len(rootNode.explored_nodes) + len(rootNode.action_space))
 		print("ACTION SPACE: " + str(len(rootNode.explored_nodes)))
@@ -76,13 +74,17 @@ class MCTSSequentialAgent(Agent):
 		self.improved_action_space_in_percentage.append(rootNode.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(rootNode.initial_action_space_length)
 		if len(rootNode.explored_nodes) is not 0:
-			select_and_perform_actions(rootNode, self.player) #fixme should be added to else aswell..
+			play_path = select_and_perform_actions(rootNode, self.player) #fixme should be added to else aswell..
 		else:
 			print("No actions available, skipping turn...")
 		t3 = time.time()
 		print("second timer: " + str(t3-t2))
 		self.turn_times.append(t3-t2)
 		#select_and_perform_actions(rootNode, self.player)
+
+		if self.print_tree != None:
+			only_single_turn = True if self.print_tree == "single" else False
+			generate_tree(rootNode,play_path, single_turn=only_single_turn)
 
 		#rootNode.explored_nodes[0].print_local_relations()
 		print("Tree info:")
