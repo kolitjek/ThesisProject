@@ -1,4 +1,4 @@
-'''import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import networkx as nx
 import pydot
 import graphviz
@@ -90,4 +90,4 @@ def retreive_nodes_all(_root_node):
 		(child2.parent.id,child2.id,  {"entity":str(child2.performed_action_space)}),
 		(child3.parent.id, child3.id, {"entity":str(child3.performed_action_space)})
 	])
-	'''
+

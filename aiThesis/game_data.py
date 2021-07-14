@@ -7,6 +7,7 @@ class GameData:
 		self.game_data = []
 		self.winning_player = None
 		self.action_spaces = []
+		self.turn_times = []
 		self.avg_times_visited_children = []
 		self.unexplored_children = []
 		self.tree_depths = []
@@ -23,3 +24,4 @@ class GameData:
 		self.tree_depths = mcts_agent.tree_depths
 		self.initial_action_space_length = mcts_agent.initial_action_space_length
 		self.improved_action_space_in_percentage = mcts_agent.improved_action_space_in_percentage
+		self.turn_times = mcts_agent.turn_times

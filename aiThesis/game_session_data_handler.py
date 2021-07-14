@@ -136,6 +136,77 @@ def avg_mcts_action_space_pr_turn(session_data, mcts_iterations,heroes): #sessio
 	create_line_graph(x, result, ["Turn", "Action space"], itr_no, folder_path + "/_action_space" + ".PNG")
 
 
+def avg_mcts_action_space_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
+	number_of_different_iterations = len(mcts_iterations)
+	to_be_split = []
+	for game_data in session_data:
+		to_be_split.append(game_data.action_spaces)
+	n_split = (np.array_split(to_be_split, number_of_different_iterations))
+	n_split = [x.tolist() for x in n_split]
+	print(n_split)
+	result =[]
+	index = 0
+	for action_spaces in n_split:
+		print("\n")
+		print("Action space: " + str(action_spaces))
+
+		itr_no = ["game: " + str(x) for x in range(0,len(action_spaces))]
+		col = ['turn ' + str(i) for i in range(0, len(max(action_spaces, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(action_spaces, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_action_space_itr_" + str(mcts_iterations[index]) + "_")
+
+		index += 1
+		lists = list(map(list,itertools.zip_longest(*action_spaces)))
+		result.append( [sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
+		print("Action space split list: " + str(lists))
+		print("Action space result: " + str (result))
+	x = list(([(range(0, len(i)) for i in result)])[0])
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "avg_as_per_turn")
+
+	create_line_graph(x, result, ["Turn", "Action space"], itr_no, folder_path + "/_action_space" + ".PNG")
+
+def avg_mcts_time_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
+	number_of_different_iterations = len(mcts_iterations)
+	to_be_split = []
+	for game_data in session_data:
+		to_be_split.append(game_data.turn_times)
+	n_split = (np.array_split(to_be_split, number_of_different_iterations))
+	n_split = [x.tolist() for x in n_split]
+	print(n_split)
+	result =[]
+	index = 0
+	for action_spaces in n_split:
+		print("\n")
+		print("Action space: " + str(action_spaces))
+
+		itr_no = ["game: " + str(x) for x in range(0,len(action_spaces))]
+		col = ['turn ' + str(i) for i in range(0, len(max(action_spaces, key=len)))]
+		folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+		df1 = pd.DataFrame(action_spaces, index=itr_no, columns=col)
+		save_DF(df1, folder_path, "raw_turn_time_itr_" + str(mcts_iterations[index]) + "_")
+
+		index += 1
+		lists = list(map(list,itertools.zip_longest(*action_spaces)))
+		result.append( [sum([i for i in x if i is not None]) / len([i for i in x if i is not None]) for x in lists])
+		print("Turn time split list: " + str(lists))
+		print("Turn time result: " + str (result))
+	x = list(([(range(0, len(i)) for i in result)])[0])
+
+	itr_no = ["Iterations: " + str(x) for x in mcts_iterations]
+	col = ['turn ' + str(i) for i in range(0, len(max(result, key=len)))]
+	folder_path = "./data/" + heroes["p1"] + "_vs_" + heroes["p2"]
+	df1 = pd.DataFrame(result, index=itr_no, columns=col)
+	save_DF(df1, folder_path, "avg_as_per_turn")
+
+	create_line_graph(x, result, ["Turn", "Time pr turn"], itr_no, folder_path + "/time_turn" + ".PNG")
+
+
 def avg_mcts_avg_times_visited_children_pr_turn(session_data, mcts_iterations, heroes): #session_data_lists, mcts_iterations, text_x, text_y
 	number_of_different_iterations = len(mcts_iterations)
 	to_be_split = []

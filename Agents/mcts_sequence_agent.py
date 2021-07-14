@@ -25,6 +25,7 @@ class MCTSSequentialAgent(Agent):
 		self.avg_times_visited_children = []
 		self.unexplored_children = []
 		self.tree_depths = []
+		self.turn_times = []
 		self.initial_action_space_length = []
 		self.improved_action_space_in_percentage = []
 		self.print_tree = _print_tree
@@ -62,6 +63,7 @@ class MCTSSequentialAgent(Agent):
 			#generate_tree(rootNode, single_turn=only_single_turn)
 
 		self.action_spaces.append(len(rootNode.explored_nodes) + len(rootNode.action_space))
+		print("ACTION SPACE: " + str(len(rootNode.explored_nodes)))
 		if len(rootNode.action_space) > 0:
 			self.avg_times_visited_children.append((len(rootNode.explored_nodes) / (len(rootNode.explored_nodes) + len(rootNode.action_space))))
 		else:
@@ -79,6 +81,7 @@ class MCTSSequentialAgent(Agent):
 			print("No actions available, skipping turn...")
 		t3 = time.time()
 		print("second timer: " + str(t3-t2))
+		self.turn_times.append(t3-t2)
 		#select_and_perform_actions(rootNode, self.player)
 
 		#rootNode.explored_nodes[0].print_local_relations()

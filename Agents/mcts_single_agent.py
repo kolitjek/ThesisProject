@@ -2,10 +2,11 @@ from Agents.agent import Agent
 from aiThesis.morph_node import MorphNode,NodeType
 from Agents.mcts_single_action.selection import select_node, player_ref
 import copy
+import time
 from Agents.mcts_single_action.select_actions import select_and_perform_actions
 from aiThesis.game_state_node import GameStateNode
 import matplotlib.pyplot as plt
-#from aiThesis.tree_plot import generate_tree
+from aiThesis.tree_plot import generate_tree
 from aiThesis.utils import CMDInterface
 class MCTSSingleAgent(Agent):
 
@@ -17,6 +18,7 @@ class MCTSSingleAgent(Agent):
 		self.avg_times_visited_children = []
 		self.unexplored_children = []
 		self.tree_depths = []
+		self.turn_times = []
 		self.initial_action_space_length = []
 		self.improved_action_space_in_percentage = []
 		self.print_tree = _print_tree
@@ -26,7 +28,7 @@ class MCTSSingleAgent(Agent):
 
 		GameStateNode.nodeCount = 0
 		GameStateNode.max_level_depth = 0
-		root_node = MorphNode(copy.deepcopy(self.player.game),NodeType.action_node)
+		root_node = MorphNode(copy.deepcopy(self.player.game), NodeType.action_node)
 
 		print("starting hand!")
 		player_status(self.player)
@@ -36,7 +38,7 @@ class MCTSSingleAgent(Agent):
 		#player_status(self.player.game.player2)
 
 		#root_node.print_local_relations()
-
+		t_start = time.time()
 		for i in range(self.iterations):
 			select_node(root_node)
 			if len(root_node.explored_nodes) is 0 and len(root_node.action_space) is 0:
@@ -53,6 +55,7 @@ class MCTSSingleAgent(Agent):
 		player_status(self.player.game.players[1])
 
 		self.action_spaces.append(count_action_space(root_node)+1)
+		print("Action Space __: " + str(count_action_space(root_node)+1))
 		if len(root_node.action_space) > 0:
 			self.avg_times_visited_children.append(
 				(len(root_node.explored_nodes) / (len(root_node.explored_nodes) + len(root_node.action_space))))
@@ -65,6 +68,10 @@ class MCTSSingleAgent(Agent):
 		self.tree_depths.append(root_node.max_level_depth)
 		self.improved_action_space_in_percentage.append(root_node.improved_action_space_in_percentage)
 		self.initial_action_space_length.append(root_node.initial_action_space_length)
+		t_end = time.time()
+		self.turn_times.append(t_end - t_start)
+		print("turn took : " + str(t_end - t_start) + " seconds")
+
 
 		'''
 		print("MCTS FINISHED...")
