@@ -12,7 +12,7 @@ import time
 import math
 from aiThesis.game_state_node import GameStateNode
 from Agents.mcts_sequential_actions.select_actions import select_and_perform_actions
-from aiThesis.tree_plot import generate_tree
+#from aiThesis.tree_plot import generate_tree
 class MCTSSequentialAgent(Agent):
 	currentGameState = None  # only for quick test
 

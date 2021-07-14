@@ -6,7 +6,7 @@ import time
 from Agents.mcts_single_action.select_actions import select_and_perform_actions
 from aiThesis.game_state_node import GameStateNode
 import matplotlib.pyplot as plt
-from aiThesis.tree_plot import generate_tree
+#from aiThesis.tree_plot import generate_tree
 from aiThesis.utils import CMDInterface
 class MCTSSingleAgent(Agent):
 

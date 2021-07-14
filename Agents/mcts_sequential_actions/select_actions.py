@@ -3,7 +3,7 @@ from fireplace import card
 from hearthstone import enums
 import random
 from aiThesis import card_filters
-from aiThesis.tree_plot import generate_tree
+#from aiThesis.tree_plot import generate_tree
 
 
 
@@ -15,7 +15,7 @@ def select_and_perform_actions(root_node, player):
 	perform_action_sequence(select_best_node(root_node).performed_action_space, player)
 	if print_tree != None:
 		only_single_turn = True if print_tree == "single" else False
-		generate_tree(root_node, [], single_turn=only_single_turn)
+#		generate_tree(root_node, [], single_turn=only_single_turn)
 	pass
 
 
