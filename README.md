@@ -7,6 +7,10 @@ Contributors: Anton Sandberg and Sune Klem.
 * `start.py`: this script starts up the simulator and runs the desired game.
 * `data_analysis.py`: this script contains the whole data analysis detailed in the report 
 
+## Cmd interface 
+This project contains a command line interface, which allows you to initialize the simulator with a set of parameters. The following parameters can be set:
+* 1
+* 2
 
 ## Requirements
 
