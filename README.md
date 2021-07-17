@@ -9,8 +9,10 @@ Contributors: Anton Sandberg and Sune Klem.
 
 ## Cmd interface 
 This project contains a command line interface, which allows you to initialize the simulator with a set of parameters. The following parameters can be set:
-* 1
-* 2
+* -s: scenario name (if you want to run a given game preset)
+* -n: Total number of games to run
+* -name1: name of player one
+* -name2: Name of player two
 
 ## Requirements
 
