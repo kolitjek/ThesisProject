@@ -8,11 +8,19 @@ Contributors: Anton Sandberg and Sune Klem.
 * `data_analysis.py`: this script contains the whole data analysis detailed in the report 
 
 ## Cmd interface 
-This project contains a command line interface, which allows you to initialize the simulator with a set of parameters. The following parameters can be set:
+This project contains a command line interface, which allows you to initialize the simulator with a set of parameters. The different possible parrameter keywords can be found in `utils.py`, here a some of the exist onces:
 * -s: scenario name (if you want to run a given game preset)
 * -n: Total number of games to run
 * -name1: name of player one
 * -name2: Name of player two
+* -p1Class: class of player one
+* -p2Class: class of player two
+* -p1Deck: deck of player one
+* -p2Deck: deck of player two
+* -p1Agent: agent of player one
+* -p2Agent: agent of player two
+* -mctsIterations: number of MCTS iterations 
+* -plotTree: enable of disable a tree visualizer 
 
 ## Requirements
 
