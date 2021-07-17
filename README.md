@@ -1,9 +1,8 @@
 ## Master thesis project 2021 
-This repository contains the code used in the master thesis project: Sequential pruning in Hearthstone. The code is an extension to the Fireplace simulator found at: https://github.com/jleclanche/fireplace. 
+This repository contains the code used in the master thesis project: Sequential pruning in Hearthstone. The code is an extension to the Fireplace simulator found at: https://github.com/jleclanche/fireplace. The project revolves around experimenting with different data structures and pruning methods for a Monte Carlo tree search (MCTS) agent. 
 
-# Contributors 
-Anton Sandberg 
-and Sune Klem
+Contributors: Anton Sandberg and Sune Klem.
+
 
 
 # <img src="/logo.png" height="32" width="32"/> Fireplace
