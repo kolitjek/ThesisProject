@@ -3,6 +3,10 @@ This repository contains the code used in the master thesis project: Sequential 
 
 Contributors: Anton Sandberg and Sune Klem.
 
+## Main scripts
+start.py: this script starts up the simulator and runs the desired game.
+data_analysis.py: this script contains the whole data analysis detailed in the report 
+
 
 ## Requirements
 
