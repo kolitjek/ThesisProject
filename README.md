@@ -1,10 +1,26 @@
-# <img src="/logo.png" height="32" width="32"/> Fireplace
-[![](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/download/releases/3.8.0/)
-[![](https://img.shields.io/github/license/jleclanche/fireplace.svg)](https://github.com/jleclanche/fireplace/blob/master/LICENSE.md)
-[![codecov.io](https://codecov.io/github/jleclanche/fireplace/coverage.svg?branch=master)](https://codecov.io/github/jleclanche/fireplace)
+## Master thesis project 2021 (Games Technology Track, ITU)
+This repository contains the code used in the  master thesis project: Sequential pruning in Hearthstone. The code is an extension to the Fireplace simulator found at: https://github.com/jleclanche/fireplace. The project revolves around experimenting with different data structures and pruning methods for a Monte Carlo tree search (MCTS) agent. 
 
-A Hearthstone simulator and implementation, written in Python.
+Contributors: Anton Sandberg and Sune Klem.
 
+## Main scripts
+* `start.py`: this script starts up the simulator and runs the desired game.
+* `data_analysis.py`: this script contains the whole data analysis detailed in the report 
+
+## Cmd interface 
+This project contains a command line interface, which allows you to initialize the simulator with a set of parameters. The different possible parrameter keywords can be found in `utils.py`, here a some of the exist onces:
+* -s: scenario name (if you want to run a given game preset)
+* -n: Total number of games to run
+* -name1: name of player one
+* -name2: Name of player two
+* -p1Class: class of player one
+* -p2Class: class of player two
+* -p1Deck: deck of player one
+* -p2Deck: deck of player two
+* -p1Agent: agent of player one
+* -p2Agent: agent of player two
+* -mctsIterations: number of MCTS iterations 
+* -plotTree: enable of disable a tree visualizer 
 
 ## Requirements
 
@@ -13,21 +29,8 @@ A Hearthstone simulator and implementation, written in Python.
 
 ## Installation
 
-* `pip install .`
-
-
-## Documentation
-
-The [Fireplace Wiki](https://github.com/jleclanche/fireplace/wiki) is the best
-source of documentation, along with the actual code.
-
-
-## License
-
-[![AGPLv3](https://www.gnu.org/graphics/agplv3-88x31.png)](http://choosealicense.com/licenses/agpl-3.0/)
-
-Fireplace is licensed under the terms of the
-[Affero GPLv3](https://www.gnu.org/licenses/agpl-3.0.en.html) or any later version.
+* `pip install .` (run this from the root folder)
+* Additional libraries need to be installed: Numpy, seaborn, matlibplot, networkx and graphviz 
 
 
 ## Community
