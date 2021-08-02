@@ -31,6 +31,12 @@ def create_line_graph(x, y, axis, label, path, ylim = None):
 	plt.savefig(path)
 	plt.clf()
 
+def create_displot(data, path):
+	sns.displot(data=data, x="Values" )
+	#plt.legend()
+	plt.savefig(path)
+	plt.clf()
+
 
 
 def create_box_plot(labels, data, axis, path):

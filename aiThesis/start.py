@@ -2,6 +2,8 @@ import sys
 import argparse
 
 import subprocess
+
+from aiThesis.graphs import create_line_graph, create_displot
 from fireplace import cards
 from aiThesis.printController import *
 from fireplace.game import Game
@@ -23,6 +25,7 @@ from hearthstone.enums import CardClass, CardType
 from aiThesis.utils import CMDInterface
 from aiThesis.scenario import Scenario
 import pandas as pd
+import numpy as np
 import pathlib
 from scipy import stats
 from scipy.stats import levene
@@ -37,10 +40,50 @@ from aiThesis.game_session import GameSession
 sys.path.append("")
 
 def main():
+	folder_path = "./data/"
+	classes = ["druid", "hunter", "priest", "warrior"]
+	classes_des = ["Combo", "Mid-range", "Control", "Aggro"]
+	result = []
+	for c in classes:
+		df = pd.data_imp = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "\\data\\max_turns_" + c + ".csv")
+		df = df.replace(np.nan, 0)
+		print(df.head(10))
+		df = df.iloc[9].tolist()
+		df.pop(0)
+		print(df)
+		result.append(df)
+	print(result)
+	print(len(result))
+	#data = pd.DataFrame( {'Type': classes_des, 'Values': result})
+	data = pd.DataFrame(result, columns=list(''))
 
+	print(data)
+	create_displot(data, folder_path + "/last_turn_800_all_classes" + ".PNG")
+
+		#for i in range(0,upper_limit-1):
+
+	'''	sum_data = 0
+			none_counter = 0
+			for t in df[["turn " + str(i)]].values.tolist():
+				if t[0] == 0:
+					none_counter += 1
+				else:
+					sum_data += float(t[0])
+			print(sum_data / (len(df[["turn " + str(i)]].values.tolist())-none_counter))
+			result[-1].append(sum_data / (len(df[["turn " + str(i)]].values.tolist())-none_counter))
+	x = list(([(range(0, len(i)) for i in result)])[0])
+	print(x)
+	print(result)
+	folder_path = "./data/"
+	create_line_graph(x, result, ["Turn", "Action space"], classes_des, folder_path + "/initial_action_space_800_all_classes" + ".PNG", 250)'''
+
+	while True:
+		pass
 	cmdU = CMDInterface()
 	args = cmdU.parse_date()
 	cards.db.initialize()
+
+
 	gameSession = GameSession(args.s, args.n, args.name1, args.name2, args.p1Class, args.p2Class, args.p1Deck, args.p2Deck, args.p1DeckType, args.p2DeckType, args.p1Agent, args.p2Agent, args.p1SimulatorAgent, args.p2SimulatorAgent, args.mctsIterations, args.plotTree)
 
 

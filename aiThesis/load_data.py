@@ -32,3 +32,12 @@ def load_all_files_of_type(name_of_file_without_iterations, class_and_version):
 	for iteration in iterations:
 		data.append(pd.read_csv(totalPath + class_and_version + name_of_file_without_iterations +"_itr_" + iteration + date_and_type_of_file))
 	return data
+
+def load_all_classes_all_itr_of_type(name_of_file, class_and_version):
+	data = []
+	classes = ["druid", "hunter", "priest", "hunter"]
+	[""]
+	for _class in classes:
+		for iteration in iterations:
+			data.append(pd.read_csv(totalPath + _class + name_of_file +"_itr_" + iteration + date_and_type_of_file))
+		return data
