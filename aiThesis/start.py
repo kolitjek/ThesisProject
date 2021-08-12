@@ -45,7 +45,7 @@ def main():
 	folder_path = "./data/"
 	classes = ["druid", "hunter", "priest", "warrior"]
 	classes_des = ["Combo", "Mid-range", "Control", "Aggro"]
-	result = pd.DataFrame()
+	'''result = pd.DataFrame()
 	class_counter = 0
 	for c in classes:
 		df = pd.data_imp = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "\\data\\max_turns_" + c + ".csv")
@@ -60,16 +60,16 @@ def main():
 		class_counter += 1
 		result = result.append(temp_df)
 
-	print("afl,æøl,æfasl,æafd")
+	#print("afl,æøl,æfasl,æafd")
 
-	print(result.size)
+	#print(result.size)
 	#print(len(result))
 	#data = pd.DataFrame( {'Type': classes_des, 'Values': result})
 	data = pd.DataFrame([])
 
 	count = 0
 
-	print(data.head())
+	#print(data.head())
 
 	#print(sns.load_dataset("penguins").head())
 	data = data.T
@@ -82,7 +82,7 @@ def main():
 	plt.show()
 
 	print("done")
-		#for i in range(0,upper_limit-1):
+		#for i in range(0,upper_limit-1):'''
 
 	'''	sum_data = 0
 			none_counter = 0
@@ -99,8 +99,7 @@ def main():
 	folder_path = "./data/"
 	create_line_graph(x, result, ["Turn", "Action space"], classes_des, folder_path + "/initial_action_space_800_all_classes" + ".PNG", 250)'''
 
-	while True:
-		pass
+
 	cmdU = CMDInterface()
 	args = cmdU.parse_date()
 	cards.db.initialize()
