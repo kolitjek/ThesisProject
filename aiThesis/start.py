@@ -9,7 +9,8 @@ from aiThesis.printController import *
 from fireplace.game import Game
 from fireplace.player import Player
 from fireplace.utils import random_draft
-
+# Import math library
+import math
 import os.path
 import random
 from bisect import bisect
@@ -19,7 +20,7 @@ from typing import List
 from xml.etree import ElementTree
 from Agents.play_all_agent import PlayAllAgent
 from Agents.mcts_sequence_agent import MCTSSequentialAgent
-
+import matplotlib.pyplot as plt
 from hearthstone.enums import CardClass, CardType
 
 from aiThesis.utils import CMDInterface
@@ -27,6 +28,7 @@ from aiThesis.scenario import Scenario
 import pandas as pd
 import numpy as np
 import pathlib
+import seaborn as sns
 from scipy import stats
 from scipy.stats import levene
 from scipy.stats import chisquare
@@ -43,23 +45,43 @@ def main():
 	folder_path = "./data/"
 	classes = ["druid", "hunter", "priest", "warrior"]
 	classes_des = ["Combo", "Mid-range", "Control", "Aggro"]
-	result = []
+	result = pd.DataFrame()
+	class_counter = 0
 	for c in classes:
 		df = pd.data_imp = pd.read_csv(str(pathlib.Path(__file__).parent.absolute()) + "\\data\\max_turns_" + c + ".csv")
 		df = df.replace(np.nan, 0)
-		print(df.head(10))
+		#print(df.head(10))
 		df = df.iloc[9].tolist()
 		df.pop(0)
-		print(df)
-		result.append(df)
-	print(result)
-	print(len(result))
+		df_new = [[math.floor(x / 2),classes_des[class_counter]] for x in df]
+
+		temp_df = pd.DataFrame(df_new)
+		temp_df.columns = ["Max Turns", "Class"]
+		class_counter += 1
+		result = result.append(temp_df)
+
+	print("afl,æøl,æfasl,æafd")
+
+	print(result.size)
+	#print(len(result))
 	#data = pd.DataFrame( {'Type': classes_des, 'Values': result})
-	data = pd.DataFrame(result, columns=list(''))
+	data = pd.DataFrame([])
 
-	print(data)
-	create_displot(data, folder_path + "/last_turn_800_all_classes" + ".PNG")
+	count = 0
 
+	print(data.head())
+
+	#print(sns.load_dataset("penguins").head())
+	data = data.T
+
+	#create_displot(result[0],name="x variable", folder_path + "/last_turn_800_all_classes" + ".PNG")
+	sns.histplot(result, x="Max Turns",hue = 'Class',binrange=(0,25),alpha = .2,kde = True)
+	plt.ylabel('Frequency', size=20)
+	plt.xlabel('Max Turn', size=20)
+
+	plt.show()
+
+	print("done")
 		#for i in range(0,upper_limit-1):
 
 	'''	sum_data = 0
